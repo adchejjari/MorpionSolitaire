@@ -1,0 +1,30 @@
+.navbar{
+    -fx-padding: 0 0;
+    -fx-alignment: center;
+    -fx-background-color: #7043EF;
+    -fx-spacing: 40;
+    -fx-border-radius: 0 0 15 15;
+    -fx-background-radius: 0 0 15 15;
+}
+
+.navbar .button{
+    -fx-background-color: transparent;
+}
+
+.navbar .button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #9583C8;
+}
+
+.arrowbutton {
+    -fx-background-color: transparent;
+    -fx-scale-x: 0.5;
+    -fx-scale-y: 0.5;
+}
+
+.arrowbutton:hover{
+    -fx-cursor: hand;
+    -fx-background-color: rgb(140, 140, 140);
+    -fx-border-radius: 50 50 50 50;
+    -fx-background-radius: 50 50 50 50;
+}
