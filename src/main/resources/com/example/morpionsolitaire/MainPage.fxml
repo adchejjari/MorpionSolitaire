@@ -11,7 +11,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.Region?>
 <VBox xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.morpionsolitaire.views.HelloController">
+      fx:controller="com.example.morpionsolitaire.views.MainView"
+      stylesheets="@css/main.css"
+      styleClass="body">
 
     <fx:define>
         <Image fx:id="upArrowImage" url="@img/up-arrow.png" />
@@ -27,27 +29,32 @@
     <VBox fx:id="navigationBar">
         <HBox stylesheets="@css/navbar.css" styleClass="navbar">
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="newGameButton">
+
+            <Button fx:id="newGameButton" onAction="#onNewGameButtonClick">
                 <graphic>
                     <ImageView image="$gameImage"/>
                 </graphic>
             </Button>
+
             <Button fx:id="newGridButton">
                 <graphic>
                     <ImageView image="$gridImage"/>
                 </graphic>
             </Button>
-            <Button fx:id="rankingButton">
+
+            <Button fx:id="rankingButton" onAction="#onRankingButtonClick">
                 <graphic>
                     <ImageView image="$rankingImage"/>
                 </graphic>
             </Button>
-            <Button fx:id="settingButton">
+
+            <Button fx:id="settingButton" onAction="#onSettingButtonClick">
                 <graphic>
                     <ImageView image="$settingImage"/>
                 </graphic>
             </Button>
-            <Button fx:id="helpButton">
+
+            <Button fx:id="helpButton" onAction="#onHelpButtonClick">
                 <graphic>
                     <ImageView image="$helpImage"/>
                 </graphic>
@@ -65,5 +72,6 @@
 
         </HBox>
 
+        <!--fx:include source="HelpView.fxml" fx:id="Help" /-->
     </VBox>
 </VBox>

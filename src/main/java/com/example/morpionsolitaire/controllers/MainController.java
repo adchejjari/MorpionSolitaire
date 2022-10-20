@@ -1,22 +1,24 @@
 package com.example.morpionsolitaire.controllers;
 
 import com.example.morpionsolitaire.Main;
+import com.example.morpionsolitaire.views.MainView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController extends Application {
-    private static final String FXML_FILE = "MainPage.fxml";
-    private static final String WINDOW_ICON = "logo.png";
+public class MainController extends Application implements MainView.PageSwitcher {
 
 
 
     public void setupStage(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FXML_FILE));
-        Scene scene = new Scene(fxmlLoader.load(), 580, 600);
+        //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FXML_FILE));
+        Scene scene = new Scene(new Pane(), View.SCENE_HEIGHT, View.SCENE_WIDTH);
+        ViewSwitcher.setScene(scene);
+        ViewSwitcher.switchTo(View.MainView);
         stage.setTitle("Morpion Solitaire");
         stage.setScene(scene);
         stage.show();
@@ -31,4 +33,15 @@ public class MainController extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
+    @Override
+    public void showSettings() {
+    }
+
+    @Override
+    public void showHelp() {
+    }
+
+
 }

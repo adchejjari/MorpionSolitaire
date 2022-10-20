@@ -4,26 +4,27 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class HelloController {
-    @FXML
-    public Button newGameButton;
-    public Button newGridButton;
-    public Button rankingButton;
-    public Button settingButton;
-    public VBox navigationBar;
-    public Button helpButton;
-    public Button menuAnimationButton;
-    public Image downArrowImage;
-    public Image upArrowImage;
-    public boolean menuDisplayed = true;
+public class MainView {
 
+    @FXML
+    public VBox navigationBar;
+
+    @FXML
+    public Button menuAnimationButton;
+
+    @FXML
+    public Image downArrowImage;
+    @FXML
+    public Image upArrowImage;
+
+    public boolean menuDisplayed = true;
+    public Pane Help;
 
     public void handleNavbar() {
         TranslateTransition translateTransition = new TranslateTransition();
@@ -44,6 +45,23 @@ public class HelloController {
                 this.menuDisplayed = true;
             });
         }
-
     }
+
+    public void onNewGameButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onHelpButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onSettingButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onRankingButtonClick(ActionEvent actionEvent) {
+    }
+
+
+    public interface PageSwitcher{
+        void showSettings();
+        void showHelp();
+    };
 }
