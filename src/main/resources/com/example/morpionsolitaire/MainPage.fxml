@@ -72,6 +72,9 @@
 
         </HBox>
 
-        <!--fx:include source="HelpView.fxml" fx:id="Help" /-->
+        <VBox spacing="20" fx:id="mainFrame">
+            <fx:include source="GameBoadView.fxml" fx:id="Game" />
+        </VBox>
+
     </VBox>
 </VBox>

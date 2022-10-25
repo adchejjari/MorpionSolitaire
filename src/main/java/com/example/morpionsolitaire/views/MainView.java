@@ -1,6 +1,6 @@
 package com.example.morpionsolitaire.views;
 
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +24,10 @@ public class MainView {
     public Image upArrowImage;
 
     public boolean menuDisplayed = true;
-    public Pane Help;
+
+    public Pane mainFrame;
+
+
 
     public void handleNavbar() {
         TranslateTransition translateTransition = new TranslateTransition();
@@ -32,11 +35,13 @@ public class MainView {
         translateTransition.setNode(this.navigationBar);
         if (menuDisplayed) {
             translateTransition.setToY(-50);
+            this.animateMain();
             translateTransition.play();
             translateTransition.setOnFinished(event -> {
                 this.menuAnimationButton.setGraphic(new ImageView(this.downArrowImage));
                 this.menuDisplayed = false;
             });
+
         }else{
             translateTransition.setToY(0);
             translateTransition.play();
@@ -45,6 +50,15 @@ public class MainView {
                 this.menuDisplayed = true;
             });
         }
+    }
+
+    public void animateMain(){
+        Timeline tl = new Timeline();
+        KeyValue kv = new KeyValue(mainFrame.translateXProperty(), 0, Interpolator.EASE_IN);
+        //mainFrame.setScaleY(1.3);
+        KeyFrame kf = new KeyFrame(Duration.seconds(3), kv);
+        tl.getKeyFrames().add(kf);
+        tl.play();
     }
 
     public void onNewGameButtonClick(ActionEvent actionEvent) {

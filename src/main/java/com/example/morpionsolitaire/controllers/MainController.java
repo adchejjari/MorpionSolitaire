@@ -15,7 +15,6 @@ public class MainController extends Application implements MainView.PageSwitcher
 
 
     public void setupStage(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FXML_FILE));
         Scene scene = new Scene(new Pane(), View.SCENE_HEIGHT, View.SCENE_WIDTH);
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.MainView);

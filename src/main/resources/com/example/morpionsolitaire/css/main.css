@@ -1,4 +1,5 @@
 .body{
     -fx-background-image: url('../img/background.png');
     -fx-background-size: cover;
+    -fx-padding: 0 40 40 40;
 }

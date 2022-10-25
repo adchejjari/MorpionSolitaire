@@ -8,7 +8,7 @@ public enum View {
     HelpView("HelpView.fxml");
 
     final static int SCENE_WIDTH = 580;
-    final static int SCENE_HEIGHT = 600;
+    final static int SCENE_HEIGHT = 680;
 
     private String fileName;
 
