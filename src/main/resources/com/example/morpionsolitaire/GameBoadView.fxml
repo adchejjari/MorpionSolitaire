@@ -7,11 +7,13 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Line?>
-<GridPane xmlns="http://javafx.com/javafx"
+<TilePane xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.morpionsolitaire.views.GameBoadView"
       stylesheets="@css/gameboad.css"
-      styleClass="board" prefWidth="500" prefHeight="500" fx:id="grid">
+      styleClass="board" fx:id="grid">
+
+    <Group fx:id="group"/>
 
 
-</GridPane>
+</TilePane>
