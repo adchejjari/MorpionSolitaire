@@ -1,16 +1,20 @@
 .board{
     -fx-background-color: white;
     -fx-opacity: 0.5;
-    -fx-pref-height: 800;
     -fx-border-radius: 15 15 15 15;
     -fx-background-radius: 15 15 15 15;
-    -fx-spacing: 20;
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-    -fx-background-image: url('../img/board.png');
-    -fx-background-size: cover
+    -fx-max-width: 595;
+    -fx-max-height: 595;
+    -fx-pref-width: 595;
+    -fx-pref-height: 595;
 }
 
-.board .horizontal-line {
-    -fx-stroke: red;
+.tile {
+    -fx-min-width: 35;
+    -fx-min-height: 35;
+    -fx-max-height: 35;
+    -fx-max-width: 35;
+    -fx-background-color: transparent;
+    -fx-border-color: #53539a;
+
 }

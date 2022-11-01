@@ -7,7 +7,7 @@ public enum View {
     MainView("MainPage.fxml"),
     HelpView("HelpView.fxml");
 
-    final static int SCENE_WIDTH = 580;
+    final static int SCENE_WIDTH = 680;
     final static int SCENE_HEIGHT = 680;
 
     private String fileName;

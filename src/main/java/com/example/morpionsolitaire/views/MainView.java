@@ -7,8 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.Stack;
 
 public class MainView {
 
@@ -25,7 +28,11 @@ public class MainView {
 
     public boolean menuDisplayed = true;
 
-    public Pane mainFrame;
+    public StackPane mainFrame;
+
+    public MainView(){
+
+    }
 
 
 
@@ -35,7 +42,7 @@ public class MainView {
         translateTransition.setNode(this.navigationBar);
         if (menuDisplayed) {
             translateTransition.setToY(-50);
-            this.animateMain();
+
             translateTransition.play();
             translateTransition.setOnFinished(event -> {
                 this.menuAnimationButton.setGraphic(new ImageView(this.downArrowImage));
@@ -52,14 +59,7 @@ public class MainView {
         }
     }
 
-    public void animateMain(){
-        Timeline tl = new Timeline();
-        KeyValue kv = new KeyValue(mainFrame.translateXProperty(), 0, Interpolator.EASE_IN);
-        //mainFrame.setScaleY(1.3);
-        KeyFrame kf = new KeyFrame(Duration.seconds(3), kv);
-        tl.getKeyFrames().add(kf);
-        tl.play();
-    }
+
 
     public void onNewGameButtonClick(ActionEvent actionEvent) {
     }
