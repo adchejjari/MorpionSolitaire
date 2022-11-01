@@ -16,5 +16,13 @@
     -fx-max-width: 35;
     -fx-background-color: transparent;
     -fx-border-color: #53539a;
+}
 
+.dot {
+    -fx-min-width: 20;
+    -fx-min-height: 20;
+    -fx-max-height: 20;
+    -fx-max-width: 20;
+    -fx-background-radius: 50 50 50 50;
+    -fx-background-color: black;
 }
