@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 
-public class GameBoadView {
+public class GameBoardView {
 
     final static int BOARD_WIDTH = 17;
     final static int BOARD_HEIGHT = 18;
