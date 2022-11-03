@@ -13,7 +13,8 @@ public class Tile extends Rectangle {
     final static String FXML_FILE = "Tile.fxml";
 
     public Tile(int i, int j){
-        super(35,35,i,j);
+        super(i,j,35,35);
+        Rectangle r = new Rectangle();
 
         /*FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(Main.class.getResource(FXML_FILE)));
         loader.setRoot(this);

@@ -9,15 +9,14 @@ import javafx.scene.shape.Circle;
 
 public class GameBoardView {
 
-    final static int BOARD_WIDTH = 18;
-    final static int BOARD_HEIGHT = 18;
+    final static int BOARD_WIDTH = 17;
+    final static int BOARD_HEIGHT = 17;
 
     @FXML
     public TilePane grid;
     public Group group;
 
     int[][] GameMatrix = {
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //1
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //2
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //3
@@ -33,7 +32,9 @@ public class GameBoardView {
             { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //13
             { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, //14
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //15
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, // 16
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //16
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
     };
 
     @FXML
@@ -44,10 +45,11 @@ public class GameBoardView {
                 group.getChildren().add(b);
             }
         }
-        for (int i = 0; i<16;i++){
-            for(int j = 0;j<16;j++){
+
+        for (int i = 0; i<17;i++){
+            for(int j = 0;j<17;j++){
                 if (this.GameMatrix[i][j]==1){
-                    Circle circle = new Circle(j * 35, i*35, Dot.RADIUS, Paint.valueOf("green"));
+                    Circle circle = new Circle(j*35, i*35, Dot.RADIUS, Paint.valueOf("green"));
                     group.getChildren().add(circle);
                 }
             }
