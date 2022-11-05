@@ -3,20 +3,17 @@ package com.example.morpionsolitaire.views;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 
 
 public class GameBoardView {
 
-    final static int BOARD_WIDTH = 17;
-    final static int BOARD_HEIGHT = 17;
+    final static int BOARD_SIZE = 17;
 
     @FXML
     public TilePane grid;
     public Group group;
 
-    int[][] GameMatrix = {
+    int[][] gameMatrix = {
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //1
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //2
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //3
@@ -39,19 +36,17 @@ public class GameBoardView {
 
     @FXML
     void initialize() {
-        for (int i=0; i<BOARD_HEIGHT; i++){
-            for (int j=0; j<BOARD_WIDTH; j++){
-                Tile b = new Tile(i * 35, j*35);
+        for (int i=0; i<BOARD_SIZE; i++){
+            for (int j=0; j<BOARD_SIZE; j++){
+                Tile b = new Tile(i, j);
                 group.getChildren().add(b);
             }
         }
 
-        for (int i = 0; i<17;i++){
-            for(int j = 0;j<17;j++){
-                if (this.GameMatrix[i][j]==1){
-                    Circle circle = new Circle(j*35, i*35, Dot.RADIUS, Paint.valueOf("green"));
-                    group.getChildren().add(circle);
-                }
+        for (int i = 1; i<BOARD_SIZE;i++){
+            for(int j = 1;j<BOARD_SIZE;j++){
+                Dot circle = new Dot(j, i, this.gameMatrix[i][j]==1);
+                group.getChildren().add(circle);
             }
         }
     }

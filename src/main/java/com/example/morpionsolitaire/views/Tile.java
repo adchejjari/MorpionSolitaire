@@ -1,32 +1,17 @@
 package com.example.morpionsolitaire.views;
 
-import com.example.morpionsolitaire.Main;
-import javafx.fxml.FXMLLoader;
+
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.io.IOException;
-import java.util.Objects;
-
 public class Tile extends Rectangle {
-    final static String FXML_FILE = "Tile.fxml";
+    final static int SIZE = 35;
+    final static int STROKE_WIDTH = 2;
 
-    public Tile(int i, int j){
-        super(i,j,35,35);
-        Rectangle r = new Rectangle();
-
-        /*FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(Main.class.getResource(FXML_FILE)));
-        loader.setRoot(this);
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
+    public Tile(int i, int j) {
+        super(i * SIZE,j * SIZE, SIZE, SIZE);
         this.setFill(Color.TRANSPARENT);
         this.setStroke(Color.BLUEVIOLET);
-        this.setStrokeWidth(2);
+        this.setStrokeWidth(STROKE_WIDTH);
     }
 }
