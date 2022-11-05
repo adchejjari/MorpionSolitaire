@@ -26,7 +26,6 @@ public class Dot extends Circle {
         this.coordinateY = y;
         this.visibility = visible;
         this.setVisibility();
-        this.initializeHandler();
     }
 
     public double getCoordinateX(){
@@ -43,22 +42,14 @@ public class Dot extends Circle {
 
 
     private void setVisibility(){
-        if (this.visibility) {
-            this.setFill(Color.BLACK);
-        }else{
-            this.setFill(Color.TRANSPARENT);
+        this.setFill(this.isVisibile() ? Color.BLACK : Color.TRANSPARENT);
+    }
+
+    public void onDotClick(){
+        if (!this.isVisibile()){
+            this.visibility = true;
+            this.setVisibility();
         }
     }
 
-    private void initializeHandler(){
-        this.visibility = true;
-        this.addEventHandler(MouseEvent.MOUSE_PRESSED,
-            new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    if (isVisibile()){
-                        setVisibility();
-                    }
-                }
-            });
-    }
 }
