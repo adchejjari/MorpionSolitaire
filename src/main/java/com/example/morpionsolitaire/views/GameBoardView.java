@@ -13,7 +13,7 @@ public class GameBoardView {
     public TilePane grid;
     public Group group;
 
-    int[][] gameMatrix = {
+    private int[][] gameMatrix = {
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //1
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //2
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //3
@@ -34,20 +34,27 @@ public class GameBoardView {
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
     };
 
-    @FXML
-    void initialize() {
+    private void initializeGrid(){
         for (int i=0; i<BOARD_SIZE; i++){
             for (int j=0; j<BOARD_SIZE; j++){
                 Tile b = new Tile(i, j);
                 group.getChildren().add(b);
             }
         }
+    }
 
+    private void initializeCross(){
         for (int i = 1; i<BOARD_SIZE;i++){
             for(int j = 1;j<BOARD_SIZE;j++){
                 Dot circle = new Dot(j, i, this.gameMatrix[i][j]==1);
                 group.getChildren().add(circle);
             }
         }
+    }
+
+    @FXML
+    private void initialize() {
+        this.initializeGrid();
+        this.initializeCross();
     }
 }
