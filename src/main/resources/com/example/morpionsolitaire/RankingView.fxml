@@ -13,5 +13,13 @@
           styleClass="main" fx:id="container">
 
 
+    <VBox styleClass="top-area-ranking">
+
+    </VBox>
+
+
+    <VBox styleClass="bottom-area-ranking">
+
+    </VBox>
 
 </TilePane>

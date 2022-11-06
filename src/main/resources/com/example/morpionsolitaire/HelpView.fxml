@@ -2,14 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+
 <TilePane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.morpionsolitaire.views.HelpView"
-          stylesheets="@css/help.css">
+          stylesheets="@css/help.css"
+          styleClass="main">
 
     <fx:define>
         <Image fx:id="tuto1" url="@img/tuto1.png"/>
@@ -21,7 +22,9 @@
     <VBox styleClass="main">
 
         <Text styleClass="help-title">Tutorial : </Text>
+
         <Text>  </Text>
+
         <Text styleClass="help-text">
             Join Five (also known as Morpion Solitaire or Cross and Lines)
         </Text>
@@ -53,17 +56,19 @@
         <Text styleClass="help-text">
             For every line drown we get a point.
         </Text>
+
         <Text styleClass="help-text">
             The game ends when no more dots can be drawn on the grid to make a line.
         </Text>
+
         <Text styleClass="help-text">
             The world record is 178 points. More information about game:
         </Text>
+
         <Hyperlink fx:id="url" onAction="#visitWebsite" style="-fx-font-weight: bold;">
             www.morpionsolitaire.com
         </Hyperlink>
 
     </VBox>
-
 
 </TilePane>
