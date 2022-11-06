@@ -1,0 +1,10 @@
+.main{
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-border-radius: 15 15 15 15;
+    -fx-background-radius: 15 15 15 15;
+    -fx-max-width: 595;
+    -fx-max-height: 595;
+    -fx-pref-width: 595;
+    -fx-pref-height: 595;
+}

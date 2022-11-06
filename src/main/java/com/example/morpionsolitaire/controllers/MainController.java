@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController extends Application implements MainView.PageSwitcher {
+public class MainController extends Application {
 
 
 
@@ -28,21 +28,10 @@ public class MainController extends Application implements MainView.PageSwitcher
     @Override
     public void start(Stage stage) throws Exception {
         this.setupStage(stage);
-
     }
 
     public static void main(String[] args) {
         launch();
     }
-
-
-    @Override
-    public void showSettings() {
-    }
-
-    @Override
-    public void showHelp() {
-    }
-
 
 }

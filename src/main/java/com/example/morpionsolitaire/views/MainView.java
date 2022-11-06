@@ -19,26 +19,37 @@ import java.util.Stack;
 
 public class MainView {
 
+    final private static String PRESSED_BUTTON_STYLE = "pressed-button";
     @FXML
-    public VBox navigationBar;
-
-    @FXML
-    public Button menuAnimationButton;
+    private VBox navigationBar;
 
     @FXML
-    public Image downArrowImage;
+    private Button menuAnimationButton;
+
     @FXML
-    public Image upArrowImage;
+    private Image downArrowImage;
+    @FXML
+    private Image upArrowImage;
 
-    public boolean menuDisplayed = true;
-    public StackPane mainFrame;
+    private boolean menuDisplayed = true;
+    @FXML
+    private StackPane mainFrame;
+    @FXML
+    private Button newGameButton;
+    @FXML
+    private Button rankingButton;
+    @FXML
+    private Button settingButton;
+    @FXML
+    private Button helpButton;
+
+    private Button toggledButton;
 
 
-    public MainView(){
-
+    @FXML
+    private void initialize() {
+        this.toggledButton = helpButton;
     }
-
-
 
     public void handleNavbar() {
         TranslateTransition translateTransition = new TranslateTransition();
@@ -46,13 +57,11 @@ public class MainView {
         translateTransition.setNode(this.navigationBar);
         if (menuDisplayed) {
             translateTransition.setToY(-50);
-
             translateTransition.play();
             translateTransition.setOnFinished(event -> {
                 this.menuAnimationButton.setGraphic(new ImageView(this.downArrowImage));
                 this.menuDisplayed = false;
             });
-
         }else{
             translateTransition.setToY(0);
             translateTransition.play();
@@ -63,29 +72,41 @@ public class MainView {
         }
     }
 
-
-
-    public void onNewGameButtonClick(ActionEvent actionEvent) {
+    @FXML
+    private void onNewGameButtonClick(ActionEvent actionEvent) {
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
         mainFrame.getChildren().clear();
         mainFrame.getChildren().add(view);
-    }
+        replacePressedButton(newGameButton);
 
-    public void onHelpButtonClick(ActionEvent actionEvent) {
+    }
+    @FXML
+    private void onHelpButtonClick(ActionEvent actionEvent) {
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.HelpView);
         mainFrame.getChildren().clear();
         mainFrame.getChildren().add(view);
+        replacePressedButton(helpButton);
+
     }
 
-    public void onSettingButtonClick(ActionEvent actionEvent) {
+    @FXML
+    private void onSettingButtonClick(ActionEvent actionEvent) {
+        mainFrame.getChildren().clear();
+        replacePressedButton(settingButton);
     }
 
-    public void onRankingButtonClick(ActionEvent actionEvent) {
+    @FXML
+    private void onRankingButtonClick(ActionEvent actionEvent) {
+        TilePane view = (TilePane) ViewSwitcher.switchTo(View.RankingView);
+        mainFrame.getChildren().clear();
+        mainFrame.getChildren().add(view);
+        replacePressedButton(rankingButton);
     }
 
+    private void replacePressedButton(Button button){
+        toggledButton.getStyleClass().remove(PRESSED_BUTTON_STYLE);
+        button.getStyleClass().add(PRESSED_BUTTON_STYLE);
+        toggledButton = button;
+    }
 
-    public interface PageSwitcher{
-        void showSettings();
-        void showHelp();
-    };
 }

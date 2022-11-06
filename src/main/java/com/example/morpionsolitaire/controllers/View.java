@@ -1,13 +1,12 @@
 package com.example.morpionsolitaire.controllers;
 
-import com.example.morpionsolitaire.views.GameBoardView;
-import com.example.morpionsolitaire.views.HelpView;
 
 public enum View {
 
     MainView("MainPage.fxml"),
     HelpView("HelpView.fxml"),
-    GameBoardView("GameBoardView.fxml");
+    GameBoardView("GameBoardView.fxml"),
+    RankingView("RankingView.fxml");
 
 
     final static int SCENE_WIDTH = 680;

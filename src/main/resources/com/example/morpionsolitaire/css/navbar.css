@@ -13,11 +13,12 @@
 .navbar .button{
     -fx-background-color: transparent;
 }
-
+.navbar .pressed-button,
 .navbar .button:hover{
     -fx-cursor: hand;
     -fx-background-color: #9583C8;
 }
+
 
 .arrowbutton {
     -fx-background-color: transparent;
