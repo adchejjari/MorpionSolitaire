@@ -23,6 +23,9 @@
     </fx:define>
 
     <VBox styleClass="main">
+
+        <Text style="-fx-font-size: 19">Tutorial : </Text>
+        <Text>  </Text>
         <Text>
             Join Five (also known as Morpion Solitaire or Cross and Lines)
         </Text>
