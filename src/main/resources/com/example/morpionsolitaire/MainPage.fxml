@@ -17,7 +17,7 @@
         <Image fx:id="upArrowImage" url="@img/up-arrow.png" />
         <Image fx:id="downArrowImage" url="@img/down-arrow.png"/>
         <Image fx:id="gameImage" url="@img/game.png"/>
-        <Image fx:id="gridImage" url="@img/grid.png"/>
+        <Image fx:id="homeImage" url="@img/home.png"/>
         <Image fx:id="rankingImage" url="@img/ranking.png"/>
         <Image fx:id="settingImage" url="@img/setting.png"/>
         <Image fx:id="helpImage" url="@img/help.png"/>
@@ -28,17 +28,18 @@
         <HBox stylesheets="@css/navbar.css" styleClass="navbar">
             <Region HBox.hgrow="ALWAYS" />
 
+            <Button fx:id="homeButton" onAction="#onHomeButtonClick">
+                <graphic>
+                    <ImageView image="$homeImage"/>
+                </graphic>
+            </Button>
+
             <Button fx:id="newGameButton" onAction="#onNewGameButtonClick">
                 <graphic>
                     <ImageView image="$gameImage"/>
                 </graphic>
             </Button>
 
-            <Button fx:id="newGridButton">
-                <graphic>
-                    <ImageView image="$gridImage"/>
-                </graphic>
-            </Button>
 
             <Button fx:id="rankingButton" onAction="#onRankingButtonClick">
                 <graphic>
@@ -71,6 +72,8 @@
         </HBox>
 
         <StackPane fx:id="mainFrame">
+
+            <fx:include source="HomeView.fxml"/>
 
         </StackPane>
 

@@ -20,18 +20,17 @@ import java.util.Stack;
 public class MainView {
 
     final private static String PRESSED_BUTTON_STYLE = "pressed-button";
+
+    private boolean menuDisplayed = true;
+    private Button toggledButton;
     @FXML
     private VBox navigationBar;
-
     @FXML
     private Button menuAnimationButton;
-
     @FXML
     private Image downArrowImage;
     @FXML
     private Image upArrowImage;
-
-    private boolean menuDisplayed = true;
     @FXML
     private StackPane mainFrame;
     @FXML
@@ -42,13 +41,13 @@ public class MainView {
     private Button settingButton;
     @FXML
     private Button helpButton;
-
-    private Button toggledButton;
-
+    @FXML
+    private Button homeButton;
 
     @FXML
     private void initialize() {
-        this.toggledButton = helpButton;
+        this.toggledButton = homeButton;
+        replacePressedButton(homeButton);
     }
 
     public void handleNavbar() {
@@ -73,7 +72,7 @@ public class MainView {
     }
 
     @FXML
-    private void onNewGameButtonClick(ActionEvent actionEvent) {
+    private void onNewGameButtonClick() {
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
         mainFrame.getChildren().clear();
         mainFrame.getChildren().add(view);
@@ -81,7 +80,7 @@ public class MainView {
 
     }
     @FXML
-    private void onHelpButtonClick(ActionEvent actionEvent) {
+    private void onHelpButtonClick() {
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.HelpView);
         mainFrame.getChildren().clear();
         mainFrame.getChildren().add(view);
@@ -90,17 +89,24 @@ public class MainView {
     }
 
     @FXML
-    private void onSettingButtonClick(ActionEvent actionEvent) {
+    private void onSettingButtonClick() {
         mainFrame.getChildren().clear();
         replacePressedButton(settingButton);
     }
 
     @FXML
-    private void onRankingButtonClick(ActionEvent actionEvent) {
+    private void onRankingButtonClick() {
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.RankingView);
         mainFrame.getChildren().clear();
         mainFrame.getChildren().add(view);
         replacePressedButton(rankingButton);
+    }
+
+    public void onHomeButtonClick() {
+        TilePane home = (TilePane) ViewSwitcher.switchTo(View.HomeView);
+        mainFrame.getChildren().clear();
+        mainFrame.getChildren().add(home);
+        replacePressedButton(homeButton);
     }
 
     private void replacePressedButton(Button button){
@@ -108,5 +114,4 @@ public class MainView {
         button.getStyleClass().add(PRESSED_BUTTON_STYLE);
         toggledButton = button;
     }
-
 }

@@ -4,6 +4,7 @@ package com.example.morpionsolitaire.controllers;
 public enum View {
 
     MainView("MainPage.fxml"),
+    HomeView("HomeView.fxml"),
     HelpView("HelpView.fxml"),
     GameBoardView("GameBoardView.fxml"),
     RankingView("RankingView.fxml");
@@ -23,7 +24,5 @@ public enum View {
     public String getFileName() {
         return this.fileName;
     }
-
-
 
 }

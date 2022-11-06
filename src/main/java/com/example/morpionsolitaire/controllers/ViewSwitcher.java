@@ -12,7 +12,6 @@ public class ViewSwitcher {
 
     private static Scene scene;
 
-
     public static void setScene(Scene scene){
         ViewSwitcher.scene = scene;
     }
@@ -23,17 +22,13 @@ public class ViewSwitcher {
             root = FXMLLoader.load(
                     Objects.requireNonNull(Main.class.getResource(view.getFileName()))
             );
-            //scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return root;
     }
 
-
     public static void setScene(Parent r){
         scene.setRoot(r);
     }
-
-
 }

@@ -1,6 +1,6 @@
 .main{
     -fx-background-color: white;
-    -fx-opacity: 0.9;
+    -fx-opacity: 0.8;
     -fx-border-radius: 15 15 15 15;
     -fx-background-radius: 15 15 15 15;
     -fx-max-width: 595;
@@ -8,8 +8,16 @@
     -fx-pref-width: 595;
     -fx-pref-height: 595;
     -fx-alignment: center;
-    -fx-font-weight: bold;
-    -fx-font-size: 14;
     -fx-hgap: 20;
+}
 
+.main .help-title{
+    -fx-font-size: 19;
+    -fx-fill: #7043EF;
+    -fx-font-weight: bold;
+
+}
+
+.main .help-text{
+    -fx-font-size: 14;
 }

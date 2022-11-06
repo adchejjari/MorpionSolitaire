@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -12,8 +9,7 @@
 <TilePane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.morpionsolitaire.views.HelpView"
-          stylesheets="@css/help.css"
-          styleClass="main" fx:id="grid">
+          stylesheets="@css/help.css">
 
     <fx:define>
         <Image fx:id="tuto1" url="@img/tuto1.png"/>
@@ -24,27 +20,27 @@
 
     <VBox styleClass="main">
 
-        <Text style="-fx-font-size: 19">Tutorial : </Text>
+        <Text styleClass="help-title">Tutorial : </Text>
         <Text>  </Text>
-        <Text>
+        <Text styleClass="help-text">
             Join Five (also known as Morpion Solitaire or Cross and Lines)
         </Text>
 
-        <Text>
+        <Text styleClass="help-text">
             is an internet version of a paper and pencil game.
         </Text>
 
-        <Text>
+        <Text styleClass="help-text">
             Rules are very simple. Game starts with a cross made from dots.
         </Text>
 
         <ImageView image="$tuto1"/>
 
-        <Text>
+        <Text styleClass="help-text">
             During each turn, place a dot to form a straight line
         </Text>
 
-        <Text>
+        <Text styleClass="help-text">
             that is exactly five 'dots' long and then draw a straight line.
         </Text>
 
@@ -54,16 +50,16 @@
             <ImageView image="$tuto4"/>
         </HBox>
 
-        <Text>
+        <Text styleClass="help-text">
             For every line drown we get a point.
         </Text>
-        <Text>
+        <Text styleClass="help-text">
             The game ends when no more dots can be drawn on the grid to make a line.
         </Text>
-        <Text>
+        <Text styleClass="help-text">
             The world record is 178 points. More information about game:
         </Text>
-        <Hyperlink fx:id="url" onAction="#visitWebsite">
+        <Hyperlink fx:id="url" onAction="#visitWebsite" style="-fx-font-weight: bold;">
             www.morpionsolitaire.com
         </Hyperlink>
 
