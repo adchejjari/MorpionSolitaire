@@ -4,6 +4,7 @@ import com.example.morpionsolitaire.Main;
 import com.example.morpionsolitaire.views.MainView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -17,7 +18,8 @@ public class MainController extends Application implements MainView.PageSwitcher
     public void setupStage(Stage stage) throws IOException {
         Scene scene = new Scene(new Pane(), View.SCENE_HEIGHT, View.SCENE_WIDTH);
         ViewSwitcher.setScene(scene);
-        ViewSwitcher.switchTo(View.MainView);
+        Parent parent = ViewSwitcher.switchTo(View.MainView);
+        ViewSwitcher.setScene(parent);
         stage.setTitle("Morpion Solitaire");
         stage.setScene(scene);
         stage.show();

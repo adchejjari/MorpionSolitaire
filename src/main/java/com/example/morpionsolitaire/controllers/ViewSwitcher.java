@@ -17,15 +17,22 @@ public class ViewSwitcher {
         ViewSwitcher.scene = scene;
     }
 
-    public static void switchTo(View view){
+    public static Parent switchTo(View view){
+        Parent root = null;
         try{
-            Parent root = FXMLLoader.load(
+            root = FXMLLoader.load(
                     Objects.requireNonNull(Main.class.getResource(view.getFileName()))
             );
-            scene.setRoot(root);
+            //scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return root;
+    }
+
+
+    public static void setScene(Parent r){
+        scene.setRoot(r);
     }
 
 
