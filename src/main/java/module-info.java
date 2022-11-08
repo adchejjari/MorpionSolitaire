@@ -1,6 +1,7 @@
 module com.example.morpionsolitaire {
     requires javafx.controls;
     requires javafx.fxml;
+	requires java.sql;
 
 
     opens com.example.morpionsolitaire to javafx.fxml, javafx.graphics;
