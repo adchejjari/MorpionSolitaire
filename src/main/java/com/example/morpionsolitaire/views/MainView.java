@@ -87,18 +87,14 @@ public class MainView {
         mainFrame.getChildren().clear();
         TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
         this.playFadeAnimation(view);
-
-
-
         mainFrame.getChildren().add(view);
         replacePressedButton(newGameButton);
-
     }
     @FXML
     private void onHelpButtonClick() {
-        //TilePane view = (TilePane) ViewSwitcher.switchTo(View.HelpView);
-        //mainFrame.getChildren().clear();
-        //mainFrame.getChildren().add(view);
+        TilePane view = (TilePane) ViewSwitcher.switchTo(View.HelpView);
+        mainFrame.getChildren().clear();
+        mainFrame.getChildren().add(view);
         replacePressedButton(helpButton);
 
     }
@@ -111,21 +107,21 @@ public class MainView {
 
     @FXML
     private void onRankingButtonClick() {
-        //TilePane view = (TilePane) ViewSwitcher.switchTo(View.RankingView);
-        //mainFrame.getChildren().clear();
-        //mainFrame.getChildren().add(view);
+        TilePane view = (TilePane) ViewSwitcher.switchTo(View.RankingView);
+        mainFrame.getChildren().clear();
+        mainFrame.getChildren().add(view);
         replacePressedButton(rankingButton);
     }
 
     public void onHomeButtonClick() {
-        //TilePane home = (TilePane) ViewSwitcher.switchTo(View.HomeView);
-        //mainFrame.getChildren().clear();
-        //mainFrame.getChildren().add(home);
+        TilePane home = (TilePane) ViewSwitcher.switchTo(View.HomeView);
+        mainFrame.getChildren().clear();
+        mainFrame.getChildren().add(home);
         replacePressedButton(homeButton);
     }
 
     private void replacePressedButton(Button button){
-        //toggledButton.getStyleClass().remove(PRESSED_BUTTON_STYLE);
+        toggledButton.getStyleClass().remove(PRESSED_BUTTON_STYLE);
         button.getStyleClass().add(PRESSED_BUTTON_STYLE);
         toggledButton = button;
     }
