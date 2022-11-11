@@ -5,6 +5,7 @@ import com.example.morpionsolitaire.controllers.ViewSwitcher;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -71,10 +72,24 @@ public class MainView {
         }
     }
 
+    private void playFadeAnimation(Node node){
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(Duration.millis(1500));
+        fade.setFromValue(0);
+        fade.setToValue(0.5);
+        fade.setAutoReverse(true);
+        fade.setNode(node);
+        fade.play();
+    }
+
     @FXML
     private void onNewGameButtonClick() {
-        TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
         mainFrame.getChildren().clear();
+        TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
+        this.playFadeAnimation(view);
+
+
+
         mainFrame.getChildren().add(view);
         replacePressedButton(newGameButton);
 
