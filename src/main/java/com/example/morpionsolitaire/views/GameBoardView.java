@@ -1,5 +1,6 @@
 package com.example.morpionsolitaire.views;
 
+import com.example.morpionsolitaire.models.Grid;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -10,6 +11,7 @@ import javafx.scene.layout.TilePane;
 public class GameBoardView {
 
     final static int BOARD_SIZE = 17;
+    private GameBoardListener gameBoardListener;
 
     @FXML
     public TilePane grid;
@@ -33,7 +35,7 @@ public class GameBoardView {
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //14
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //15
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //16
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //17
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //17
     };
 
     private void initializeGrid(){
@@ -64,5 +66,18 @@ public class GameBoardView {
     private void initialize() {
         this.initializeGrid();
         this.initializeCross();
+    }
+
+    public void setGameBoardListener(GameBoardListener gameListener){
+        this.gameBoardListener = gameListener;
+    }
+
+
+
+    public interface GameBoardListener{
+        void setCell(int i, int j, int val);
+        int getCell(int i, int j);
+        boolean isCellEmpty(int i, int j);
+        void updateGrid(Grid g);
     }
 }
