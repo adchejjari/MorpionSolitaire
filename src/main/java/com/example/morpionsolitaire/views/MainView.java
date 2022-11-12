@@ -42,6 +42,8 @@ public class MainView {
     @FXML
     private Button homeButton;
 
+    MainViewListener mainViewListener;
+
     @FXML
     private void initialize() {
         this.toggledButton = homeButton;
@@ -79,21 +81,26 @@ public class MainView {
         fade.play();
     }
 
+    public void setMainViewListener(MainViewListener mvl){
+        this.mainViewListener = mvl;
+    }
+
+    public void clear(){
+        mainFrame.getChildren().clear();
+    }
+
+    public void add(Node node){
+        mainFrame.getChildren().add(node);
+    }
+
     @FXML
     private void onNewGameButtonClick() throws IOException {
-        mainFrame.getChildren().clear();
-        TilePane view = (TilePane) ViewSwitcher.switchTo(View.GameBoardView);
-        this.playFadeAnimation(view);
-        mainFrame.getChildren().add(view);
+        this.mainViewListener.setNewGamePage();
         replacePressedButton(newGameButton);
-        Grid g = new Grid();
-        g.load();
     }
     @FXML
-    private void onHelpButtonClick() {
-        TilePane view = (TilePane) ViewSwitcher.switchTo(View.HelpView);
-        mainFrame.getChildren().clear();
-        mainFrame.getChildren().add(view);
+    private void onHelpButtonClick() throws IOException {
+        this.mainViewListener.setHelpPage();
         replacePressedButton(helpButton);
 
     }
@@ -105,17 +112,14 @@ public class MainView {
     }
 
     @FXML
-    private void onRankingButtonClick() {
-        TilePane view = (TilePane) ViewSwitcher.switchTo(View.RankingView);
-        mainFrame.getChildren().clear();
-        mainFrame.getChildren().add(view);
+    private void onRankingButtonClick() throws IOException {
+        this.mainViewListener.setRankingPage();
         replacePressedButton(rankingButton);
     }
 
-    public void onHomeButtonClick() {
-        TilePane home = (TilePane) ViewSwitcher.switchTo(View.HomeView);
-        mainFrame.getChildren().clear();
-        mainFrame.getChildren().add(home);
+    @FXML
+    private void onHomeButtonClick() throws IOException {
+        this.mainViewListener.setHomePage();
         replacePressedButton(homeButton);
     }
 
@@ -123,5 +127,15 @@ public class MainView {
         toggledButton.getStyleClass().remove(PRESSED_BUTTON_STYLE);
         button.getStyleClass().add(PRESSED_BUTTON_STYLE);
         toggledButton = button;
+    }
+
+
+
+    public interface MainViewListener{
+        void setHomePage() throws IOException;
+        void setNewGamePage() throws IOException;
+        void setSettingsPage();
+        void setRankingPage() throws IOException;
+        void setHelpPage() throws IOException;
     }
 }

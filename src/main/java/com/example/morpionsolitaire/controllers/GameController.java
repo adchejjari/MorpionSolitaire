@@ -7,13 +7,13 @@ import java.io.IOException;
 
 public class GameController implements GameBoardView.GameBoardListener{
 
+    private GameBoardView gameBoardView;
     private Grid grid;
 
-
     public GameController() throws IOException {
+        gameBoardView.setGameBoardListener(this);
         grid = new Grid();
     }
-    
 
     @Override
     public boolean isCellEmpty(int i, int j) {
