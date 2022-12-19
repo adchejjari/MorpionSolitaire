@@ -7,12 +7,14 @@ import java.io.IOException;
 
 public class GameController implements GameBoardView.GameBoardListener{
 
-    private GameBoardView gameBoardView;
+    private GameBoardView viewController = null;
     private Grid grid;
 
-    public GameController() throws IOException {
-        gameBoardView.setGameBoardListener(this);
+    public GameController(GameBoardView ctrl) throws IOException {
         grid = new Grid();
+
+        viewController = ctrl;
+        viewController.setGameBoardListener(this);
     }
 
     @Override
@@ -28,6 +30,7 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public void setCell(int i, int j, int val) {
         this.grid.setCell(i,j,val);
+
     }
 
     @Override

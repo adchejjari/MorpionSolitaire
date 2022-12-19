@@ -15,28 +15,12 @@ public class GameBoardView {
 
     @FXML
     public TilePane grid;
+    @FXML
     public Group group;
 
-    private int[][] gameMatrix = {
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //0
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //1
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //2
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //3
-            { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, //4
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //5
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //6
-            { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0 }, //7
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 }, //8
-            { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 }, //9
-            { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0 }, //10
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //11
-            { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 }, //12
-            { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 }, //13
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //14
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //15
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //16
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, //17
-    };
+    public GameBoardView(){
+        System.out.println("constructor called");
+    }
 
     private void initializeGrid(){
         for (int i = 0; i < BOARD_SIZE; i++){
@@ -50,11 +34,12 @@ public class GameBoardView {
     private void initializeCross(){
         for (int i = 1; i < BOARD_SIZE; i++){
             for(int j = 1; j < BOARD_SIZE; j++){
-                Dot dot = new Dot(j, i, this.gameMatrix[i][j]==1);
+                Dot dot = new Dot(j, i, false);
                 dot.addEventHandler(MouseEvent.MOUSE_PRESSED,
                         new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent me) {
                                 dot.onDotClick();
+                                gameBoardListener.setCell(1,2, 1);
                             }
                         });
                 group.getChildren().add(dot);
@@ -66,12 +51,12 @@ public class GameBoardView {
     private void initialize() {
         this.initializeGrid();
         this.initializeCross();
+        System.out.println(gameBoardListener);
     }
 
     public void setGameBoardListener(GameBoardListener gameListener){
         this.gameBoardListener = gameListener;
     }
-
 
 
     public interface GameBoardListener{

@@ -1,16 +1,17 @@
-package com.example.morpionsolitaire.controllers;
+package com.example.morpionsolitaire.utils;
 
 import com.example.morpionsolitaire.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class ViewSwitcher {
 
     private static Scene scene;
+
+    public static FXMLLoader loader;
 
     public static void setScene(Scene scene){
         ViewSwitcher.scene = scene;

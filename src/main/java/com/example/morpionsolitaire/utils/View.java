@@ -1,4 +1,4 @@
-package com.example.morpionsolitaire.controllers;
+package com.example.morpionsolitaire.utils;
 
 
 public enum View {
@@ -10,8 +10,8 @@ public enum View {
     RankingView("RankingView.fxml");
 
 
-    final static int SCENE_WIDTH = 680;
-    final static int SCENE_HEIGHT = 680;
+    public final static int SCENE_WIDTH = 680;
+    public final static int SCENE_HEIGHT = 680;
 
     private String fileName;
 
