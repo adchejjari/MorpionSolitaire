@@ -38,7 +38,6 @@ public class MainController extends Application implements MainView.MainViewList
         mainView.clear();
         FXMLLoader loader = ViewSwitcher.load(View.HomeView);
         mainView.add((Parent) loader.load());
-
     }
 
     @Override

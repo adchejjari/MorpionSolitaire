@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class GameController implements GameBoardView.GameBoardListener{
 
-    private GameBoardView viewController = null;
+    private GameBoardView viewController;
     private Grid grid = new Grid();
 
     public GameController(GameBoardView viewController) throws IOException {
@@ -18,7 +18,7 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public boolean isCellEmpty(int i, int j) {
-        return true;
+        return this.grid.isCellEmpty(i,j);
     }
 
     @Override
@@ -29,7 +29,6 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public void setCell(int i, int j, int val) {
         this.grid.setCell(i,j,val);
-
     }
 
     @Override

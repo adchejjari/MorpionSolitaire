@@ -10,7 +10,7 @@ import javafx.scene.layout.TilePane;
 
 public class GameBoardView {
 
-    final static int BOARD_SIZE = 17;
+    final static int BOARD_SIZE = 16;
     private GameBoardListener gameBoardListener;
 
     @FXML
@@ -18,13 +18,9 @@ public class GameBoardView {
     @FXML
     public Group group;
 
-    public GameBoardView(){
-        System.out.println("constructor called");
-    }
-
     private void drawGrid(){
-        for (int i = 0; i < BOARD_SIZE; i++){
-            for (int j = 0; j < BOARD_SIZE; j++){
+        for (int i = 0; i <= BOARD_SIZE; i++){
+            for (int j = 0; j <= BOARD_SIZE; j++){
                 Tile tile = new Tile(i, j);
                 group.getChildren().add(tile);
             }
@@ -32,20 +28,15 @@ public class GameBoardView {
     }
 
     public void initializeCross(){
-        System.out.println("cross called");
-        System.out.println(this.gameBoardListener);
-
-        for (int i = 1; i < BOARD_SIZE; i++){
-            for(int j = 1; j < BOARD_SIZE; j++){
-                Dot dot = new Dot(j, i, gameBoardListener.isCellEmpty(i,j));
-                dot.addEventHandler(MouseEvent.MOUSE_PRESSED,
-                        new EventHandler<MouseEvent>() {
-                            public void handle(MouseEvent me) {
-                                dot.onDotClick();
-                                gameBoardListener.setCell(1,2, 1);
-                            }
-                        });
-                group.getChildren().add(dot);
+        for (int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                Point point = new Point(i, j, !gameBoardListener.isCellEmpty(i,j));
+                int tempI = i; int tempJ = j;
+                point.setOnMouseClicked(event -> {
+                    point.onDotClick();
+                    gameBoardListener.setCell(tempI, tempJ, 1);
+                });
+                group.getChildren().add(point);
             }
         }
     }
@@ -53,14 +44,11 @@ public class GameBoardView {
     @FXML
     private void initialize() {
         this.drawGrid();
-        //this.initializeCross();
-        System.out.println(gameBoardListener);
     }
 
     public void setGameBoardListener(GameBoardListener gameListener){
         this.gameBoardListener = gameListener;
     }
-
 
     public interface GameBoardListener{
         void setCell(int i, int j, int val);
