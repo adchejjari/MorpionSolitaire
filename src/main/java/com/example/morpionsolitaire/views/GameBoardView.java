@@ -22,7 +22,7 @@ public class GameBoardView {
         System.out.println("constructor called");
     }
 
-    private void initializeGrid(){
+    private void drawGrid(){
         for (int i = 0; i < BOARD_SIZE; i++){
             for (int j = 0; j < BOARD_SIZE; j++){
                 Tile tile = new Tile(i, j);
@@ -31,10 +31,13 @@ public class GameBoardView {
         }
     }
 
-    private void initializeCross(){
+    public void initializeCross(){
+        System.out.println("cross called");
+        System.out.println(this.gameBoardListener);
+
         for (int i = 1; i < BOARD_SIZE; i++){
             for(int j = 1; j < BOARD_SIZE; j++){
-                Dot dot = new Dot(j, i, false);
+                Dot dot = new Dot(j, i, gameBoardListener.isCellEmpty(i,j));
                 dot.addEventHandler(MouseEvent.MOUSE_PRESSED,
                         new EventHandler<MouseEvent>() {
                             public void handle(MouseEvent me) {
@@ -49,8 +52,8 @@ public class GameBoardView {
 
     @FXML
     private void initialize() {
-        this.initializeGrid();
-        this.initializeCross();
+        this.drawGrid();
+        //this.initializeCross();
         System.out.println(gameBoardListener);
     }
 

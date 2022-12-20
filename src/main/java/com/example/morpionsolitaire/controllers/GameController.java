@@ -8,18 +8,17 @@ import java.io.IOException;
 public class GameController implements GameBoardView.GameBoardListener{
 
     private GameBoardView viewController = null;
-    private Grid grid;
+    private Grid grid = new Grid();
 
-    public GameController(GameBoardView ctrl) throws IOException {
-        grid = new Grid();
-
-        viewController = ctrl;
+    public GameController(GameBoardView viewController) throws IOException {
+        this.viewController = viewController;
         viewController.setGameBoardListener(this);
+        viewController.initializeCross();
     }
 
     @Override
     public boolean isCellEmpty(int i, int j) {
-        return false;
+        return true;
     }
 
     @Override
