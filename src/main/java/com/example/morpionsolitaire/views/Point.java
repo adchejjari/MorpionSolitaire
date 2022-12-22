@@ -41,5 +41,4 @@ public class Point extends Circle {
             this.setVisibility();
         }
     }
-
 }

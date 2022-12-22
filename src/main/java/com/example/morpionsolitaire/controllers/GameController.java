@@ -1,6 +1,7 @@
 package com.example.morpionsolitaire.controllers;
 
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.views.GameBoardView;
 
 import java.io.IOException;
@@ -24,6 +25,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public void updateGrid(Grid g) {
 
+    }
+
+    @Override
+    public Move canLink(int i, int j) {
+        return this.grid.canLink(i,j);
     }
 
     @Override

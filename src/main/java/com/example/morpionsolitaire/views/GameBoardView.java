@@ -1,6 +1,8 @@
 package com.example.morpionsolitaire.views;
 
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Move;
+import com.example.morpionsolitaire.models.Position;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -33,8 +35,13 @@ public class GameBoardView {
                 Point point = new Point(i, j, !gameBoardListener.isCellEmpty(i,j));
                 int tempI = i; int tempJ = j;
                 point.setOnMouseClicked(event -> {
-                    point.onDotClick();
-                    gameBoardListener.setCell(tempI, tempJ, 1);
+                    Move moveToBePlayed = gameBoardListener.canLink(tempI, tempJ);
+                    if (moveToBePlayed.canMakeMove()) {
+                        Link link = new Link(moveToBePlayed.getPositionA(), moveToBePlayed.getPositionA());
+                        point.onDotClick();
+                        gameBoardListener.setCell(tempI, tempJ, 1);
+                        group.getChildren().add(link);
+                    }
                 });
                 group.getChildren().add(point);
             }
@@ -55,5 +62,6 @@ public class GameBoardView {
         int getCell(int i, int j);
         boolean isCellEmpty(int i, int j);
         void updateGrid(Grid g);
+        Move canLink(int i, int j);
     }
 }

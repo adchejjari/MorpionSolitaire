@@ -1,5 +1,7 @@
 package com.example.morpionsolitaire.models;
 
+import com.example.morpionsolitaire.views.Point;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -48,5 +50,31 @@ public class Grid {
 
     public boolean isCellEmpty(int i, int j){
         return matrix[i][j] == 0;
+    }
+
+    public Move canLink(int line, int column){
+        int count = 1;
+        int leftIndex = column;
+        //go to right
+        while (leftIndex < WIDTH){
+            leftIndex++;
+            if (this.matrix[line][leftIndex]>0){
+                count++;
+            }
+            else{
+                break;
+            }
+        }
+        int rightIndex = column;
+        while (rightIndex > 0){
+            rightIndex--;
+            if (this.matrix[line][rightIndex]>0){
+                count++;
+            }
+            else{
+                break;
+            }
+        }
+        return new Move(count == 5, new Position(line, rightIndex), new Position(line, leftIndex));
     }
 }
