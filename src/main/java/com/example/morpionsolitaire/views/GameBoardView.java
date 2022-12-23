@@ -37,7 +37,7 @@ public class GameBoardView {
                 point.setOnMouseClicked(event -> {
                     Move moveToBePlayed = gameBoardListener.canLink(tempI, tempJ);
                     if (moveToBePlayed.canMakeMove()) {
-                        Link link = new Link(moveToBePlayed.getPositionA(), moveToBePlayed.getPositionA());
+                        Link link = new Link(moveToBePlayed.getPositionA(), moveToBePlayed.getPositionB());
                         point.onDotClick();
                         gameBoardListener.setCell(tempI, tempJ, 1);
                         group.getChildren().add(link);

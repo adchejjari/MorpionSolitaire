@@ -9,9 +9,9 @@ public class Link extends Line {
 
     public Link(Position a, Position b){
 
-        super((5+1)*Point.SCALE, (3+1)*Point.SCALE, (9+1)*Point.SCALE, (3+1)*Point.SCALE);
-        System.out.println(a.getColumn());
-        System.out.println(a.getLine());
+        super((a.getColumn()+1)*Point.SCALE, (a.getLine()+1)*Point.SCALE, (b.getColumn()+1)*Point.SCALE, (b.getLine()+1)*Point.SCALE);
+        //System.out.println(a.getColumn() + " " + a.getLine());
+        //System.out.println(b.getColumn() + " " + b.getLine());
         this.setStroke(Color.RED);
         this.setStrokeWidth(STROKE_WIDTH);
     }

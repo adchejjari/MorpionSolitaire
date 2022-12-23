@@ -39,6 +39,6 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public int getCell(int i, int j) {
-        return grid.getCellValue(i,j);
+        return grid.getCell(i,j).getValue();
     }
 }

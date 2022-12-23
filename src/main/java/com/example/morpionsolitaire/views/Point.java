@@ -10,6 +10,7 @@ public class Point extends Circle {
     final private int coordinateY;
     private boolean visibility;
     private final int OFFSET = 1;
+    private boolean linked = false;
 
     public Point(int x, int y, boolean visible){
         super((y+1)*SCALE, (x+1)*SCALE, RADIUS); // swap x & y cause the Circle class is based on Cartesian coordinates
@@ -33,6 +34,14 @@ public class Point extends Circle {
 
     private void setVisibility(){
         this.setFill(this.isVisibile() ? Color.BLACK : Color.TRANSPARENT);
+    }
+
+    private boolean isLinked(){
+        return this.linked;
+    }
+
+    public void link(){
+        this.linked = true;
     }
 
     public void onDotClick(){

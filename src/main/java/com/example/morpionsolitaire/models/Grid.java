@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Grid {
 
@@ -18,7 +20,7 @@ public class Grid {
 
     final private String defaultGrid = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
 
-    private int[][] matrix = new int[WIDTH][WIDTH];
+    private Cell[][] matrix = new Cell[WIDTH][WIDTH];
 
     public Grid() throws IOException {
         this.load();
@@ -31,50 +33,52 @@ public class Grid {
             String read = Files.readAllLines(Paths.get(s)).get(i);
             String[] line = read.split("");
             for (int j = 0; j < WIDTH; j++){
-                matrix[i][j] = Integer.parseInt(line[j]);
+                matrix[i][j] = new Cell(i, j, Integer.parseInt(line[j]));
             }
         }
     }
 
     public void setCell(int line, int column, int value){
-        matrix[line][column] = value;
+        matrix[line][column].setValue(value);
     }
 
-    public int getCellValue(int i, int j){
+    public Cell getCell(int i, int j){
         return matrix[i][j];
     }
 
-    public int[][] getMatrix(){
+    public Cell[][] getMatrix(){
         return matrix;
     }
 
     public boolean isCellEmpty(int i, int j){
-        return matrix[i][j] == 0;
+        return matrix[i][j].getValue() == 0;
     }
 
     public Move canLink(int line, int column){
-        int count = 1;
-        int leftIndex = column;
-        //go to right
-        while (leftIndex < WIDTH){
-            leftIndex++;
-            if (this.matrix[line][leftIndex]>0){
+        int count = 0;
+        int firstCellIndex = 0;
+        this.matrix[line][column].setValue(1);
+        for(int i=0; i<WIDTH-1; i++){
+            if(this.matrix[line][i].getValue()>0 && this.matrix[line][i].getLinkType() != LinkType.HORIZONTAL){
+                if(count==0){
+                    firstCellIndex = i; // save first cell to link
+                }
                 count++;
+                if (count == 5){
+                    break;
+                }
             }
             else{
-                break;
+                count = 0;
             }
         }
-        int rightIndex = column;
-        while (rightIndex > 0){
-            rightIndex--;
-            if (this.matrix[line][rightIndex]>0){
-                count++;
+        if(count==5){
+            this.matrix[line][column].setLinkType(LinkType.HORIZONTAL);
+            for(int i = firstCellIndex; i <= firstCellIndex + 4; i++){
+                this.matrix[line][i].setLinkType(LinkType.HORIZONTAL);
             }
-            else{
-                break;
-            }
+            return new Move(true, new Position(line, firstCellIndex), new Position(line, firstCellIndex+4));
         }
-        return new Move(count == 5, new Position(line, rightIndex), new Position(line, leftIndex));
+        return new Move(false, null, null);
     }
 }
