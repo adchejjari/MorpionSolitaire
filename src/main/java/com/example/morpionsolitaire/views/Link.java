@@ -10,8 +10,6 @@ public class Link extends Line {
     public Link(Position a, Position b){
 
         super((a.getColumn()+1)*Point.SCALE, (a.getLine()+1)*Point.SCALE, (b.getColumn()+1)*Point.SCALE, (b.getLine()+1)*Point.SCALE);
-        //System.out.println(a.getColumn() + " " + a.getLine());
-        //System.out.println(b.getColumn() + " " + b.getLine());
         this.setStroke(Color.RED);
         this.setStrokeWidth(STROKE_WIDTH);
     }

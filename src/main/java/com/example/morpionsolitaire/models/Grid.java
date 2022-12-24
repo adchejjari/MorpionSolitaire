@@ -54,11 +54,41 @@ public class Grid {
         return matrix[i][j].getValue() == 0;
     }
 
-    public Move canLink(int line, int column){
+
+    public Move canMoveVertically(int line, int column){ // rename to hasScoredVertical
         int count = 0;
         int firstCellIndex = 0;
         this.matrix[line][column].setValue(1);
-        for(int i=0; i<WIDTH-1; i++){
+        for (int i = 0; i<HEIGHT; i++){
+            if(this.matrix[i][column].getValue()>0 && this.matrix[i][column].getLinkType() != LinkType.VERTICAL){
+                if(count==0){
+                    firstCellIndex = i; // save first cell to link
+                }
+                count++;
+                if (count == 5){
+                    break;
+                }
+            }
+            else{
+                count = 0;
+            }
+        }
+        if(count==5){
+            this.matrix[line][column].setLinkType(LinkType.VERTICAL);
+            for(int i = firstCellIndex; i <= firstCellIndex + 4; i++){
+                this.matrix[i][column].setLinkType(LinkType.VERTICAL);
+            }
+            return new Move(true, new Position(firstCellIndex, column), new Position(firstCellIndex+4, column));
+        }
+        this.matrix[line][column].setValue(0);
+        return new Move(false, null, null);
+    }
+
+    public Move canMoveHorizontally(int line, int column){
+        int count = 0;
+        int firstCellIndex = 0;
+        this.matrix[line][column].setValue(1);
+        for(int i=0; i<WIDTH; i++){
             if(this.matrix[line][i].getValue()>0 && this.matrix[line][i].getLinkType() != LinkType.HORIZONTAL){
                 if(count==0){
                     firstCellIndex = i; // save first cell to link
@@ -78,6 +108,120 @@ public class Grid {
                 this.matrix[line][i].setLinkType(LinkType.HORIZONTAL);
             }
             return new Move(true, new Position(line, firstCellIndex), new Position(line, firstCellIndex+4));
+        }
+        this.matrix[line][column].setValue(0);
+        return new Move(false, null, null);
+    }
+
+    public Position getSecondDiagonalInitPosition(int i, int j){
+        while(i>0 && j>0){
+            i--;
+            j--;
+        }
+        return new Position(i,j);
+    }
+
+    public Position getFirstDiagonalInitPosition(int i, int j){
+        while(i < HEIGHT-1 && j > 0){
+            i++;
+            j--;
+        }
+        return new Position(i,j);
+    }
+    public Move hasScoredSecondDiagonal(int line, int column){
+        this.matrix[line][column].setValue(1);
+        int count = 0;
+        int firstCellLine = 0;
+        int firstCellColumn = 0;
+        Position initialPosition = this.getFirstDiagonalInitPosition(line,column);
+        int tempLineIndex = initialPosition.getLine();
+        int tempColumnIndex = initialPosition.getColumn();
+        while(tempColumnIndex<WIDTH && tempLineIndex>0){
+            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 && this.matrix[tempLineIndex][tempColumnIndex].getLinkType() != LinkType.FIRST_DIAGONAL){
+                if(count == 0){
+                    firstCellLine = tempLineIndex;
+                    firstCellColumn = tempColumnIndex;
+                }
+                count++;
+                if (count == 5){
+                    break;
+                }
+            }
+            else{
+                count = 0;
+            }
+            tempColumnIndex++;
+            tempLineIndex--;
+        }
+        if(count==5){
+            this.matrix[line][column].setLinkType(LinkType.FIRST_DIAGONAL);
+            int j = firstCellColumn;
+            for(int i = firstCellLine; i > firstCellLine - 4; i--){
+                this.matrix[i][j].setLinkType(LinkType.FIRST_DIAGONAL);
+                j++;
+            }
+            return new Move(true, new Position(firstCellLine, firstCellColumn), new Position(firstCellLine-4, firstCellColumn+4));
+        }
+        this.matrix[line][column].setValue(0);
+        return new Move(false, null, null);
+    }
+    public Move hasScoredFirstDiagonal(int line, int column){
+        this.matrix[line][column].setValue(1);
+        int count = 0;
+        int firstCellLine = 0;
+        int firstCellColumn = 0;
+        Position initialPosition = this.getSecondDiagonalInitPosition(line,column);
+        int tempLineIndex = initialPosition.getLine();
+        int tempColumnIndex = initialPosition.getColumn();
+        while(tempColumnIndex<WIDTH && tempLineIndex<HEIGHT){
+            System.out.println("line : " + tempLineIndex + " column : "+ tempColumnIndex);
+            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 && this.matrix[tempLineIndex][tempColumnIndex].getLinkType() != LinkType.SECOND_DIAGONAL){
+                if(count == 0){
+                    firstCellLine = tempLineIndex;
+                    firstCellColumn = tempColumnIndex;
+                }
+                count++;
+                if (count == 5){
+                    break;
+                }
+            }
+            else{
+                count = 0;
+            }
+            tempColumnIndex++;
+            tempLineIndex++;
+        }
+
+        if(count==5){
+            System.out.println("count : " + count);
+            this.matrix[line][column].setLinkType(LinkType.SECOND_DIAGONAL);
+            int j = firstCellColumn;
+            for(int i = firstCellLine; i <= firstCellLine + 4; i++){
+                this.matrix[i][j].setLinkType(LinkType.SECOND_DIAGONAL);
+                j++;
+            }
+            return new Move(true, new Position(firstCellLine, firstCellColumn), new Position(firstCellLine+4, firstCellColumn+4));
+        }
+        this.matrix[line][column].setValue(0);
+        return new Move(false, null, null);
+    }
+
+    public Move canLink(int line, int column){
+        Move firstDiagonalMove = this.hasScoredFirstDiagonal(line,column);
+        if (firstDiagonalMove.canMakeMove()){
+            return firstDiagonalMove;
+        }
+        Move verticalMove = this.canMoveVertically(line, column);
+        if (verticalMove.canMakeMove()){
+            return verticalMove;
+        }
+        Move horizontalMove = this.canMoveHorizontally(line, column);
+        if (horizontalMove.canMakeMove()) {
+            return horizontalMove;
+        }
+        Move secondDiagonal = this.hasScoredSecondDiagonal(line, column);
+        if (secondDiagonal.canMakeMove()) {
+            return secondDiagonal;
         }
         return new Move(false, null, null);
     }
