@@ -1,6 +1,7 @@
 package com.example.morpionsolitaire.controllers;
 
-import com.example.morpionsolitaire.db.DBCONNECTOR;
+import com.example.morpionsolitaire.db.ScoreDataAccessObject;
+import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.utils.View;
 import com.example.morpionsolitaire.utils.ViewSwitcher;
 import com.example.morpionsolitaire.views.MainView;
@@ -10,7 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class MainController extends Application implements MainView.MainViewListener{
 
@@ -73,9 +77,20 @@ public class MainController extends Application implements MainView.MainViewList
     @Override
     public void start(Stage stage) throws Exception {
         //this.setupStage(stage);
-        DBCONNECTOR d = new DBCONNECTOR();
-        d.open();
-        d.close();
+        ScoreDataAccessObject db = new ScoreDataAccessObject();
+        Score s1 = new Score("unknown", 9999);
+        Score s2 = new Score("guest", 1111);
+        Score s3 = new Score("tu madre", 666);
+        s1.setDate();
+        s2.setDate();
+        s3.setDate();
+        db.insert(s1);
+        db.insert(s2);
+        db.insert(s3);
+        List<Score> ss = db.getAll();
+        for (Score s : ss){
+            System.out.println(s.getPlayerName() + " " + s.getValue() + " " + s.getDate());
+        }
     }
 
     public static void main(String[] args) {

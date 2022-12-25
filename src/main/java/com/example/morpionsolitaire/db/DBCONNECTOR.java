@@ -12,7 +12,6 @@ public class DBCONNECTOR {
             this.connection = DriverManager.getConnection(DB_URL);
             if (this.connection != null) {
                 DatabaseMetaData meta = connection.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
                 this.initScheme();
             }
         } catch (SQLException e) {
@@ -22,11 +21,11 @@ public class DBCONNECTOR {
 
     public void initScheme(){
         String query = "CREATE TABLE IF NOT EXISTS score (\n" +
-                "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "  name VARCHAR(255) NOT NULL,\n" +
-                "  date VARCHAR(255) NOT NULL,\n" +
-                "  score INTEGER DEFAULT 0 NOT NULL\n" +
-                ");";
+                       "id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                       "name VARCHAR(255) NOT NULL,\n" +
+                       "date VARCHAR(255) NOT NULL,\n" +
+                       "score INTEGER DEFAULT 0 NOT NULL\n" +
+                       ");";
         try {
             this.connection = DriverManager.getConnection(DB_URL);
             Statement stmt = connection.createStatement();
@@ -36,11 +35,24 @@ public class DBCONNECTOR {
         }
     }
 
+    public Statement createStatement(String sqlStatement) throws SQLException {
+        return this.connection.createStatement();
+    }
+
+    public PreparedStatement prepareStatement(String sqlStatement) throws SQLException{
+        return this.connection.prepareStatement(sqlStatement);
+    }
+
+    public void executeStatement(String sqlStatement) throws SQLException {
+        try (Statement stmt = this.connection.createStatement()) {
+            stmt.execute(sqlStatement);
+        }
+    }
+
     public void close(){
         try {
             if (connection != null) {
                 connection.close();
-                System.out.println(connection);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
