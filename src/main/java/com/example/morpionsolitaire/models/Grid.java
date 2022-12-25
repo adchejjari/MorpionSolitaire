@@ -174,7 +174,6 @@ public class Grid {
         int tempLineIndex = initialPosition.getLine();
         int tempColumnIndex = initialPosition.getColumn();
         while(tempColumnIndex<WIDTH && tempLineIndex<HEIGHT){
-            System.out.println("line : " + tempLineIndex + " column : "+ tempColumnIndex);
             if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 && this.matrix[tempLineIndex][tempColumnIndex].getLinkType() != LinkType.SECOND_DIAGONAL){
                 if(count == 0){
                     firstCellLine = tempLineIndex;
@@ -193,7 +192,6 @@ public class Grid {
         }
 
         if(count==5){
-            System.out.println("count : " + count);
             this.matrix[line][column].setLinkType(LinkType.SECOND_DIAGONAL);
             int j = firstCellColumn;
             for(int i = firstCellLine; i <= firstCellLine + 4; i++){

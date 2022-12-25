@@ -6,14 +6,20 @@ import com.example.morpionsolitaire.models.Position;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 
 public class GameBoardView {
 
     final static int BOARD_SIZE = 16;
     private GameBoardListener gameBoardListener;
+
+    private int scoreValue = 0;
 
     @FXML
     public TilePane grid;
@@ -24,7 +30,9 @@ public class GameBoardView {
         for (int i = 0; i <= BOARD_SIZE; i++){
             for (int j = 0; j <= BOARD_SIZE; j++){
                 Tile tile = new Tile(i, j);
+                tile.toBack();
                 group.getChildren().add(tile);
+
             }
         }
     }
@@ -39,14 +47,22 @@ public class GameBoardView {
                     if (moveToBePlayed.canMakeMove()) {
                         Link link = new Link(moveToBePlayed.getPositionA(), moveToBePlayed.getPositionB());
                         point.onDotClick();
+                        point.setValue(++scoreValue);
                         gameBoardListener.setCell(tempI, tempJ, 1);
                         group.getChildren().add(link);
+                        link.toBack();
+                        group.getChildren().add(point.getValue());
                     }
                 });
                 group.getChildren().add(point);
             }
         }
     }
+
+    private void linkTwoPoints(Point p, Position a, Position b){
+
+    }
+
 
     @FXML
     private void initialize() {

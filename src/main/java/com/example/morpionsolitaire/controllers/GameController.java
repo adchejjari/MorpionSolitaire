@@ -2,6 +2,7 @@ package com.example.morpionsolitaire.controllers;
 
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Move;
+import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
 
 import java.io.IOException;
@@ -10,9 +11,10 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     private GameBoardView viewController;
     private Grid grid = new Grid();
+    private Score score = new Score();
 
-    public GameController(GameBoardView viewController) throws IOException {
-        this.viewController = viewController;
+    public GameController(GameBoardView _viewController) throws IOException {
+        this.viewController = _viewController;
         viewController.setGameBoardListener(this);
         viewController.initializeCross();
     }
