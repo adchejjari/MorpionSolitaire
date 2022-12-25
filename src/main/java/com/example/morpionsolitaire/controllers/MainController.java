@@ -1,5 +1,6 @@
 package com.example.morpionsolitaire.controllers;
 
+import com.example.morpionsolitaire.db.DBCONNECTOR;
 import com.example.morpionsolitaire.utils.View;
 import com.example.morpionsolitaire.utils.ViewSwitcher;
 import com.example.morpionsolitaire.views.MainView;
@@ -71,7 +72,10 @@ public class MainController extends Application implements MainView.MainViewList
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.setupStage(stage);
+        //this.setupStage(stage);
+        DBCONNECTOR d = new DBCONNECTOR();
+        d.open();
+        d.close();
     }
 
     public static void main(String[] args) {
