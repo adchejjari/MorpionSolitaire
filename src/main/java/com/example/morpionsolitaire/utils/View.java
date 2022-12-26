@@ -10,7 +10,7 @@ public enum View {
     RankingView("RankingView.fxml");
 
 
-    public final static int SCENE_WIDTH = 680;
+    public final static int SCENE_WIDTH = 920;
     public final static int SCENE_HEIGHT = 680;
 
     private String fileName;
