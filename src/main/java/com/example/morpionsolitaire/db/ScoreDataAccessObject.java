@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreDataAccessObject {
-    private final String TABLE = "scores";
-    protected final String ORDRED_BY = "date";
-
+    private final String TABLE = "score";
+    protected final String ORDRED_BY = "score";
     DBCONNECTOR db = new DBCONNECTOR();
-
     private static final String[] COLUMNS = {
             "date",
             "name",
@@ -24,7 +22,7 @@ public class ScoreDataAccessObject {
     public List<Score> getAll() throws SQLException {
         List<Score> scores = new ArrayList<>();
         db.open();
-        String query = "SELECT * FROM score";
+        String query = "SELECT * FROM score ORDER BY score;";
         Statement stmt  = db.createStatement(query);
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {

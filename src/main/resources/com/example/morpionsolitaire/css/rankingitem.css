@@ -1,0 +1,23 @@
+.item{
+    -fx-spacing: 30;
+    -fx-padding: 10 10;
+    -fx-max-height: 50;
+    -fx-border-width: 0;
+    -fx-background-color: #7043EF;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.name {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+}
+
+.score {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+}

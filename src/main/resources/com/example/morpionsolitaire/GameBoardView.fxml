@@ -2,13 +2,17 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.shape.Circle?>
 <TilePane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.morpionsolitaire.views.GameBoardView"
-      stylesheets="@css/gameboad.css"
-      styleClass="board" fx:id="grid">
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.morpionsolitaire.views.GameBoardView"
+          stylesheets="@css/gameboad.css"
+          styleClass="board" fx:id="grid">
 
-    <Group fx:id="group"/>
+    <Group fx:id="group">
+
+    </Group>
 
 
 </TilePane>

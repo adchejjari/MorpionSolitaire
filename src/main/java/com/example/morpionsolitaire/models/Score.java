@@ -1,9 +1,7 @@
 package com.example.morpionsolitaire.models;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Score {
     private String playerName;
@@ -41,12 +39,9 @@ public class Score {
         this.value++;
     }
 
-
     public void setDate(){
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.date = myDateObj.format(myFormatObj);
     }
-
-
 }

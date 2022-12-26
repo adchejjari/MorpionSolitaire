@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.morpionsolitaire.RankingItem"
+      prefHeight="400.0" prefWidth="600.0"
+      stylesheets="@css/rankingitem.css"
+        styleClass="item">
+
+    <fx:define>
+        <Image fx:id="goldMedal" url="@img/1st.png" />
+        <Image fx:id="silverMedal" url="@img/2nd.png"/>
+        <Image fx:id="bronzeMedal" url="@img/3rd.png"/>
+        <Image fx:id="avatar" url="@img/avatar.png"/>
+    </fx:define>
+
+    <VBox fx:id="labelContainer">
+            <ImageView image="$avatar"/>
+    </VBox>
+
+    <VBox>
+        <ImageView image="$avatar"/>
+    </VBox>
+
+    <Label fx:id="playerName" styleClass="name"> Monsieur kaka </Label>
+
+    <Label fx:id="dateLabel"> 12-22-2022 12:23:22 </Label>
+
+    <Label fx:id="scoreValue" styleClass="score"> 3235 </Label>
+</HBox>

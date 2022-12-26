@@ -1,21 +1,40 @@
 .main{
-    -fx-background-color: white;
+    -fx-background-color: #6b838e;
+    -fx-background-size: cover;
+    -fx-opacity: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
     -fx-border-radius: 15 15 15 15;
     -fx-background-radius: 15 15 15 15;
     -fx-max-width: 595;
     -fx-max-height: 595;
     -fx-pref-width: 595;
     -fx-pref-height: 595;
-    -fx-alignment: center;
+    -fx-alignment: top-center;
+    -fx-spacing: 40;
+    -fx-padding: 20 20;
 }
 
 .main .title-ranking{
-    -fx-font-size: 24;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20;
 
 }
 
 .main .top-area-ranking {
-    -fx-background-color: #202059;
-    -fx-font-weight: bold;
-    -fx-fill: #ffffff;
+
+}
+
+.main .title-ranking .title-box {
+    -fx-background-color: #00004f;
+    -fx-max-height: 40;
+    -fx-max-width: 280;
+    -fx-padding: 10 10;
+    -fx-alignment: CENTER;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 15 15 15 15;
+    -fx-border-color: rgb(118, 118, 192);
+    -fx-border-width: 10;
+
 }

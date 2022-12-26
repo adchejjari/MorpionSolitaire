@@ -3,14 +3,19 @@ package com.example.morpionsolitaire.views;
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.models.Position;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 
@@ -59,6 +64,13 @@ public class GameBoardView {
         }
     }
 
+    private void initInfoButton(){
+        Circle shape = new Circle();
+        Image img = new Image("/image/rifat.jpg");
+        ImagePattern n;
+        shape.setFill(new ImagePattern(img));
+    }
+
     private void linkTwoPoints(Point p, Position a, Position b){
 
     }
@@ -71,6 +83,10 @@ public class GameBoardView {
 
     public void setGameBoardListener(GameBoardListener gameListener){
         this.gameBoardListener = gameListener;
+    }
+
+    public void displayPopup(ActionEvent actionEvent) {
+
     }
 
     public interface GameBoardListener{

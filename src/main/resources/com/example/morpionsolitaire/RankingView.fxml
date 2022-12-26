@@ -6,20 +6,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TilePane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.morpionsolitaire.views.RankingView"
-          stylesheets="@css/ranking.css"
-          styleClass="main" fx:id="container">
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.morpionsolitaire.views.RankingView"
+      stylesheets="@css/ranking.css"
+      styleClass="main" fx:id="mainContainer">
 
 
-    <VBox styleClass="top-area-ranking">
+
+    <HBox styleClass="title-ranking">
+        <VBox styleClass="title-box" fx:id="titleBox">
+            <Label style="-fx-text-fill: WHITE">LEADERBOARD</Label>
+        </VBox>
+    </HBox>
+
+    <VBox fx:id="rankingListView" style="-fx-spacing: 10">
+
+            <fx:include source="RankingItem.fxml"/>
+            <fx:include source="RankingItem.fxml"/>
+            <fx:include source="RankingItem.fxml"/>
+            <fx:include source="RankingItem.fxml"/>
+
+
 
     </VBox>
 
 
-    <VBox styleClass="bottom-area-ranking">
-
-    </VBox>
-
-</TilePane>
+</VBox>
