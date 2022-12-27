@@ -23,7 +23,7 @@
     </fx:define>
 
     <VBox fx:id="labelContainer">
-            <ImageView image="$avatar"/>
+            <ImageView image="$goldMedal"/>
     </VBox>
 
     <VBox>

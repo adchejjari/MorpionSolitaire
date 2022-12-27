@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class Point extends Circle {
-    final static int SCALE = 35;
+    public final static int SCALE = 35;
     final static int RADIUS = 8;
     final static int TEXT_SIZE = 9;
     final private int coordinateX;
@@ -42,11 +42,19 @@ public class Point extends Circle {
         return visibility;
     }
 
-    private void setVisibility(){
+    public void setVisibility(){
         this.setFill(this.isVisibile() ? Color.BLACK : Color.TRANSPARENT);
     }
 
+
+    public void hide(){
+        this.visibility = false;
+        this.setFill(Color.TRANSPARENT);
+        this.value.setText("");
+    }
+
     public void onDotClick(){
+        System.out.println("clicked point");
         if (!this.isVisibile()){
             this.visibility = true;
             this.setVisibility();

@@ -89,7 +89,9 @@ public class Grid {
         int firstCellIndex = 0;
         this.matrix[line][column].setValue(1);
         for(int i=0; i<WIDTH; i++){
+            System.out.print(this.matrix[line][i].getValue());
             if(this.matrix[line][i].getValue()>0 && this.matrix[line][i].getLinkType() != LinkType.HORIZONTAL){
+                System.out.println("count : "+count);
                 if(count==0){
                     firstCellIndex = i; // save first cell to link
                 }
@@ -102,6 +104,7 @@ public class Grid {
                 count = 0;
             }
         }
+
         if(count==5){
             this.matrix[line][column].setLinkType(LinkType.HORIZONTAL);
             for(int i = firstCellIndex; i <= firstCellIndex + 4; i++){
@@ -222,5 +225,23 @@ public class Grid {
             return secondDiagonal;
         }
         return new Move(false, null, null);
+    }
+
+    public void resetCell(int i, int j){
+        this.matrix[i][j] = new Cell(i,j,0);
+        System.out.println("position : " + i + " " + j);
+        for (int k = 0; k< 16; k++){
+            for (int m=0 ; m<16 ; m++ ){
+                System.out.print(this.matrix[k][m].getValue());
+            }
+            System.out.println(" p");
+        }
+
+        for (int k = 0; k< 16; k++){
+            for (int m=0 ; m<16 ; m++ ){
+                System.out.print(this.matrix[k][m].getLinkType());
+            }
+            System.out.println(" p");
+        }
     }
 }

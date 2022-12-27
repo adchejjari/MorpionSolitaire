@@ -4,6 +4,7 @@ import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
+import com.example.morpionsolitaire.views.Point;
 
 import java.io.IOException;
 
@@ -32,6 +33,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public Move canLink(int i, int j) {
         return this.grid.canLink(i,j);
+    }
+
+    @Override
+    public void resetCell(int i, int j) {
+        this.grid.resetCell(i / Point.SCALE - 1, j / Point.SCALE - 1);
     }
 
     @Override
