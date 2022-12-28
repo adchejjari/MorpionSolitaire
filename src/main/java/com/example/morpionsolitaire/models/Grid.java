@@ -55,12 +55,12 @@ public class Grid {
     }
 
 
-    public Move canMoveVertically(int line, int column){ // rename to hasScoredVertical
+    public Link canJoinVertically(int line, int column){ // rename to hasScoredVertical
         int count = 0;
         int firstCellIndex = 0;
         this.matrix[line][column].setValue(1);
         for (int i = 0; i<HEIGHT; i++){
-            if(this.matrix[i][column].getValue()>0 && this.matrix[i][column].getLinkType() != LinkType.VERTICAL){
+            if(this.matrix[i][column].getValue()>0 && !this.matrix[i][column].isLinked(LinkType.VERTICAL)){
                 if(count==0){
                     firstCellIndex = i; // save first cell to link
                 }
@@ -74,23 +74,27 @@ public class Grid {
             }
         }
         if(count==5){
-            this.matrix[line][column].setLinkType(LinkType.VERTICAL);
+            this.matrix[line][column].setMainLink(LinkType.VERTICAL);
+            Cell[] items = new Cell[5];
             for(int i = firstCellIndex; i <= firstCellIndex + 4; i++){
-                this.matrix[i][column].setLinkType(LinkType.VERTICAL);
+                this.matrix[i][column].link(LinkType.VERTICAL);
+                items[i-firstCellIndex] = this.matrix[i][column];
             }
-            return new Move(true, new Position(firstCellIndex, column), new Position(firstCellIndex+4, column));
+            Link l = new Link(this.matrix[line][column], items, LinkType.VERTICAL);
+            this.matrix[line][column].setLink(l);
+            return l;
         }
         this.matrix[line][column].setValue(0);
-        return new Move(false, null, null);
+        return null;
     }
 
-    public Move canMoveHorizontally(int line, int column){
+    public Link canJoinHorizontally(int line, int column){
         int count = 0;
         int firstCellIndex = 0;
         this.matrix[line][column].setValue(1);
         for(int i=0; i<WIDTH; i++){
             System.out.print(this.matrix[line][i].getValue());
-            if(this.matrix[line][i].getValue()>0 && this.matrix[line][i].getLinkType() != LinkType.HORIZONTAL){
+            if(this.matrix[line][i].getValue()>0 && !this.matrix[line][i].isLinked(LinkType.HORIZONTAL)){
                 System.out.println("count : "+count);
                 if(count==0){
                     firstCellIndex = i; // save first cell to link
@@ -106,14 +110,19 @@ public class Grid {
         }
 
         if(count==5){
-            this.matrix[line][column].setLinkType(LinkType.HORIZONTAL);
+            this.matrix[line][column].setMainLink(LinkType.HORIZONTAL);
+            Cell[] items = new Cell[5];
             for(int i = firstCellIndex; i <= firstCellIndex + 4; i++){
-                this.matrix[line][i].setLinkType(LinkType.HORIZONTAL);
+                this.matrix[line][i].link(LinkType.HORIZONTAL);
+
+                items[i-firstCellIndex] = this.matrix[line][i];
             }
-            return new Move(true, new Position(line, firstCellIndex), new Position(line, firstCellIndex+4));
+            Link l = new Link(this.matrix[line][column],items, LinkType.HORIZONTAL);
+            this.matrix[line][column].setLink(l);
+            return l;
         }
         this.matrix[line][column].setValue(0);
-        return new Move(false, null, null);
+        return null;
     }
 
     public Position getSecondDiagonalInitPosition(int i, int j){
@@ -131,7 +140,7 @@ public class Grid {
         }
         return new Position(i,j);
     }
-    public Move hasScoredSecondDiagonal(int line, int column){
+    public Link canJoinSecondDiagonal(int line, int column){
         this.matrix[line][column].setValue(1);
         int count = 0;
         int firstCellLine = 0;
@@ -140,7 +149,8 @@ public class Grid {
         int tempLineIndex = initialPosition.getLine();
         int tempColumnIndex = initialPosition.getColumn();
         while(tempColumnIndex<WIDTH && tempLineIndex>0){
-            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 && this.matrix[tempLineIndex][tempColumnIndex].getLinkType() != LinkType.FIRST_DIAGONAL){
+            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 &&
+                    !this.matrix[tempLineIndex][tempColumnIndex].isLinked(LinkType.SECOND_DIAGONAL)){
                 if(count == 0){
                     firstCellLine = tempLineIndex;
                     firstCellColumn = tempColumnIndex;
@@ -157,18 +167,23 @@ public class Grid {
             tempLineIndex--;
         }
         if(count==5){
-            this.matrix[line][column].setLinkType(LinkType.FIRST_DIAGONAL);
+            this.matrix[line][column].setMainLink(LinkType.SECOND_DIAGONAL);
+            Cell[] items = new Cell[5];
             int j = firstCellColumn;
-            for(int i = firstCellLine; i > firstCellLine - 4; i--){
-                this.matrix[i][j].setLinkType(LinkType.FIRST_DIAGONAL);
+            for(int i = firstCellLine; i >= firstCellLine - 4; i--){
+                this.matrix[i][j].link(LinkType.SECOND_DIAGONAL);
+                items[j-firstCellColumn] = this.matrix[i][j];
+                System.out.println(items[j-firstCellColumn]);
                 j++;
             }
-            return new Move(true, new Position(firstCellLine, firstCellColumn), new Position(firstCellLine-4, firstCellColumn+4));
+            Link l = new Link(this.matrix[line][column], items, LinkType.SECOND_DIAGONAL);
+            this.matrix[line][column].setLink(l);
+            return l;
         }
         this.matrix[line][column].setValue(0);
-        return new Move(false, null, null);
+        return null;
     }
-    public Move hasScoredFirstDiagonal(int line, int column){
+    public Link canJoinFirstDiagonal(int line, int column){
         this.matrix[line][column].setValue(1);
         int count = 0;
         int firstCellLine = 0;
@@ -177,7 +192,8 @@ public class Grid {
         int tempLineIndex = initialPosition.getLine();
         int tempColumnIndex = initialPosition.getColumn();
         while(tempColumnIndex<WIDTH && tempLineIndex<HEIGHT){
-            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 && this.matrix[tempLineIndex][tempColumnIndex].getLinkType() != LinkType.SECOND_DIAGONAL){
+            if(this.matrix[tempLineIndex][tempColumnIndex].getValue()>0 &&
+                !this.matrix[tempLineIndex][tempColumnIndex].isLinked(LinkType.FIRST_DIAGONAL)){
                 if(count == 0){
                     firstCellLine = tempLineIndex;
                     firstCellColumn = tempColumnIndex;
@@ -195,53 +211,58 @@ public class Grid {
         }
 
         if(count==5){
-            this.matrix[line][column].setLinkType(LinkType.SECOND_DIAGONAL);
+            this.matrix[line][column].setMainLink(LinkType.SECOND_DIAGONAL);
+            Cell[] items = new Cell[5];
             int j = firstCellColumn;
             for(int i = firstCellLine; i <= firstCellLine + 4; i++){
-                this.matrix[i][j].setLinkType(LinkType.SECOND_DIAGONAL);
+                this.matrix[i][j].link(LinkType.SECOND_DIAGONAL);
+                items[i-firstCellLine] = this.matrix[i][j];
                 j++;
             }
-            return new Move(true, new Position(firstCellLine, firstCellColumn), new Position(firstCellLine+4, firstCellColumn+4));
+            Link l = new Link(this.matrix[line][column], items, LinkType.SECOND_DIAGONAL);
+            this.matrix[line][column].setLink(l);
+            return l;
         }
         this.matrix[line][column].setValue(0);
-        return new Move(false, null, null);
+        return null;
     }
 
-    public Move canLink(int line, int column){
-        Move firstDiagonalMove = this.hasScoredFirstDiagonal(line,column);
-        if (firstDiagonalMove.canMakeMove()){
+    public Link canLink(int line, int column){
+        Link firstDiagonalMove = this.canJoinFirstDiagonal(line,column);
+        if(firstDiagonalMove!=null){
             return firstDiagonalMove;
         }
-        Move verticalMove = this.canMoveVertically(line, column);
-        if (verticalMove.canMakeMove()){
-            return verticalMove;
-        }
-        Move horizontalMove = this.canMoveHorizontally(line, column);
-        if (horizontalMove.canMakeMove()) {
-            return horizontalMove;
-        }
-        Move secondDiagonal = this.hasScoredSecondDiagonal(line, column);
-        if (secondDiagonal.canMakeMove()) {
+        Link secondDiagonal = this.canJoinSecondDiagonal(line, column);
+        if(secondDiagonal!=null){
             return secondDiagonal;
         }
-        return new Move(false, null, null);
+        Link horizontal = this.canJoinHorizontally(line,column);
+        if(horizontal!=null){
+            return horizontal;
+        }
+        Link vertical = this.canJoinVertically(line, column);
+        if(vertical!=null){
+            return vertical;
+        }
+        return null;
     }
 
     public void resetCell(int i, int j){
-        this.matrix[i][j] = new Cell(i,j,0);
+        LinkType mainType = this.matrix[i][j].getMainLink();
+        Cell[] link = this.matrix[i][j].getLinkedNodes().getNodes();
+        for(Cell c : link){
+            this.matrix[c.getI()][c.getJ()].unlink(mainType);
+        }
+        this.matrix[i][j].setMainLink(LinkType.NONE);
+        this.matrix[i][j].unlink(mainType);
+        this.matrix[i][j].setValue(0);
         System.out.println("position : " + i + " " + j);
         for (int k = 0; k< 16; k++){
             for (int m=0 ; m<16 ; m++ ){
-                System.out.print(this.matrix[k][m].getValue());
+                System.out.print(this.matrix[k][m].getMainLink());
             }
             System.out.println(" p");
         }
 
-        for (int k = 0; k< 16; k++){
-            for (int m=0 ; m<16 ; m++ ){
-                System.out.print(this.matrix[k][m].getLinkType());
-            }
-            System.out.println(" p");
-        }
     }
 }

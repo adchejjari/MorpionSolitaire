@@ -1,27 +1,23 @@
 package com.example.morpionsolitaire.views;
 
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Link;
 import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.models.Position;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.TilePane;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 
 public class GameBoardView {
     List<Point> pointsQueue = new ArrayList<>();
-    List<Link> linksQueue = new ArrayList<>();
+    List<LinkWidget> linksQueue = new ArrayList<>();
     final static int BOARD_SIZE = 16;
     public Label scoreLabel;
     private GameBoardListener gameBoardListener;
@@ -51,20 +47,20 @@ public class GameBoardView {
                 int tempI = i; int tempJ = j;
                 point.setOnMouseClicked(event -> {
 
-                    Move moveToBePlayed = gameBoardListener.canLink(tempI, tempJ);
-                    System.out.println("hellooo!! can play " + moveToBePlayed.canMakeMove());
-                    if (moveToBePlayed.canMakeMove()) {
+                    Link moveToBePlayed = gameBoardListener.canLink(tempI, tempJ);
 
-                        Link link = new Link(moveToBePlayed.getPositionA(), moveToBePlayed.getPositionB());
+                    if (moveToBePlayed != null) {
+
+                        LinkWidget linkWidget = new LinkWidget(moveToBePlayed.getFirstNode(), moveToBePlayed.getLastNode());
                         point.onDotClick();
                         point.setValue(++scoreValue);
                         scoreLabel.setText(Integer.toString(scoreValue));
                         gameBoardListener.setCell(tempI, tempJ, 1);
-                        group.getChildren().add(link);
-                        link.toBack();
+                        group.getChildren().add(linkWidget);
+                        linkWidget.toBack();
                         group.getChildren().add(point.getValue());
                         pointsQueue.add(point);
-                        linksQueue.add(link);
+                        linksQueue.add(linkWidget);
                     }
                 });
                 group.getChildren().add(point);
@@ -124,7 +120,7 @@ public class GameBoardView {
         int getCell(int i, int j);
         boolean isCellEmpty(int i, int j);
         void updateGrid(Grid g);
-        Move canLink(int i, int j);
+        Link canLink(int i, int j);
         void resetCell(int i, int j);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.morpionsolitaire.controllers;
 
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Link;
 import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
@@ -30,8 +31,12 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     }
 
+    public void undo(int i, int j){
+
+    }
+
     @Override
-    public Move canLink(int i, int j) {
+    public Link canLink(int i, int j) {
         return this.grid.canLink(i,j);
     }
 

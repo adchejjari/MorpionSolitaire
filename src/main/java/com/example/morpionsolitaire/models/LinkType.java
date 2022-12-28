@@ -9,4 +9,5 @@ public enum LinkType {
     SECOND_DIAGONAL(4);
     private int type;
     LinkType(int t){ this.type = t;}
+
 }
