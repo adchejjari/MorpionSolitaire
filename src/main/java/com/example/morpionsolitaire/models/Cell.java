@@ -84,7 +84,6 @@ public class Cell {
                 break;
             }
         }
-        System.out.println("removed done");
     }
 }
 

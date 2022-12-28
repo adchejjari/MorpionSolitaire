@@ -95,7 +95,6 @@ public class Grid {
         for(int i=0; i<WIDTH; i++){
             System.out.print(this.matrix[line][i].getValue());
             if(this.matrix[line][i].getValue()>0 && !this.matrix[line][i].isLinked(LinkType.HORIZONTAL)){
-                System.out.println("count : "+count);
                 if(count==0){
                     firstCellIndex = i; // save first cell to link
                 }
@@ -173,7 +172,6 @@ public class Grid {
             for(int i = firstCellLine; i >= firstCellLine - 4; i--){
                 this.matrix[i][j].link(LinkType.SECOND_DIAGONAL);
                 items[j-firstCellColumn] = this.matrix[i][j];
-                System.out.println(items[j-firstCellColumn]);
                 j++;
             }
             Link l = new Link(this.matrix[line][column], items, LinkType.SECOND_DIAGONAL);
@@ -200,6 +198,7 @@ public class Grid {
                 }
                 count++;
                 if (count == 5){
+                    System.out.println("dirst diagonal");
                     break;
                 }
             }
@@ -211,15 +210,16 @@ public class Grid {
         }
 
         if(count==5){
-            this.matrix[line][column].setMainLink(LinkType.SECOND_DIAGONAL);
+            this.matrix[line][column].setMainLink(LinkType.FIRST_DIAGONAL);
             Cell[] items = new Cell[5];
             int j = firstCellColumn;
             for(int i = firstCellLine; i <= firstCellLine + 4; i++){
-                this.matrix[i][j].link(LinkType.SECOND_DIAGONAL);
+                this.matrix[i][j].link(LinkType.FIRST_DIAGONAL);
                 items[i-firstCellLine] = this.matrix[i][j];
+                System.out.println(this.matrix[i][j].getI() + " " + this.matrix[i][j].getJ());
                 j++;
             }
-            Link l = new Link(this.matrix[line][column], items, LinkType.SECOND_DIAGONAL);
+            Link l = new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL);
             this.matrix[line][column].setLink(l);
             return l;
         }
@@ -256,13 +256,5 @@ public class Grid {
         this.matrix[i][j].setMainLink(LinkType.NONE);
         this.matrix[i][j].unlink(mainType);
         this.matrix[i][j].setValue(0);
-        System.out.println("position : " + i + " " + j);
-        for (int k = 0; k< 16; k++){
-            for (int m=0 ; m<16 ; m++ ){
-                System.out.print(this.matrix[k][m].getMainLink());
-            }
-            System.out.println(" p");
-        }
-
     }
 }

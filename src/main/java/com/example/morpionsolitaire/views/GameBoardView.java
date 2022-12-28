@@ -88,17 +88,10 @@ public class GameBoardView {
     }
 
     public void reset() {
-        scoreValue = 0;
-        for(int i = 0; i<this.linksQueue.size();i++){
-            this.group.getChildren().removeAll(this.linksQueue.get(i));
-            this.pointsQueue.get(i).setVisibility();
-            this.group.getChildren().removeAll();
-            this.group.getChildren().removeAll(this.pointsQueue.get(i).getValue());
+        int played = this.linksQueue.size();
+        for (int i = 0; i<played; i++){
+            this.undo();
         }
-        this.linksQueue.clear();
-        this.pointsQueue.clear();
-        this.drawGrid();
-        this.scoreLabel.setText(Integer.toString(0));
     }
 
     public void undo(){
