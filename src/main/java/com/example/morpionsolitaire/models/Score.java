@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Score {
-    private String playerName;
-    private String date;
-    private int value;
+    private static String playerName;
+    private static String date;
+    public static int value;
 
 
     public Score(String name, int value, String date){
@@ -23,15 +23,15 @@ public class Score {
         this.playerName = "Guest";
     }
 
-    public int getValue(){
+    public static int getValue(){
         return value;
     }
 
-    public String getPlayerName(){
+    public static String getPlayerName(){
         return playerName;
     }
 
-    public String getDate(){
+    public static String getDate(){
         return date;
     }
 

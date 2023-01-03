@@ -8,8 +8,8 @@ public class Cell {
     final private int i;
     final private int j;
     private Set<LinkType> links;
-    private LinkType mainLink = LinkType.NONE;
-    private Link linkedNodes;
+    private static LinkType mainLink = LinkType.NONE;
+    private static Link linkedNodes;
 
     public Cell(int _i, int _j, int _v){
         this.i = _i;
@@ -22,7 +22,7 @@ public class Cell {
         linkedNodes = lnk;
     }
 
-    public Link getLinkedNodes(){
+    public static Link getLinkedNodes(){
         return linkedNodes;
     }
 
@@ -70,7 +70,7 @@ public class Cell {
         return this.mainLink;
     }
 
-    public boolean hasMainLink(){
+    public static boolean hasMainLink(){
         return mainLink != LinkType.NONE;
     }
 

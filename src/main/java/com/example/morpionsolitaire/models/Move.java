@@ -4,8 +4,8 @@ import javafx.geometry.Pos;
 
 public class Move {
     private boolean canMakeMove;
-    private Position positionA;
-    private Position positionB;
+    private static Position positionA;
+    private static Position positionB;
 
     public Move(boolean _canMove, Position a, Position b){
         canMakeMove = _canMove;
@@ -17,7 +17,7 @@ public class Move {
         return canMakeMove;
     }
 
-    public Position getPositionA(){
+    public static Position getPositionA(){
         return positionA;
     }
 
