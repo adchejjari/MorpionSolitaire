@@ -17,24 +17,17 @@ public class Grid {
 
     final static int WIDTH = 16;
     final static int HEIGHT = 16;
-
-    final static int EMPTY_CELL = 0;
-
     final private String defaultGrid = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
-
     private Cell[][] matrix = new Cell[WIDTH][WIDTH];
-
     private List<Link> possibleMoves;
-
     private boolean selectionInProcess = false;
-
     private List<Link> movesHistory = new ArrayList<>();
 
     public Grid() throws IOException {
         this.load();
     }
 
-    public void load() throws IOException {
+    private void load() throws IOException {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString() + defaultGrid;
         for (int i = 0 ; i< HEIGHT; i++) {
@@ -315,22 +308,18 @@ public class Grid {
         List<Link> possiblities = canLink(i,j);
         if (possiblities.size() == 1 && this.matrix[i][j].getValue()==0){
             Link possibleLink = possiblities.get(0);
-
             setSingleLink(possibleLink);
         }
         else if(possiblities.size()>1){
             this.possibleMoves = possiblities;
             setSelectionCells();
-            }
-
+        }
          if (this.matrix[i][j].canBeSelected()) {
             Link moveToPlay = getLinkFromSelectedcell(this.matrix[i][j]);
             removeSelection();
             setSingleLink(moveToPlay);
             this.possibleMoves = null;
-
         }
-        debug();
     }
 
     public void removeSelection(){
@@ -383,8 +372,13 @@ public class Grid {
         rootCell.setMainLink(LinkType.NONE);
         this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
         rootCell.setLink(null);
-        System.out.println(rootCell.getLinkedNodes());
-        //debug();
+        movesHistory.remove(index);
+
+    }
+
+
+    public List<Link> getMovesHistory(){
+        return movesHistory;
     }
 }
 

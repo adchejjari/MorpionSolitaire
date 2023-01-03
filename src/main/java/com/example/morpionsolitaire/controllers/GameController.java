@@ -32,6 +32,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     }
 
     @Override
+    public List<Link> getHistory() {
+        return grid.getMovesHistory();
+    }
+
+    @Override
     public List<Link> canLink(int i, int j) {
         return this.grid.canLink(i,j);
     }
@@ -59,13 +64,5 @@ public class GameController implements GameBoardView.GameBoardListener{
     public int getCell(int i, int j) {
         return grid.getCell(i,j).getValue();
     }
-    @Override
-    public Cell getCellParent(int i, int j){
-        return grid.getCell(i,j).getParent();
-    }
 
-    @Override
-    public Link getCellLink(int i, int j){
-        return grid.getCell(i,j).getParent().getLinkedNodes();
-    }
 }
