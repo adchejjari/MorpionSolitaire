@@ -20,7 +20,7 @@ public class Grid {
 
     final private String defaultGrid = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
 
-    private Cell[][] matrix = new Cell[WIDTH][WIDTH];
+    private static Cell[][] matrix = new Cell[WIDTH][WIDTH];
 
     public Grid() throws IOException {
         this.load();
@@ -42,7 +42,7 @@ public class Grid {
         matrix[line][column].setValue(value);
     }
 
-    public Cell getCell(int i, int j){
+    public static Cell getCell(int i, int j){
         return matrix[i][j];
     }
 
