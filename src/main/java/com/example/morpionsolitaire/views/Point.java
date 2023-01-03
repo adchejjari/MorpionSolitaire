@@ -1,5 +1,6 @@
 package com.example.morpionsolitaire.views;
 
+import com.example.morpionsolitaire.models.Link;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -12,70 +13,95 @@ public class Point extends Circle {
     final static int TEXT_SIZE = 9;
     final private int coordinateX;
     final private int coordinateY;
-    private boolean visibility;
-    private final int OFFSET = 1;
-    private Text value;
+    private static final int OFFSET = 1;
+    private Text textValue;
+    private int value;
 
-    public Point(int x, int y, boolean visible){
-        super((y+1)*SCALE, (x+1)*SCALE, RADIUS); // swap x & y cause the Circle class is based on Cartesian coordinates
-        this.coordinateX = (y+1)*SCALE;
-        this.coordinateY = (x+1)*SCALE;
-        this.visibility = visible;
+    Link link;
+
+    Point root;
+
+    private boolean choice = false;
+
+    public Point(int x, int y, int value){
+        super(( y + OFFSET) * SCALE, ( x + OFFSET) * SCALE, RADIUS); // swap x & y cause the Circle class is based on Cartesian coordinates
+        this.coordinateX = x;
+        this.coordinateY = y;
+        this.value = value;
         this.setVisibility();
-        this.value = null;
     }
 
-    public Point(int x, int y, boolean visible, int _value){
-        this(x,y,visible);
-        this.setValueText(_value);
-    }
 
-    public double getCoordinateX(){
+    public int getCoordinateX(){
         return this.coordinateX;
     }
 
-    public double getCoordinateY(){
+    public int getCoordinateY(){
         return this.coordinateY;
     }
 
     public boolean isVisibile(){
-        return visibility;
+        return this.value > 0;
     }
 
     public void setVisibility(){
-        this.setFill(this.isVisibile() ? Color.BLACK : Color.TRANSPARENT);
+        this.setFill( this.value > 0 ? Color.BLACK : Color.TRANSPARENT);
     }
 
 
     public void hide(){
-        this.visibility = false;
+        this.value = 0;
         this.setFill(Color.TRANSPARENT);
-        this.value.setText("");
+        this.textValue.setText("");
     }
 
-    public void onDotClick(){
-        System.out.println("clicked point");
+    public void onDotClick(int v){
+        this.value = v;
         if (!this.isVisibile()){
-            this.visibility = true;
             this.setVisibility();
+            this.setValueText();
         }
     }
 
-    public Text getValue(){
-        return value;
+    public void show(int v){
+        this.value = v;
+        this.setValueText();
+        this.setFill(Color.BLACK);
     }
 
-    public void setValue(int v){
-        setValueText(v);
+    public void toChoose(boolean c){ // add root maybe?
+        if (isVisibile()){
+            choice = c;
+            this.setFill( this.choice ? Color.RED : Color.BLACK);
+        }
     }
 
-    private void setValueText(int v){
-        this.value = new Text(Integer.toString(v));
-        value.setFont(Font.font(TEXT_SIZE));
-        value.setStyle("-fx-font-weight: bold");
-        double W = value.getBoundsInLocal().getWidth();
-        double H = value.getBoundsInLocal().getHeight();
-        value.relocate(this.getCoordinateX() - W / 2, this.getCoordinateY() - H / 2);
-        value.setFill(Color.WHITE);
+    public Link getLink(){
+        return this.link;
+    }
+
+    public Point getRootPoint(){
+        return root;
+    }
+
+    public boolean isPossibility(){
+        return choice;
+    }
+
+
+    private void setValueText(){
+        if(this.value > 1){
+            this.textValue = new Text(Integer.toString(this.value-1));
+            this.textValue.setFont(Font.font(TEXT_SIZE));
+            this.textValue.setStyle("-fx-font-weight: bold");
+            double W = this.textValue.getBoundsInLocal().getWidth();
+            double H = this.textValue.getBoundsInLocal().getHeight();
+            this.textValue.relocate((this.getCoordinateY() + 1) * SCALE - W / 2, (this.getCoordinateX() + 1) * SCALE - H / 2);
+            this.textValue.setFill(Color.WHITE);
+        }
+    }
+
+    public Text getTextValue(){
+        return this.textValue;
     }
 }

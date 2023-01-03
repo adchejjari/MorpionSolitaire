@@ -3,20 +3,36 @@ package com.example.morpionsolitaire.models;
 import java.util.*;
 
 public class Cell {
-
     private int value;
     final private int i;
     final private int j;
     private Set<LinkType> links;
+    Cell parent;
     private LinkType mainLink = LinkType.NONE;
     private Link linkedNodes;
+
+    private boolean canBeSelected = false;
 
     public Cell(int _i, int _j, int _v){
         this.i = _i;
         this.j = _j;
         this.value = _v;
         this.links = new HashSet<LinkType>();
+
     }
+
+    public boolean isLinking(){
+        return linkedNodes != null;
+    }
+
+    public void setCanBeSelected(boolean b){
+        canBeSelected = b;
+    }
+
+    public boolean canBeSelected(){
+        return canBeSelected;
+    }
+
 
     public void setLink(Link lnk){
         linkedNodes = lnk;
@@ -26,11 +42,10 @@ public class Cell {
         return linkedNodes;
     }
 
-    public void undoLink(){
-        for (Cell c: linkedNodes.getNodes()){
-            c.unlink(mainLink);
-        }
+    public Cell getParent(){
+        return this.parent;
     }
+
 
     public void link(LinkType lt){
         this.links.add(lt);
@@ -68,10 +83,6 @@ public class Cell {
 
     public LinkType getMainLink(){
         return this.mainLink;
-    }
-
-    public boolean hasMainLink(){
-        return mainLink != LinkType.NONE;
     }
 
     public void unlink(LinkType t){

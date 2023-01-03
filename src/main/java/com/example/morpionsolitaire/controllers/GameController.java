@@ -1,13 +1,13 @@
 package com.example.morpionsolitaire.controllers;
 
+import com.example.morpionsolitaire.models.Cell;
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Link;
-import com.example.morpionsolitaire.models.Move;
 import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
-import com.example.morpionsolitaire.views.Point;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GameController implements GameBoardView.GameBoardListener{
 
@@ -22,13 +22,9 @@ public class GameController implements GameBoardView.GameBoardListener{
     }
 
     @Override
-    public boolean isCellEmpty(int i, int j) {
-        return this.grid.isCellEmpty(i,j);
-    }
+    public Grid getUpdatedGrid() {
 
-    @Override
-    public void updateGrid(Grid g) {
-
+        return grid;
     }
 
     public void undo(int i, int j){
@@ -36,14 +32,23 @@ public class GameController implements GameBoardView.GameBoardListener{
     }
 
     @Override
-    public Link canLink(int i, int j) {
+    public List<Link> canLink(int i, int j) {
         return this.grid.canLink(i,j);
     }
 
     @Override
     public void resetCell(int i, int j) {
-        this.grid.resetCell(i / Point.SCALE - 1, j / Point.SCALE - 1);
+        this.grid.resetCell(i , j );
     }
+
+    @Override
+    public void playMove(int i, int j) {
+        this.grid.playMove(i,j);
+
+    }
+
+
+
 
     @Override
     public void setCell(int i, int j, int val) {
@@ -53,5 +58,14 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public int getCell(int i, int j) {
         return grid.getCell(i,j).getValue();
+    }
+    @Override
+    public Cell getCellParent(int i, int j){
+        return grid.getCell(i,j).getParent();
+    }
+
+    @Override
+    public Link getCellLink(int i, int j){
+        return grid.getCell(i,j).getParent().getLinkedNodes();
     }
 }

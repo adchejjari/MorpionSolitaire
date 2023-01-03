@@ -1,33 +1,34 @@
 package com.example.morpionsolitaire.views;
 
+import com.example.morpionsolitaire.models.Cell;
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Link;
-import com.example.morpionsolitaire.models.Move;
-import com.example.morpionsolitaire.models.Position;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class GameBoardView {
     List<Point> pointsQueue = new ArrayList<>();
     List<LinkWidget> linksQueue = new ArrayList<>();
+    List<Link> linkList = new ArrayList<>();
     final static int BOARD_SIZE = 16;
     public Label scoreLabel;
     private GameBoardListener gameBoardListener;
-
+    private Point[][] points = new Point[BOARD_SIZE][BOARD_SIZE];
     private int scoreValue = 0;
-
     @FXML
     public TilePane grid;
     @FXML
     public Group group;
+
+    List<Link> possibleMoves;
 
     private void drawGrid(){
         for (int i = 0; i <= BOARD_SIZE; i++){
@@ -35,44 +36,42 @@ public class GameBoardView {
                 Tile tile = new Tile(i, j);
                 group.getChildren().add(tile);
                 tile.toBack();
-
             }
         }
     }
 
     public void initializeCross(){
-        for (int i = 0; i < BOARD_SIZE; i++){
-            for(int j = 0; j < BOARD_SIZE; j++){
-                Point point = new Point(i, j, !gameBoardListener.isCellEmpty(i,j));
-                int tempI = i; int tempJ = j;
+        this.updateBoard();
+    }
+
+    public void updateBoard(){
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for(int j = 0; j < BOARD_SIZE; j++) {
+                int pointValue = this.gameBoardListener.getCell(i,j);
+                Point point = new Point(i,j, pointValue);
+                int finalJ = j;
+                int finalI = i;
                 point.setOnMouseClicked(event -> {
-
-                    Link moveToBePlayed = gameBoardListener.canLink(tempI, tempJ);
-
-                    if (moveToBePlayed != null) {
-
-                        LinkWidget linkWidget = new LinkWidget(moveToBePlayed.getFirstNode(), moveToBePlayed.getLastNode());
-                        point.onDotClick();
-                        point.setValue(++scoreValue);
-                        scoreLabel.setText(Integer.toString(scoreValue));
-                        gameBoardListener.setCell(tempI, tempJ, 1);
-                        group.getChildren().add(linkWidget);
-                        linkWidget.toBack();
-                        group.getChildren().add(point.getValue());
-                        pointsQueue.add(point);
-                        linksQueue.add(linkWidget);
-                    }
+                    gameBoardListener.playMove(finalI, finalJ);
+                    this.update();
                 });
                 group.getChildren().add(point);
+                points[i][j] = point;
             }
         }
     }
 
 
-    private void linkTwoPoints(Point p, Position a, Position b){
 
+    public void drawLink(Link l){
+        LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
+        this.group.getChildren().add(linkWidget);
     }
 
+
+    private void updateScore(int val){
+        scoreLabel.setText(Integer.toString(scoreValue));
+    }
 
     @FXML
     private void initialize() {
@@ -83,10 +82,6 @@ public class GameBoardView {
         this.gameBoardListener = gameListener;
     }
 
-    public void displayPopup(ActionEvent actionEvent) {
-
-    }
-
     public void reset() {
         int played = this.linksQueue.size();
         for (int i = 0; i<played; i++){
@@ -95,25 +90,44 @@ public class GameBoardView {
     }
 
     public void undo(){
-        int lastIndex = this.linksQueue.size() - 1;
-        if(lastIndex>=0){
-            this.group.getChildren().removeAll(this.linksQueue.get(lastIndex));
-            Point p =  this.pointsQueue.get(lastIndex);
-            p.hide();
-            this.group.getChildren().removeAll(this.pointsQueue.get(lastIndex).getValue());
-            this.linksQueue.remove(lastIndex);
-            this.pointsQueue.remove(lastIndex);
-            this.scoreLabel.setText(Integer.toString(--scoreValue));
-            this.gameBoardListener.resetCell((int)p.getCoordinateY(), (int)p.getCoordinateX());
+
+    }
+
+    public void update(){
+        Grid g = gameBoardListener.getUpdatedGrid();
+        for (int i = 0; i<BOARD_SIZE; i++){
+            for (int j = 0; j<BOARD_SIZE; j++){
+                if (g.getCell(i,j).isLinking()){
+                    this.drawLink(g.getCell(i,j).getLinkedNodes());
+                }
+                if (g.getCell(i,j).canBeSelected()){
+                    this.points[i][j].setFill(Color.RED);
+                } else if (g.getCell(i,j).getValue()==0) {
+                    this.points[i][j].setFill(Color.TRANSPARENT);
+                }else if (g.getCell(i,j).getValue()>0){
+                    this.points[i][j].setFill(Color.BLACK);
+                }
+            }
+
         }
+
     }
 
     public interface GameBoardListener{
         void setCell(int i, int j, int val);
         int getCell(int i, int j);
-        boolean isCellEmpty(int i, int j);
-        void updateGrid(Grid g);
-        Link canLink(int i, int j);
+        Grid getUpdatedGrid();
+        List<Link> canLink(int i, int j);
         void resetCell(int i, int j);
+
+        void playMove(int i, int j);
+
+
+
+        Cell getCellParent(int i, int j);
+        Link getCellLink(int i, int j);
+
+
+
     }
 }
