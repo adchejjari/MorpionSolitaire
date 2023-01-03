@@ -28,6 +28,8 @@ public class Grid {
 
     private boolean selectionInProcess = false;
 
+    private List<Link> movesHistory = new ArrayList<>();
+
     public Grid() throws IOException {
         this.load();
     }
@@ -233,7 +235,6 @@ public class Grid {
                 break;
             }
         }
-
         int upLinePivot = line - 1;
         int upColumnPivot = column + 1;
         int upCounter = 0;
@@ -248,8 +249,6 @@ public class Grid {
                 break;
             }
         }
-        int sum = downCounter + upCounter;
-        System.out.println(sum);
         upLinePivot++;
         upColumnPivot--;
         if (upCounter==0 && downCounter==4 || downCounter==0 && upCounter==4){
@@ -261,17 +260,14 @@ public class Grid {
             }
             possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
         }else if (upCounter+downCounter>=4) {
-            System.out.println("initial column : " + upColumnPivot);
             int j = upColumnPivot;
             for (int k = upLinePivot; k < upLinePivot + upCounter + downCounter - 3; k++) {
                 Cell[] items = new Cell[5];
                 int p = j;
                 for (int i = k; i <= k + 4; i++) {
                     items[i - k] = this.matrix[i][p];
-                    System.out.println(i + "  " + p);
                     p--;
                 }
-                System.out.println(" ------------------------------------------------------------ " );
                 j--;
                 possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
             }
@@ -305,11 +301,8 @@ public class Grid {
     }
     public void resetCell(int i, int j){
         LinkType mainType = this.matrix[i][j].getMainLink();
-
         Cell[] link = this.matrix[i][j].getLinkedNodes().getNodes();
-
         for(Cell c : link){
-            System.out.println("linked : " + c.getI() +"  " +c.getJ());
             this.matrix[c.getI()][c.getJ()].unlink(mainType);
         }
         this.matrix[i][j].setMainLink(LinkType.NONE);
@@ -359,13 +352,13 @@ public class Grid {
     }
 
     public void setSelectionCells(){
-    for(Link move: possibleMoves){
-        if(move.getFirstNode() == move.getRoot()){
-            move.getLastNode().setCanBeSelected(true);
-        }else{
-            move.getFirstNode().setCanBeSelected(true);
+        for(Link move: possibleMoves){
+            if(move.getFirstNode() == move.getRoot()){
+                move.getLastNode().setCanBeSelected(true);
+            }else{
+                move.getFirstNode().setCanBeSelected(true);
+            }
         }
-    }
     }
 
     public void setSingleLink(Link l){
@@ -376,7 +369,24 @@ public class Grid {
         }
         this.matrix[i][j].setLink(l);
         this.matrix[i][j].setValue(1);
+        this.movesHistory.add(l);
 
     }
+
+    public void undoLastMove(){
+        int index = this.movesHistory.size() - 1;
+        Link linkToRemove = this.movesHistory.get(index);
+        for (Cell c : linkToRemove.getNodes()){
+            c.unlink(linkToRemove.getLinkType());
+        }
+        Cell rootCell = linkToRemove.getRoot();
+        rootCell.setMainLink(LinkType.NONE);
+        this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
+        rootCell.setLink(null);
+        System.out.println(rootCell.getLinkedNodes());
+        //debug();
+    }
 }
+
+
 

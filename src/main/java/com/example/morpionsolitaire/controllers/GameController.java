@@ -23,11 +23,11 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public Grid getUpdatedGrid() {
-
         return grid;
     }
-
-    public void undo(int i, int j){
+     @Override
+    public void undo(){
+        this.grid.undoLastMove();
 
     }
 

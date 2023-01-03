@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoardView {
-    List<Point> pointsQueue = new ArrayList<>();
-    List<LinkWidget> linksQueue = new ArrayList<>();
-    List<Link> linkList = new ArrayList<>();
+    List<LinkWidget> linksHistory = new ArrayList<>();
     final static int BOARD_SIZE = 16;
     public Label scoreLabel;
     private GameBoardListener gameBoardListener;
@@ -65,6 +63,7 @@ public class GameBoardView {
 
     public void drawLink(Link l){
         LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
+        linksHistory.add(linkWidget);
         this.group.getChildren().add(linkWidget);
     }
 
@@ -83,13 +82,16 @@ public class GameBoardView {
     }
 
     public void reset() {
-        int played = this.linksQueue.size();
-        for (int i = 0; i<played; i++){
-            this.undo();
-        }
     }
 
     public void undo(){
+        int linkHistorySize = linksHistory.size();
+        if(linkHistorySize>0){
+            group.getChildren().remove(linksHistory.get(linkHistorySize-1));
+            this.gameBoardListener.undo();
+            this.update();
+
+        }
 
     }
 
@@ -121,6 +123,8 @@ public class GameBoardView {
         void resetCell(int i, int j);
 
         void playMove(int i, int j);
+
+        void undo();
 
 
 

@@ -86,10 +86,7 @@ public class Cell {
     }
 
     public void unlink(LinkType t){
-
         for (LinkType l : this.links){
-            System.out.print(l);
-            System.out.println("  ");
             if (t == l){
                 links.remove(t);
                 break;
