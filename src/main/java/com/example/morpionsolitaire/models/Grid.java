@@ -107,13 +107,6 @@ public class Grid {
         return possibleLinks;
     }
 
-    public void linkItems(Link l){
-        this.matrix[l.getRoot().getI()][l.getRoot().getJ()].setLink(l);
-        this.matrix[l.getRoot().getI()][l.getRoot().getJ()].setMainLink(l.getLinkType());
-        for (Cell c: l.getNodes()){
-            this.matrix[c.getI()][c.getJ()].link(l.getLinkType());
-        }
-    }
 
     public List<Link> canJoinVertically(int line, int column){ // rename to hasScoredVertical
         List<Link> possibleLinks = new ArrayList<>();
@@ -245,7 +238,8 @@ public class Grid {
         int upColumnPivot = column + 1;
         int upCounter = 0;
         while(upColumnPivot<WIDTH && upLinePivot>0 && upCounter<4){
-            if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 && !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
+            if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
+                !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
                 upLinePivot--;
                 upColumnPivot++;
                 upCounter++;
@@ -254,6 +248,8 @@ public class Grid {
                 break;
             }
         }
+        int sum = downCounter + upCounter;
+        System.out.println(sum);
         upLinePivot++;
         upColumnPivot--;
         if (upCounter==0 && downCounter==4 || downCounter==0 && upCounter==4){
@@ -265,15 +261,18 @@ public class Grid {
             }
             possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
         }else if (upCounter+downCounter>=4) {
+            System.out.println("initial column : " + upColumnPivot);
             int j = upColumnPivot;
             for (int k = upLinePivot; k < upLinePivot + upCounter + downCounter - 3; k++) {
                 Cell[] items = new Cell[5];
                 int p = j;
                 for (int i = k; i <= k + 4; i++) {
                     items[i - k] = this.matrix[i][p];
+                    System.out.println(i + "  " + p);
                     p--;
                 }
-                j++;
+                System.out.println(" ------------------------------------------------------------ " );
+                j--;
                 possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
             }
         }
@@ -283,11 +282,11 @@ public class Grid {
     public List<Link> canLink(int line, int column){
         List<Link> links = new ArrayList<>();
 
-        //links.addAll(this.canJoinVertically(line, column));
+        links.addAll(this.canJoinVertically(line, column));
 
-        //links.addAll(this.horizontalJoin(line, column));
+        links.addAll(this.horizontalJoin(line, column));
 
-        //links.addAll(this.canJoinSecondDiagonal(line, column));
+        links.addAll(this.canJoinSecondDiagonal(line, column));
 
         links.addAll(this.canJoinFirstDiagonal(line, column));
 
@@ -316,7 +315,7 @@ public class Grid {
         this.matrix[i][j].setMainLink(LinkType.NONE);
         this.matrix[i][j].unlink(mainType);
         this.matrix[i][j].setValue(0);
-        debug();
+        //debug();
     }
 
     public void playMove(int i, int j) {
@@ -331,13 +330,13 @@ public class Grid {
             setSelectionCells();
             }
 
-         /*if (this.matrix[i][j].canBeSelected()) {
+         if (this.matrix[i][j].canBeSelected()) {
             Link moveToPlay = getLinkFromSelectedcell(this.matrix[i][j]);
             removeSelection();
             setSingleLink(moveToPlay);
             this.possibleMoves = null;
 
-        }*/
+        }
         debug();
     }
 
