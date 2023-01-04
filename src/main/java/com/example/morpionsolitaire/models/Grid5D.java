@@ -315,25 +315,10 @@ public class Grid5D extends Grid {
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
-        this.matrix[i][j].setValue(1);
+        this.matrix[i][j].setValue(++scoreValue + 1);
         this.movesHistory.add(l);
 
     }
-
-    /*public void undoLastMove(){
-        int index = this.movesHistory.size() - 1;
-        Link linkToRemove = this.movesHistory.get(index);
-        for (Cell c : linkToRemove.getNodes()){
-            c.unlink(linkToRemove.getLinkType());
-        }
-        Cell rootCell = linkToRemove.getRoot();
-        rootCell.setMainLink(LinkType.NONE);
-        this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
-        rootCell.setLink(null);
-        movesHistory.remove(index);
-
-    }*/
-
 
 }
 

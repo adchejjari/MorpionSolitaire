@@ -1,16 +1,10 @@
 package com.example.morpionsolitaire.views;
 
 import com.example.morpionsolitaire.models.Grid;
-import com.example.morpionsolitaire.models.Cell;
-import com.example.morpionsolitaire.models.Grid5D;
-import com.example.morpionsolitaire.models.Grid5T;
 import com.example.morpionsolitaire.models.Link;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
@@ -18,7 +12,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +26,8 @@ public class GameBoardView {
     public TilePane grid;
     @FXML
     public Group group;
+
+    int score = 0;
 
     private boolean startGame = false;
 
@@ -80,10 +75,17 @@ public class GameBoardView {
         LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
         linkWidget.toBack();
         this.group.getChildren().add(linkWidget);
+        updateScore(l);
+
     }
 
-    private void updateScore(int val){
-        scoreLabel.setText(Integer.toString(scoreValue));
+    private void updateScore(Link l){
+        int score = this.gameBoardListener.getScoreValue();
+        scoreLabel.setText(Integer.toString(score));
+        int i = l.getRoot().getI();
+        int j = l.getRoot().getJ();
+        points[i][j].setValueText(gameBoardListener.getCell(i,j) - 2);
+        group.getChildren().add(points[i][j].getTextValue());
     }
 
     @FXML
@@ -147,9 +149,7 @@ public class GameBoardView {
 
         void startGame(int gameType) throws IOException;
 
-
-
-
+        int getScoreValue();
 
     }
 }

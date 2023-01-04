@@ -346,7 +346,7 @@ public class Grid5T extends Grid{
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
-        this.matrix[i][j].setValue(1);
+        this.matrix[i][j].setValue(++scoreValue + 1);
         this.movesHistory.add(l);
         setExtremities(l);
     }

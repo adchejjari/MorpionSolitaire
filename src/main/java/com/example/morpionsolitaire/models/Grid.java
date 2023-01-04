@@ -18,6 +18,8 @@ public abstract class Grid {
     private boolean selectionInProcess = false;
     protected List<Link> movesHistory = new ArrayList<>();
 
+    protected int scoreValue = 1;
+
     public static Cell getCell(int i, int j){
         return matrix[i][j];
     }
@@ -104,9 +106,8 @@ public abstract class Grid {
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
-        this.matrix[i][j].setValue(1);
+        this.matrix[i][j].setValue(++scoreValue  + 1);
         this.movesHistory.add(l);
-
     }
 
     public Link getLinkFromSelectedcell(Cell c){
@@ -127,6 +128,10 @@ public abstract class Grid {
                 move.getFirstNode().setCanBeSelected(true);
             }
         }
+    }
+
+    public int getScoreValue(){
+        return scoreValue - 1;
     }
 
     public abstract List<Link> canLink(int line, int column);

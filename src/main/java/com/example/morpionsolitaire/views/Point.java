@@ -16,12 +16,9 @@ public class Point extends Circle {
     private static final int OFFSET = 1;
     private Text textValue;
     private int value;
-
     Link link;
-
     Point root;
-
-    private boolean choice = false;
+    private boolean toChoose = false;
 
     public Point(int x, int y, int value){
         super(( y + OFFSET) * SCALE, ( x + OFFSET) * SCALE, RADIUS); // swap x & y cause the Circle class is based on Cartesian coordinates
@@ -55,24 +52,17 @@ public class Point extends Circle {
         this.textValue.setText("");
     }
 
-    public void onDotClick(int v){
-        this.value = v;
-        if (!this.isVisibile()){
-            this.setVisibility();
-            this.setValueText();
-        }
-    }
 
     public void show(int v){
         this.value = v;
-        this.setValueText();
+        this.setValueText(v);
         this.setFill(Color.BLACK);
     }
 
     public void toChoose(boolean c){ // add root maybe?
         if (isVisibile()){
-            choice = c;
-            this.setFill( this.choice ? Color.RED : Color.BLACK);
+            toChoose = c;
+            this.setFill( this.toChoose ? Color.RED : Color.BLACK);
         }
     }
 
@@ -85,20 +75,22 @@ public class Point extends Circle {
     }
 
     public boolean isPossibility(){
-        return choice;
+        return toChoose;
     }
 
 
-    private void setValueText(){
-        if(this.value > 1){
-            this.textValue = new Text(Integer.toString(this.value-1));
-            this.textValue.setFont(Font.font(TEXT_SIZE));
-            this.textValue.setStyle("-fx-font-weight: bold");
-            double W = this.textValue.getBoundsInLocal().getWidth();
-            double H = this.textValue.getBoundsInLocal().getHeight();
-            this.textValue.relocate((this.getCoordinateY() + 1) * SCALE - W / 2, (this.getCoordinateX() + 1) * SCALE - H / 2);
-            this.textValue.setFill(Color.WHITE);
-        }
+    public void setValueText(int v){
+        this.textValue = new Text(Integer.toString(v));
+        this.textValue.setFont(Font.font(TEXT_SIZE));
+        this.textValue.setStyle("-fx-font-weight: bold");
+        double W = this.textValue.getBoundsInLocal().getWidth();
+        double H = this.textValue.getBoundsInLocal().getHeight();
+        this.textValue.relocate((this.getCoordinateY() + 1) * SCALE - W / 2, (this.getCoordinateX() + 1) * SCALE - H / 2);
+        this.textValue.setFill(Color.WHITE);
+    }
+
+    private void resetValueText(){
+        this.textValue.setText("");
     }
 
     public Text getTextValue(){

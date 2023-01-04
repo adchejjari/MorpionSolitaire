@@ -47,6 +47,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     }
 
     @Override
+    public int getScoreValue() {
+        return this.grid.getScoreValue();
+    }
+
+    @Override
     public List<Link> canLink(int i, int j) {
         return this.grid.canLink(i,j);
     }
@@ -62,7 +67,6 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     }
 
-
     @Override
     public void setCell(int i, int j, int val) {
         this.grid.setCell(i,j,val);
@@ -70,6 +74,7 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public int getCell(int i, int j) {
+        System.out.println("score is : " + Grid.getCell(i,j).getValue());
         return Grid.getCell(i,j).getValue();
     }
 
