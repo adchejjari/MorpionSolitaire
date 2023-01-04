@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ComboBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.morpionsolitaire.views.GameBoardView"
@@ -19,17 +20,25 @@
 
     <VBox  styleClass="setting-container">
         <HBox spacing="50" alignment="CENTER">
-            <VBox styleClass="score-box">
-                <Label styleClass="label">YOUR SCORE</Label>
-                <Label styleClass="score-label" fx:id="scoreLabel">0</Label>
+            <VBox spacing="50">
+                <HBox spacing="50">
+                    <VBox styleClass="score-box">
+                        <Label styleClass="label">YOUR SCORE</Label>
+                        <Label styleClass="score-label" fx:id="scoreLabel">0</Label>
+                    </VBox>
+                    <HBox  styleClass="score-box">
+                        <ImageView image="$goldMedal"/>
+                        <VBox alignment="CENTER">
+                            <Label styleClass="label">HIGH SCORE</Label>
+                            <Label styleClass="score-label" fx:id="highScore">200</Label>
+                        </VBox>
+                    </HBox>
+                </HBox>
+                <HBox spacing="50">
+                    <ComboBox fx:id="gameComboBox"/>
+                    <Button fx:id="playButton" onAction="#startGame">Play</Button>
+                </HBox>
             </VBox>
-            <HBox  styleClass="score-box">
-                <ImageView image="$goldMedal"/>
-                <VBox alignment="CENTER">
-                    <Label styleClass="label">HIGH SCORE</Label>
-                    <Label styleClass="score-label" fx:id="highScore">200</Label>
-                </VBox>
-            </HBox>
 
             <VBox spacing="20" alignment="CENTER">
                 <Button onAction="#reset">Restart</Button>
@@ -38,9 +47,6 @@
             </VBox>
 
         </HBox>
-
-
-
 
     </VBox>
 

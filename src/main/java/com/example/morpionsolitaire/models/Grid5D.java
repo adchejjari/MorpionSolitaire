@@ -1,62 +1,19 @@
 package com.example.morpionsolitaire.models;
 
-
-import com.example.morpionsolitaire.views.Point;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Grid5T extends Grid{
+public class Grid5D extends Grid {
 
-    final static int WIDTH = 16;
-    final static int HEIGHT = 16;
-    final private String defaultGrid = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
-    private Cell[][] matrix = new Cell[WIDTH][WIDTH];
-    private List<Link> possibleMoves;
-    private boolean selectionInProcess = false;
-    private List<Link> movesHistory = new ArrayList<>();
 
-    public Grid5T() throws IOException {
+
+    public Grid5D() throws IOException {
         this.load();
     }
-
-    /*private void load() throws IOException {
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString() + defaultGrid;
-        for (int i = 0 ; i< HEIGHT; i++) {
-            String read = Files.readAllLines(Paths.get(s)).get(i);
-            String[] line = read.split("");
-            for (int j = 0; j < WIDTH; j++){
-                matrix[i][j] = new Cell(i, j, Integer.parseInt(line[j]));
-            }
-        }
-    }*/
-
-    public void setCell(int line, int column, int value){
-        matrix[line][column].setValue(value);
-    }
-
-    public Cell getCell(int i, int j){
-        return matrix[i][j];
-    }
-
-    public Cell[][] getMatrix(){
-        return matrix;
-    }
-
-    public boolean isCellEmpty(int i, int j){
-        return matrix[i][j].getValue() == 0;
-    }
-
-
 
 
     public List<Link> horizontalJoin(int line, int column){
@@ -67,9 +24,7 @@ public class Grid5T extends Grid{
         int RightCounter = 0;
         while (leftPivot>=0 && leftCounter < 4){
             if (this.matrix[line][leftPivot].getValue()>0 &&
-                    !this.matrix[line][leftPivot].isLinked(LinkType.HORIZONTAL) ||
-                    this.matrix[line][leftPivot].isExtremity()){
-                System.out.println(this.matrix[line][leftPivot].isExtremity());
+                !this.matrix[line][leftPivot].isLinked(LinkType.HORIZONTAL)){
                 leftCounter++;
                 leftPivot--;
             }else{
@@ -78,8 +33,7 @@ public class Grid5T extends Grid{
         }
         while(rightPivot< WIDTH && RightCounter < 4){
             if (this.matrix[line][rightPivot].getValue()>0 &&
-                    !this.matrix[line][rightPivot].isLinked(LinkType.HORIZONTAL) ||
-                    this.matrix[line][rightPivot].isExtremity()){
+                !this.matrix[line][rightPivot].isLinked(LinkType.HORIZONTAL)){
                 RightCounter++;
                 rightPivot++;
             }else{
@@ -115,8 +69,7 @@ public class Grid5T extends Grid{
         int downCounter = 0;
         while (upPivot>=0 && upCounter < 4){
             if (this.matrix[upPivot][column].getValue()>0 &&
-                    !this.matrix[upPivot][column].isLinked(LinkType.VERTICAL)||
-                    this.matrix[upPivot][column].isExtremity()){
+                !this.matrix[upPivot][column].isLinked(LinkType.VERTICAL)){
                 upCounter++;
                 upPivot--;
             }else{
@@ -125,8 +78,7 @@ public class Grid5T extends Grid{
         }
         while(downPivot< WIDTH && downCounter < 4){
             if (this.matrix[downPivot][column].getValue()>0 &&
-                    !this.matrix[downPivot][column].isLinked(LinkType.VERTICAL)||
-                    this.matrix[downPivot][column].isExtremity()){
+                !this.matrix[downPivot][column].isLinked(LinkType.VERTICAL)){
                 downCounter++;
                 downPivot++;
             }else{
@@ -135,6 +87,7 @@ public class Grid5T extends Grid{
         }
         upPivot++;
         if (upCounter==0 && downCounter==4|| downCounter==0 && upCounter==4){
+
             Cell[] items = new Cell[5];
             for(int i = upPivot; i <= upPivot + 4; i++){
                 items[i-upPivot] = this.matrix[i][column];
@@ -163,8 +116,7 @@ public class Grid5T extends Grid{
 
         while(downLinePivot<HEIGHT && downColumnPivot<WIDTH && downCounter<4){
             if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)||
-                    this.matrix[downLinePivot][downColumnPivot].isExtremity()){
+                !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
                 downLinePivot++;
                 downColumnPivot++;
                 downCounter++;
@@ -180,8 +132,7 @@ public class Grid5T extends Grid{
         int upCounter = 0;
         while(upColumnPivot>0 && upLinePivot>0 && upCounter<4){
             if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)||
-                    this.matrix[upLinePivot][upColumnPivot].isExtremity()){
+                !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
                 upLinePivot--;
                 upColumnPivot--;
                 upCounter++;
@@ -226,8 +177,7 @@ public class Grid5T extends Grid{
 
         while(downLinePivot<HEIGHT && downColumnPivot>0 && downCounter<4){
             if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)||
-                    this.matrix[downLinePivot][downColumnPivot].isExtremity()){
+                !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
                 downLinePivot++;
                 downColumnPivot--;
                 downCounter++;
@@ -241,8 +191,7 @@ public class Grid5T extends Grid{
         int upCounter = 0;
         while(upColumnPivot<WIDTH && upLinePivot>0 && upCounter<4){
             if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)||
-                    this.matrix[upLinePivot][upColumnPivot].isExtremity()){
+                !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
                 upLinePivot--;
                 upColumnPivot++;
                 upCounter++;
@@ -323,7 +272,7 @@ public class Grid5T extends Grid{
             this.possibleMoves = possiblities;
             setSelectionCells();
         }
-        if (this.matrix[i][j].canBeSelected()) {
+         if (this.matrix[i][j].canBeSelected()) {
             Link moveToPlay = getLinkFromSelectedcell(this.matrix[i][j]);
             removeSelection();
             setSingleLink(moveToPlay);
@@ -331,15 +280,15 @@ public class Grid5T extends Grid{
         }
     }
 
-    public void removeSelection(){
+    /*public void removeSelection(){
         for(int i = 0; i < HEIGHT; i++){
             for (int j = 0; j<WIDTH;j++){
                 this.matrix[i][j].setCanBeSelected(false);
             }
         }
-    }
+    }*/
 
-    public Link getLinkFromSelectedcell(Cell c){
+    /*public Link getLinkFromSelectedcell(Cell c){
         for(Link link: this.possibleMoves){
             if (c==link.getFirstNode() || c==link.getLastNode()){
                 return link;
@@ -347,8 +296,8 @@ public class Grid5T extends Grid{
         }
         return null;
 
-    }
-
+    }*/
+    /*
     public void setSelectionCells(){
         for(Link move: possibleMoves){
             if(move.getFirstNode() == move.getRoot()){
@@ -357,7 +306,7 @@ public class Grid5T extends Grid{
                 move.getFirstNode().setCanBeSelected(true);
             }
         }
-    }
+    }*/
 
     public void setSingleLink(Link l){
         int i = l.getRoot().getI();
@@ -368,14 +317,7 @@ public class Grid5T extends Grid{
         this.matrix[i][j].setLink(l);
         this.matrix[i][j].setValue(1);
         this.movesHistory.add(l);
-        setExtremities(l);
-    }
 
-    public void setExtremities(Link l){
-        Cell firstExtremity = l.getFirstNode();
-        Cell lastExtremity = l.getLastNode();
-        this.matrix[firstExtremity.getI()][firstExtremity.getJ()].setExtremity(true);
-        this.matrix[lastExtremity.getI()][lastExtremity.getJ()].setExtremity(true);
     }
 
     public void undoLastMove(){
@@ -393,9 +335,6 @@ public class Grid5T extends Grid{
     }
 
 
-    public List<Link> getMovesHistory(){
-        return movesHistory;
-    }
 }
 
 

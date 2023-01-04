@@ -1,7 +1,7 @@
 package com.example.morpionsolitaire.controllers;
-
-import com.example.morpionsolitaire.models.Cell;
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Grid5D;
+import com.example.morpionsolitaire.models.Grid5T;
 import com.example.morpionsolitaire.models.Link;
 import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
@@ -12,7 +12,7 @@ import java.util.List;
 public class GameController implements GameBoardView.GameBoardListener{
 
     private GameBoardView viewController;
-    private Grid grid = new Grid();
+    private Grid grid = new Grid5D();
     private Score score = new Score();
 
     public GameController(GameBoardView _viewController) throws IOException {
@@ -51,8 +51,6 @@ public class GameController implements GameBoardView.GameBoardListener{
         this.grid.playMove(i,j);
 
     }
-
-
 
 
     @Override

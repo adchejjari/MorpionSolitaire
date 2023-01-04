@@ -1,12 +1,17 @@
 package com.example.morpionsolitaire.views;
 
-import com.example.morpionsolitaire.models.Cell;
 import com.example.morpionsolitaire.models.Grid;
+import com.example.morpionsolitaire.models.Cell;
+import com.example.morpionsolitaire.models.Grid5D;
+import com.example.morpionsolitaire.models.Grid5T;
 import com.example.morpionsolitaire.models.Link;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.TilePane;
@@ -14,10 +19,12 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameBoardView {
     final static int BOARD_SIZE = 16;
     public Label scoreLabel;
+    public ComboBox<String> gameComboBox;
     private GameBoardListener gameBoardListener;
     private Point[][] points = new Point[BOARD_SIZE][BOARD_SIZE];
     private int scoreValue = 0;
@@ -25,6 +32,13 @@ public class GameBoardView {
     public TilePane grid;
     @FXML
     public Group group;
+
+    private boolean startGame = false;
+
+    public static int GAME_5D = 0;
+    public static int GAME_5T = 1;
+
+
     private void drawGrid(){
         for (int i = 0; i <= BOARD_SIZE; i++){
             for (int j = 0; j <= BOARD_SIZE; j++){
@@ -36,6 +50,8 @@ public class GameBoardView {
     }
 
     public void initializeCross(){
+
+        this.gameComboBox.setItems(FXCollections.observableArrayList("5D Game", "5T Game"));
         this.updateBoard();
     }
 
@@ -52,6 +68,7 @@ public class GameBoardView {
                 });
                 group.getChildren().add(point);
                 points[i][j] = point;
+                point.toFront();
             }
         }
     }
@@ -61,6 +78,7 @@ public class GameBoardView {
 
     public void drawLink(Link l){
         LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
+        linkWidget.toBack();
         this.group.getChildren().add(linkWidget);
     }
 
@@ -99,10 +117,18 @@ public class GameBoardView {
                 } else if (g.getCell(i,j).getValue()>0){
                     this.points[i][j].setFill(Color.BLACK);
                 }
+                this.points[i][j].toFront();
             }
         }
         for (Link l : gameBoardListener.getHistory()){
             drawLink(l);
+        }
+    }
+
+    public void startGame(ActionEvent actionEvent) {
+        if (!Objects.equals(gameComboBox.getValue(), "")){
+            this.startGame = true;
+
         }
     }
 
@@ -117,6 +143,8 @@ public class GameBoardView {
 
         void undo();
         List<Link> getHistory();
+
+
 
 
 

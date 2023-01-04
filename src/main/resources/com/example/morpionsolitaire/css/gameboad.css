@@ -72,3 +72,32 @@
     -fx-font-weight: bold;
     -fx-text-fill: rgb(0, 0, 0);
 }
+
+.combo-box {
+    -fx-cursor: hand;
+    -fx-background-color: #7043EF;
+    -fx-border-color: #7043EF;
+    -fx-border-width: 2;
+    -fx-padding: 0 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+.combo-box .text{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #7043EF;
+    -fx-border-radius: 2;
+}
+
+.combo-box.legacy .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}

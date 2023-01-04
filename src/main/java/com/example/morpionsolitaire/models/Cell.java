@@ -10,8 +10,9 @@ public class Cell {
     Cell parent;
     private LinkType mainLink = LinkType.NONE;
     private Link linkedNodes;
-
     private boolean canBeSelected = false;
+
+    private boolean extremity = false;
 
     public Cell(int _i, int _j, int _v){
         this.i = _i;
@@ -20,6 +21,16 @@ public class Cell {
         this.links = new HashSet<LinkType>();
 
     }
+
+    public boolean isExtremity(){
+        return extremity;
+    }
+
+    public void setExtremity(boolean b){
+        extremity = b;
+    }
+
+
 
     public boolean isLinking(){
         return linkedNodes != null;
