@@ -12,12 +12,13 @@ import java.util.List;
 public class GameController implements GameBoardView.GameBoardListener{
 
     private GameBoardView viewController;
-    private Grid grid = new Grid5D();
+    private Grid grid;
     private Score score = new Score();
 
     public GameController(GameBoardView _viewController) throws IOException {
         this.viewController = _viewController;
         viewController.setGameBoardListener(this);
+        Grid.load();
         viewController.initializeCross();
     }
 
@@ -34,6 +35,15 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public List<Link> getHistory() {
         return grid.getMovesHistory();
+    }
+
+    @Override
+    public void startGame(int gameType) throws IOException {
+        if (gameType == GameBoardView.GAME_5D){
+            grid = new Grid5D();
+        }else{
+            grid = new Grid5T();
+        }
     }
 
     @Override
@@ -60,7 +70,7 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public int getCell(int i, int j) {
-        return grid.getCell(i,j).getValue();
+        return Grid.getCell(i,j).getValue();
     }
 
 }

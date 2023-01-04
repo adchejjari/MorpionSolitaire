@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,17 +64,16 @@ public class GameBoardView {
                 int finalJ = j;
                 int finalI = i;
                 point.setOnMouseClicked(event -> {
-                    gameBoardListener.playMove(finalI, finalJ);
-                    this.update();
+                    if (startGame){
+                        gameBoardListener.playMove(finalI, finalJ);
+                        this.update();
+                    }
                 });
                 group.getChildren().add(point);
                 points[i][j] = point;
                 point.toFront();
             }
         }
-    }
-    public void resetLinks(){
-        //group.getChildren().removeAll();
     }
 
     public void drawLink(Link l){
@@ -125,10 +125,11 @@ public class GameBoardView {
         }
     }
 
-    public void startGame(ActionEvent actionEvent) {
+    public void startGame() throws IOException {
         if (!Objects.equals(gameComboBox.getValue(), "")){
             this.startGame = true;
-
+            int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
+            this.gameBoardListener.startGame(game);
         }
     }
 
@@ -143,6 +144,8 @@ public class GameBoardView {
 
         void undo();
         List<Link> getHistory();
+
+        void startGame(int gameType) throws IOException;
 
 
 

@@ -320,7 +320,7 @@ public class Grid5D extends Grid {
 
     }
 
-    public void undoLastMove(){
+    /*public void undoLastMove(){
         int index = this.movesHistory.size() - 1;
         Link linkToRemove = this.movesHistory.get(index);
         for (Cell c : linkToRemove.getNodes()){
@@ -332,7 +332,7 @@ public class Grid5D extends Grid {
         rootCell.setLink(null);
         movesHistory.remove(index);
 
-    }
+    }*/
 
 
 }

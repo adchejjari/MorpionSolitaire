@@ -11,20 +11,20 @@ public abstract class Grid {
 
     final static int WIDTH = 16;
     final static int HEIGHT = 16;
-    final private String defaultGrid = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
-    protected Cell[][] matrix = new Cell[WIDTH][WIDTH];
+    final private static String DEFAULT_GRID = "/src/main/java/com/example/morpionsolitaire/grids/default.grid";
+    static protected Cell[][] matrix = new Cell[WIDTH][WIDTH];
 
     protected List<Link> possibleMoves;
     private boolean selectionInProcess = false;
     protected List<Link> movesHistory = new ArrayList<>();
 
-    public Cell getCell(int i, int j){
+    public static Cell getCell(int i, int j){
         return matrix[i][j];
     }
 
-    protected void load() throws IOException {
+    public static void load() throws IOException {
         Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString() + defaultGrid;
+        String s = currentRelativePath.toAbsolutePath().toString() + DEFAULT_GRID;
         for (int i = 0 ; i< HEIGHT; i++) {
             String read = Files.readAllLines(Paths.get(s)).get(i);
             String[] line = read.split("");
@@ -40,16 +40,17 @@ public abstract class Grid {
 
     public void undoLastMove(){
         int index = this.movesHistory.size() - 1;
-        Link linkToRemove = this.movesHistory.get(index);
-        for (Cell c : linkToRemove.getNodes()){
-            c.unlink(linkToRemove.getLinkType());
+        if (index>= 0) {
+            Link linkToRemove = this.movesHistory.get(index);
+            for (Cell c : linkToRemove.getNodes()) {
+                c.unlink(linkToRemove.getLinkType());
+            }
+            Cell rootCell = linkToRemove.getRoot();
+            rootCell.setMainLink(LinkType.NONE);
+            this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
+            rootCell.setLink(null);
+            movesHistory.remove(index);
         }
-        Cell rootCell = linkToRemove.getRoot();
-        rootCell.setMainLink(LinkType.NONE);
-        this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
-        rootCell.setLink(null);
-        movesHistory.remove(index);
-
     }
 
     public List<Link> getMovesHistory(){
