@@ -48,8 +48,8 @@ public class Grid5T extends Grid{
         int RightCounter = 0;
         while (leftPivot>=0 && leftCounter < 4){
             if (this.matrix[line][leftPivot].getValue()>0 &&
-                    (!this.matrix[line][leftPivot].isLinked(LinkType.HORIZONTAL) /*||
-                    this.matrix[line][leftPivot].isExtremity()*/)){
+                    (!this.matrix[line][leftPivot].isLinked(LinkType.HORIZONTAL) ||
+                    this.matrix[line][leftPivot].isExtremity())){
                 leftCounter++;
                 leftPivot--;
             }else{
@@ -58,8 +58,8 @@ public class Grid5T extends Grid{
         }
         while(rightPivot< WIDTH && RightCounter < 4){
             if (this.matrix[line][rightPivot].getValue()>0 &&
-                    (!this.matrix[line][rightPivot].isLinked(LinkType.HORIZONTAL) /*||
-                    this.matrix[line][rightPivot].isExtremity()*/)){
+                    (!this.matrix[line][rightPivot].isLinked(LinkType.HORIZONTAL) ||
+                    this.matrix[line][rightPivot].isExtremity())){
                 RightCounter++;
                 rightPivot++;
             }else{
@@ -95,8 +95,8 @@ public class Grid5T extends Grid{
         int downCounter = 0;
         while (upPivot>=0 && upCounter < 4){
             if (this.matrix[upPivot][column].getValue()>0 &&
-                    (!this.matrix[upPivot][column].isLinked(LinkType.VERTICAL)/*||
-                    this.matrix[upPivot][column].isExtremity()*/)){
+                    (!this.matrix[upPivot][column].isLinked(LinkType.VERTICAL) ||
+                    this.matrix[upPivot][column].isExtremity())){
                 upCounter++;
                 upPivot--;
             }else{
@@ -141,7 +141,7 @@ public class Grid5T extends Grid{
 
         while(downLinePivot<HEIGHT && downColumnPivot>0 && downCounter<4){
             if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
+                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL) || this.matrix[downLinePivot][downColumnPivot].isExtremity()){
                 downLinePivot++;
                 downColumnPivot--;
                 downCounter++;
@@ -155,7 +155,7 @@ public class Grid5T extends Grid{
         int upCounter = 0;
         while(upColumnPivot<WIDTH && upLinePivot>0 && upCounter<4){
             if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
+                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL) || this.matrix[upLinePivot][upColumnPivot].isExtremity() ){
                 upLinePivot--;
                 upColumnPivot++;
                 upCounter++;
@@ -200,7 +200,7 @@ public class Grid5T extends Grid{
 
         while(downLinePivot<HEIGHT && downColumnPivot<WIDTH && downCounter<4){
             if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
+                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL) || this.matrix[downLinePivot][downColumnPivot].isExtremity() ){
                 downLinePivot++;
                 downColumnPivot++;
                 downCounter++;
@@ -216,7 +216,8 @@ public class Grid5T extends Grid{
         int upCounter = 0;
         while(upColumnPivot>0 && upLinePivot>0 && upCounter<4){
             if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
+                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL) ||
+                    this.matrix[upLinePivot][upColumnPivot].isExtremity()){
                 upLinePivot--;
                 upColumnPivot--;
                 upCounter++;
@@ -279,10 +280,10 @@ public class Grid5T extends Grid{
                 if (diagonal2.size() > 0) {
                     link.add(diagonal2.get(0));
                 }
-                /*List<Link> diagonal1 = this.canJoinFirstDiagonal(i, j);
+                List<Link> diagonal1 = this.canJoinFirstDiagonal(i, j);
                 if (diagonal1.size() > 0) {
                     link.add(diagonal1.get(0));
-                }*/
+                }
                 List<Link> vertical = this.canJoinVertically(i, j);
                 if (vertical.size() > 0) {
                     link.add(vertical.get(0));
