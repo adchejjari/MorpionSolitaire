@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Grid5T extends Grid{
 
@@ -373,6 +374,10 @@ public class Grid5T extends Grid{
                 c.unlink(linkToRemove.getLinkType());
             }
             Cell rootCell = linkToRemove.getRoot();
+            Cell first = linkToRemove.getFirstNode();
+            Cell last = linkToRemove.getLastNode();
+            first.setExtremity(false);
+            last.setExtremity(false);
             rootCell.setMainLink(LinkType.NONE);
             this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
             rootCell.setLink(null);
@@ -394,7 +399,10 @@ public class Grid5T extends Grid{
     public void playRandom(int i, int j){
         List<Link> possiblities = canLink(i,j);
         if (possiblities.size() >= 1 && this.matrix[i][j].getValue()==0){
-            Link possibleLink = possiblities.get(0);
+            Random rand = new Random();
+            int int_random = rand.nextInt(possiblities.size());
+            System.out.println(possiblities.get(int_random).getRoot().getI() + "  -  " + possiblities.get(int_random).getRoot().getJ());
+            Link possibleLink = possiblities.get(int_random);
             setSingleLink(possibleLink);
         }
     }

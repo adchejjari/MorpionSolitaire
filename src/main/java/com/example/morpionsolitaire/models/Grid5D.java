@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Grid5D extends Grid {
 
@@ -283,7 +284,9 @@ public class Grid5D extends Grid {
     public void playRandom(int i, int j){
         List<Link> possiblities = canLink(i,j);
         if (possiblities.size() >= 1 && this.matrix[i][j].getValue()==0){
-            Link possibleLink = possiblities.get(0);
+            Random rand = new Random();
+            int int_random = rand.nextInt(possiblities.size());
+            Link possibleLink = possiblities.get(int_random);
             setSingleLink(possibleLink);
         }
     }
