@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainView {
 
@@ -90,7 +91,7 @@ public class MainView {
     }
 
     @FXML
-    private void onNewGameButtonClick() throws IOException {
+    private void onNewGameButtonClick() throws IOException, SQLException {
         this.mainViewListener.setNewGamePage();
         replacePressedButton(newGameButton);
     }
@@ -108,8 +109,8 @@ public class MainView {
     }
 
     @FXML
-    private void onRankingButtonClick() throws IOException {
-        this.mainViewListener.setRankingPage();
+    private void onRankingButtonClick() throws IOException, SQLException {
+        this.mainViewListener.setLeaderBoardPage();
         replacePressedButton(rankingButton);
     }
 
@@ -129,9 +130,9 @@ public class MainView {
 
     public interface MainViewListener{
         void setHomePage() throws IOException;
-        void setNewGamePage() throws IOException;
+        void setNewGamePage() throws IOException, SQLException;
         void setSettingsPage();
-        void setRankingPage() throws IOException;
+        void setLeaderBoardPage() throws IOException, SQLException;
         void setHelpPage() throws IOException;
     }
 }

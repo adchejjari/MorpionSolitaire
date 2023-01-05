@@ -22,8 +22,8 @@
         <Image fx:id="avatar" url="@img/avatar.png"/>
     </fx:define>
 
-    <VBox fx:id="labelContainer">
-            <ImageView image="$goldMedal"/>
+    <VBox>
+            <ImageView fx:id="medal"/>
     </VBox>
 
     <VBox>

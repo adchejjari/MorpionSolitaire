@@ -13,12 +13,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MainController extends Application implements MainView.MainViewListener{
 
     private GameController gameController;
+
+    private LeaderBoardController leaderBoardController;
 
     private MainView mainView;
 
@@ -46,7 +49,7 @@ public class MainController extends Application implements MainView.MainViewList
     }
 
     @Override
-    public void setNewGamePage() throws IOException {
+    public void setNewGamePage() throws IOException, SQLException {
         mainView.clear();
         FXMLLoader loader = ViewSwitcher.load(View.GameBoardView);
         mainView.add((Parent) loader.load());
@@ -61,10 +64,12 @@ public class MainController extends Application implements MainView.MainViewList
     }
 
     @Override
-    public void setRankingPage() throws IOException {
+    public void setLeaderBoardPage() throws IOException, SQLException {
         mainView.clear();
         FXMLLoader loader = ViewSwitcher.load(View.RankingView);
         mainView.add((Parent) loader.load());
+        leaderBoardController = new LeaderBoardController(loader.getController());
+
     }
 
     @Override

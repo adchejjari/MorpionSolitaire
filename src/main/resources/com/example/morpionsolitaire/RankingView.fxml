@@ -10,7 +10,7 @@
 <?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.morpionsolitaire.views.RankingView"
+      fx:controller="com.example.morpionsolitaire.views.LeaderBoardView"
       stylesheets="@css/ranking.css"
       styleClass="main" fx:id="mainContainer">
 
@@ -24,10 +24,7 @@
 
     <VBox fx:id="rankingListView" style="-fx-spacing: 10">
 
-            <fx:include source="RankingItem.fxml"/>
-            <fx:include source="RankingItem.fxml"/>
-            <fx:include source="RankingItem.fxml"/>
-            <fx:include source="RankingItem.fxml"/>
+
 
 
 

@@ -1,4 +1,5 @@
 package com.example.morpionsolitaire.controllers;
+import com.example.morpionsolitaire.db.ScoreDataAccessObject;
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Grid5D;
 import com.example.morpionsolitaire.models.Grid5T;
@@ -7,6 +8,7 @@ import com.example.morpionsolitaire.models.Score;
 import com.example.morpionsolitaire.views.GameBoardView;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GameController implements GameBoardView.GameBoardListener{
@@ -15,7 +17,7 @@ public class GameController implements GameBoardView.GameBoardListener{
     private Grid grid;
     private Score score = new Score();
 
-    public GameController(GameBoardView _viewController) throws IOException {
+    public GameController(GameBoardView _viewController) throws IOException, SQLException {
         this.viewController = _viewController;
         viewController.setGameBoardListener(this);
         Grid.load();
@@ -76,6 +78,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     public int getCell(int i, int j) {
         System.out.println("score is : " + Grid.getCell(i,j).getValue());
         return Grid.getCell(i,j).getValue();
+    }
+    @Override
+    public int getHighScore() throws SQLException {
+        ScoreDataAccessObject dao = new ScoreDataAccessObject();
+        return dao.getHighScore().getValue();
     }
 
 }

@@ -22,7 +22,7 @@ public class ScoreDataAccessObject {
     public List<Score> getAll() throws SQLException {
         List<Score> scores = new ArrayList<>();
         db.open();
-        String query = "SELECT * FROM score ORDER BY score;";
+        String query = "SELECT * FROM score ORDER BY score DESC;";
         Statement stmt  = db.createStatement(query);
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
@@ -42,5 +42,18 @@ public class ScoreDataAccessObject {
         pstmt.setString(3, s.getDate());
         pstmt.executeUpdate();
         db.close();
+    }
+
+    public Score getHighScore() throws SQLException {
+        String query = "SELECT * FROM score ORDER BY score DESC LIMIT 1;";
+        db.open();
+        Statement stmt  = db.createStatement(query);
+        ResultSet rs = stmt.executeQuery(query);
+        Score s = null;
+        while (rs.next()) {
+            s = new Score(rs.getString("name"),rs.getInt("score"), rs.getString("date"));
+        }
+        db.close();
+        return s;
     }
 }

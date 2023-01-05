@@ -30,7 +30,7 @@
                         <ImageView image="$goldMedal"/>
                         <VBox alignment="CENTER">
                             <Label styleClass="label">HIGH SCORE</Label>
-                            <Label styleClass="score-label" fx:id="highScore">200</Label>
+                            <Label styleClass="score-label" fx:id="highScoreLabel">200</Label>
                         </VBox>
                     </HBox>
                 </HBox>

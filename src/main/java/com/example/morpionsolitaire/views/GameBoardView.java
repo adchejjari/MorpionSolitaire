@@ -12,6 +12,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ public class GameBoardView {
     final static int BOARD_SIZE = 16;
     public Label scoreLabel;
     public ComboBox<String> gameComboBox;
+    public Label highScoreLabel;
     private GameBoardListener gameBoardListener;
     private Point[][] points = new Point[BOARD_SIZE][BOARD_SIZE];
     private int scoreValue = 0;
@@ -45,10 +47,11 @@ public class GameBoardView {
         }
     }
 
-    public void initializeCross(){
-
+    public void initializeCross() throws SQLException {
+        this.setHighScore();
         this.gameComboBox.setItems(FXCollections.observableArrayList("5D Game", "5T Game"));
         this.updateBoard();
+
     }
 
     public void updateBoard(){
@@ -86,6 +89,12 @@ public class GameBoardView {
         int j = l.getRoot().getJ();
         points[i][j].setValueText(gameBoardListener.getCell(i,j) - 2);
         group.getChildren().add(points[i][j].getTextValue());
+    }
+
+    private void setHighScore() throws SQLException {
+        int highScore = this.gameBoardListener.getHighScore();
+        highScoreLabel.setText(String.valueOf(highScore));
+
     }
 
     @FXML
@@ -150,6 +159,8 @@ public class GameBoardView {
         void startGame(int gameType) throws IOException;
 
         int getScoreValue();
+
+        int getHighScore() throws SQLException;
 
     }
 }
