@@ -2,9 +2,9 @@
  The MainController class serves as the main controller for the application. It handles
  the loading and switching of different views, as well as creating and managing a
  GameController instance when a new game is started.
- @author Your Name
+ @author Adnan Mathuschan
  @version 1.0
- @since 2020-09-01
+ @since 2023-01-05
  */
 package com.example.morpionsolitaire.controllers;
 
