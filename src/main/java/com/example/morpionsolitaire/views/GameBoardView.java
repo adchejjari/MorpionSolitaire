@@ -73,7 +73,7 @@ public class GameBoardView {
                 int finalJ = j;
                 int finalI = i;
                 point.setOnMouseClicked(event -> {
-                    if (startGame){
+                    if (startGame && humanMode.isSelected()){
                         gameBoardListener.playMove(finalI, finalJ);
                         this.update();
                     }
@@ -127,9 +127,11 @@ public class GameBoardView {
     }
 
     public void undo(){
-        this.gameBoardListener.undo();
-        scoreValue--;
-        this.update();
+        if (startGame){
+            this.gameBoardListener.undo();
+            scoreValue--;
+            this.update();
+        }
     }
 
     public void update(){
@@ -175,7 +177,7 @@ public class GameBoardView {
     }
 
     public void hint() {
-        if(humanMode.isSelected()){
+        if(humanMode.isSelected() && this.startGame){
             List<Link> possibleLinks = gameBoardListener.getAllPossibleLinks();
             if (possibleLinks.size()>0){
                 Random rand = new Random();
@@ -195,7 +197,7 @@ public class GameBoardView {
 
     public void randomScenario() throws InterruptedException, SQLException, IOException {
         if (randomMode.isSelected() && startGame) {
-            List<Link> moves = gameBoardListener.getAllPossibleLinks();
+            List<Link> moves = gameBoardListener.getRandomSenario();
             int i = 0;
             while (moves.size() > 0){
                 Random rand = new Random();
@@ -205,9 +207,10 @@ public class GameBoardView {
                 gameBoardListener.playRandom(move.getRoot().getI(), move.getRoot().getJ());
                 this.scoreValue = gameBoardListener.getScoreValue();
                 this.update();
-
+                System.out.println(move.getRoot().getI() + "     /////    " + move.getRoot().getJ());
                 i++;
-                moves = gameBoardListener.getAllPossibleLinks();
+                moves = gameBoardListener.getRandomSenario();
+                System.out.println("i : " + i + " size : " + moves.size());
             }
             this.checkGameOver();
         }

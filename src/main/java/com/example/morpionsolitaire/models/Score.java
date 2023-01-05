@@ -2,6 +2,7 @@ package com.example.morpionsolitaire.models;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Score {
     private String playerName;
@@ -17,6 +18,9 @@ public class Score {
         this.playerName = name;
         this.value = value;
         this.setDate();
+        if(Objects.equals(name, "") || name==null){
+            this.playerName = "Guest";
+        }
     }
 
     public Score() {

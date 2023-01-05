@@ -221,6 +221,7 @@ public class Grid5D extends Grid {
                     p--;
                 }
                 j--;
+
                 possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
             }
         }
