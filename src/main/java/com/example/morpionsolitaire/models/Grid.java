@@ -129,13 +129,13 @@ public abstract class Grid {
         }
     }
 
-    public void playRandom(int i, int j) {
-        List<Link> possiblities = canLink(i, j);
+    abstract public void playRandom(int i, int j); //{
+        /*List<Link> possiblities = canLink(i, j);
         if (possiblities.size() >= 1 && this.matrix[i][j].getValue() == 0) {
             Link possibleLink = possiblities.get(0);
             setSingleLink(possibleLink);
-        }
-    }
+        }*/
+    //}
 
 
     public int getScoreValue() {

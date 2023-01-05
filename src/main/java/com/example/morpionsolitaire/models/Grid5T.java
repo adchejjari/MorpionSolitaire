@@ -133,6 +133,63 @@ public class Grid5T extends Grid{
         return possibleLinks;
     }
 
+    public List<Link> canJoinFirstDiagonal(int line, int column){
+        List<Link> possibleLinks = new ArrayList<>();
+        int downColumnPivot = column - 1;
+        int downLinePivot = line + 1;
+        int downCounter = 0;
+
+        while(downLinePivot<HEIGHT && downColumnPivot>0 && downCounter<4){
+            if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
+                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
+                downLinePivot++;
+                downColumnPivot--;
+                downCounter++;
+            }
+            else{
+                break;
+            }
+        }
+        int upLinePivot = line - 1;
+        int upColumnPivot = column + 1;
+        int upCounter = 0;
+        while(upColumnPivot<WIDTH && upLinePivot>0 && upCounter<4){
+            if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
+                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)){
+                upLinePivot--;
+                upColumnPivot++;
+                upCounter++;
+            }
+            else{
+                break;
+            }
+        }
+        upLinePivot++;
+        upColumnPivot--;
+        if (upCounter==0 && downCounter==4 || downCounter==0 && upCounter==4){
+            Cell[] items = new Cell[5];
+            int j = upColumnPivot;
+            for(int i = upLinePivot; i <= upLinePivot + 4; i++){
+                items[i-upLinePivot] = this.matrix[i][j];
+                j--;
+            }
+            possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
+        }else if (upCounter+downCounter>=4) {
+            int j = upColumnPivot;
+            for (int k = upLinePivot; k < upLinePivot + upCounter + downCounter - 3; k++) {
+                Cell[] items = new Cell[5];
+                int p = j;
+                for (int i = k; i <= k + 4; i++) {
+                    items[i - k] = this.matrix[i][p];
+                    p--;
+                }
+                j--;
+
+                possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
+            }
+        }
+        return possibleLinks;
+    }
 
 
     public List<Link> canJoinSecondDiagonal(int line, int column){
@@ -143,8 +200,7 @@ public class Grid5T extends Grid{
 
         while(downLinePivot<HEIGHT && downColumnPivot<WIDTH && downCounter<4){
             if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    (!this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)/*||
-                    this.matrix[downLinePivot][downColumnPivot].isExtremity()*/)){
+                    !this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
                 downLinePivot++;
                 downColumnPivot++;
                 downCounter++;
@@ -160,8 +216,7 @@ public class Grid5T extends Grid{
         int upCounter = 0;
         while(upColumnPivot>0 && upLinePivot>0 && upCounter<4){
             if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    (!this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)/* ||
-                    this.matrix[upLinePivot][upColumnPivot].isExtremity()*/)){
+                    !this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.SECOND_DIAGONAL)){
                 upLinePivot--;
                 upColumnPivot--;
                 upCounter++;
@@ -198,68 +253,7 @@ public class Grid5T extends Grid{
         return possibleLinks;
     }
 
-    public List<Link> canJoinFirstDiagonal(int line, int column){
-        List<Link> possibleLinks = new ArrayList<>();
-        int downColumnPivot = column - 1;
-        int downLinePivot = line + 1;
-        int downCounter = 0;
 
-        while(downLinePivot<HEIGHT && downColumnPivot>0 && downCounter<4){
-            if (this.matrix[downLinePivot][downColumnPivot].getValue()>0 &&
-                    (!this.matrix[downLinePivot][downColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)/*||
-                    this.matrix[downLinePivot][downColumnPivot].isExtremity()*/)){
-                downLinePivot++;
-                downColumnPivot--;
-                downCounter++;
-            }
-            else{
-                break;
-            }
-        }
-        int upLinePivot = line - 1;
-        int upColumnPivot = column + 1;
-        int upCounter = 0;
-        while(upColumnPivot<WIDTH && upLinePivot>0 && upCounter<4){
-            if (this.matrix[upLinePivot][upColumnPivot].getValue()>0 &&
-                    (!this.matrix[upLinePivot][upColumnPivot].isLinked(LinkType.FIRST_DIAGONAL)/*||
-                    this.matrix[upLinePivot][upColumnPivot].isExtremity()*/)){
-                upLinePivot--;
-                upColumnPivot++;
-                upCounter++;
-            }
-            else{
-                break;
-            }
-        }
-
-        upLinePivot++;
-        upColumnPivot--;
-        if (upCounter==0 && downCounter==4 || downCounter==0 && upCounter==4){
-            System.out.println("upcounter : " + upCounter);System.out.println("downcounter : " + downCounter);
-            Cell[] items = new Cell[5];
-            int j = upColumnPivot;
-            for(int i = upLinePivot; i <= upLinePivot - 4; i++){
-                items[i-upLinePivot] = this.matrix[i][j];
-                System.out.println(this.matrix[i][j].getValue());
-                j--;
-            }
-            System.out.println("items : " + items);
-            possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
-        }else if (upCounter+downCounter>=4) {
-            int j = upColumnPivot;
-            for (int k = upLinePivot; k < upLinePivot + upCounter + downCounter - 3; k++) {
-                Cell[] items = new Cell[5];
-                int p = j;
-                for (int i = k; i <= k + 4; i++) {
-                    items[i - k] = this.matrix[i][p];
-                    p--;
-                }
-                j--;
-                possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
-            }
-        }
-        return possibleLinks;
-    }
 
 
     public List<Link> canLink(int line, int column){
@@ -285,10 +279,10 @@ public class Grid5T extends Grid{
                 if (diagonal2.size() > 0) {
                     link.add(diagonal2.get(0));
                 }
-                List<Link> diagonal1 = this.canJoinFirstDiagonal(i, j);
+                /*List<Link> diagonal1 = this.canJoinFirstDiagonal(i, j);
                 if (diagonal1.size() > 0) {
                     link.add(diagonal1.get(0));
-                }
+                }*/
                 List<Link> vertical = this.canJoinVertically(i, j);
                 if (vertical.size() > 0) {
                     link.add(vertical.get(0));
