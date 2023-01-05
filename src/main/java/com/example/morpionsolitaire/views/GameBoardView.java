@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -25,6 +22,7 @@ public class GameBoardView {
     public Label scoreLabel;
     public ComboBox<String> gameComboBox;
     public Label highScoreLabel;
+    public Button playButton;
     private GameBoardListener gameBoardListener;
     private Point[][] points = new Point[BOARD_SIZE][BOARD_SIZE];
     private int scoreValue = 0;
@@ -140,13 +138,20 @@ public class GameBoardView {
         }
     }
 
-    public void startGame() throws IOException {
-        if (!Objects.equals(gameComboBox.getValue(), "")){
-            this.startGame = true;
-            int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
-            this.gameBoardListener.startGame(game);
+    public void startGame() throws IOException, SQLException {
+        if(!startGame){
+            if (!Objects.equals(gameComboBox.getValue(), "")){
+                this.startGame = true;
+                int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
+                this.gameBoardListener.startGame(game);
+                playButton.setText("Start");
+            }
+        //checkGameOver();
         }
-        checkGameOver();
+        else {
+            this.startGame = false;
+            playButton.setText("Restart");
+        }
     }
 
     public void hint() {
@@ -157,10 +162,10 @@ public class GameBoardView {
         }
     }
 
-    public void checkGameOver(){
-        ScoreDialogBox dialog = new ScoreDialogBox(1);
+    public void checkGameOver() throws SQLException {
+        ScoreDialogBox dialog = new ScoreDialogBox(this.scoreValue);
         dialog.showAndWait();
-        this.gameBoardListener.
+        this.gameBoardListener.insertScore(new Score(dialog.getPlayerName(),this.scoreValue));
 
     }
 
@@ -177,7 +182,6 @@ public class GameBoardView {
         int getScoreValue();
         int getHighScore() throws SQLException;
         List<Link> getAllPossibleLinks();
-
         void insertScore(Score s) throws SQLException;
 
     }

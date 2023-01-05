@@ -36,12 +36,11 @@
                 </HBox>
                 <HBox spacing="50">
                     <ComboBox fx:id="gameComboBox"/>
-                    <Button fx:id="playButton" onAction="#startGame">Play</Button>
+                    <Button fx:id="playButton" onAction="#startGame">Start</Button>
                 </HBox>
             </VBox>
 
             <VBox spacing="20" alignment="CENTER">
-                <Button onAction="#reset">Restart</Button>
                 <Button onAction="#hint">Hint</Button>
                 <Button onAction="#undo">Undo</Button>
             </VBox>

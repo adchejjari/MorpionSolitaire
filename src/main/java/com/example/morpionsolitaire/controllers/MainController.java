@@ -58,9 +58,7 @@ public class MainController extends Application implements MainView.MainViewList
 
     @Override
     public void setSettingsPage() {
-        //mainView.clear();
-        //TilePane view = (TilePane) ViewSwitcher.switchTo(View.);
-        //mainView.add(view);
+        // TODO : Delete this method
     }
 
     @Override

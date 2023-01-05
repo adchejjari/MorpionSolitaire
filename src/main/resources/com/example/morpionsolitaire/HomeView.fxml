@@ -5,14 +5,51 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 
+
+<?import javafx.scene.image.ImageView?>
 <TilePane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.morpionsolitaire.views.HomeView"
-          stylesheets="@css/gameboad.css"
-          styleClass="board" fx:id="container">
+          stylesheets="@css/help.css"
+          styleClass="main" fx:id="container">
+
+    <VBox styleClass="main">
+
+        <Text styleClass="help-title"></Text>
+
+        <Text>  </Text>
+
+        <Text styleClass="home-text">
+            The object of the game is to play as many moves as possible.
+        </Text>
+
+        <Text styleClass="home-text">
+            This will likely increase your chances to survive and win 1M USD.
+        </Text>
 
 
+        <Text styleClass="instruction">
+            - It is necessary to add a point in order to have 5 aligned points to draw a line on these 5 points
+        </Text>
+
+        <Text styleClass="instruction">
+            - the added stroke may or not overlap a stroke in the same direction depending on the version
+        </Text>
+
+        <Text styleClass="home-text">
+            For every line drown we get a point.
+
+        </Text>
+
+        <Text styleClass="home-text">
+            Will you improve one of the current world records and survive ?
+        </Text>
+
+        <Text>For mor details, please hit the Help Button in the Main Menu</Text>
+
+    </VBox>
 
 
 </TilePane>

@@ -81,7 +81,11 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public int getHighScore() throws SQLException {
         ScoreDataAccessObject dao = new ScoreDataAccessObject();
-        return dao.getHighScore().getValue();
+        Score s = dao.getHighScore();
+        if (s != null){
+            return s.getValue();
+        }
+        return 0;
     }
 
     @Override

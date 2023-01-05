@@ -16,6 +16,7 @@ public class Score {
     public Score(String name, int value){
         this.playerName = name;
         this.value = value;
+        this.setDate();
     }
 
     public Score() {
@@ -33,10 +34,6 @@ public class Score {
 
     public String getDate(){
         return date;
-    }
-
-    public void increaseScore(){
-        this.value++;
     }
 
     public void setDate(){

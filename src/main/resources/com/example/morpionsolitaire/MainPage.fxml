@@ -47,11 +47,6 @@
                 </graphic>
             </Button>
 
-            <Button fx:id="settingButton" onAction="#onSettingButtonClick">
-                <graphic>
-                    <ImageView image="$settingImage"/>
-                </graphic>
-            </Button>
 
             <Button fx:id="helpButton" onAction="#onHelpButtonClick">
                 <graphic>
