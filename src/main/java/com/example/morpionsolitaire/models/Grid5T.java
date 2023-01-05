@@ -1,3 +1,15 @@
+/**
+ * Represents a game grid for the Morpion Solitaire game.
+ * The grid is made up of Cell objects arranged in a 2D array.
+ * The class has methods to check if it's possible to create
+ * lines of five Cell objects horizontally or vertically, and
+ * return a list of Link objects representing these lines.
+ *
+ * @author  Adnan Mathuschan
+ * @version 1.0
+ * @since   2023/01/05
+ */
+
 package com.example.morpionsolitaire.models;
 
 
@@ -16,29 +28,59 @@ import java.util.List;
 
 public class Grid5T extends Grid{
 
+    /**
+     * Constructs a new Grid5T object and loads the grid data from a file.
+     * @throws IOException if there is an error reading the file.
+     */
     public Grid5T() throws IOException {
         this.load();
     }
 
+    /**
+     * Sets the value of the Cell at the specified row and column in the grid.
+     * @param line the row index of the Cell.
+     * @param column the column index of the Cell.
+     * @param value the value to set for the Cell.
+     */
     public void setCell(int line, int column, int value){
         matrix[line][column].setValue(value);
     }
 
+    /**
+     * Returns the Cell at the specified row and column in the grid.
+     * @param i the row index of the Cell.
+     * @param j the column index of the Cell.
+     * @return the Cell at the specified row and column.
+     */
     public static Cell getCell(int i, int j){
         return matrix[i][j];
     }
 
+    /**
+     * Returns the 2D array of Cell objects that make up the grid.
+     * @return the 2D array of Cell objects.
+     */
     public Cell[][] getMatrix(){
         return matrix;
     }
 
+    /**
+     * Returns true if the Cell at the specified row and column in the grid is empty (has a value of 0), false otherwise.
+     * @param i the row index of the Cell.
+     * @param j the column index of the Cell.
+     * @return true if the Cell at the specified row and column is empty, false otherwise.
+     */
     public boolean isCellEmpty(int i, int j){
         return matrix[i][j].getValue() == 0;
     }
 
-
-
-
+    /**
+     * Returns a list of Link objects representing lines of five Cell objects that can be created horizontally using the
+     * specified Cell.
+     * @param line the row index of the Cell.
+     * @param column the column index of the Cell.
+     * @return a list of Link objects representing horizontal lines that can be created using the specified Cell.
+     */
     public List<Link> horizontalJoin(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int leftPivot = column - 1;
@@ -86,7 +128,13 @@ public class Grid5T extends Grid{
         return possibleLinks;
     }
 
-
+    /**
+     * Returns a list of Link objects representing lines of five Cell objects that can be created vertically using the
+     * specified Cell.
+     * @param line the row index of the Cell.
+     * @param column the column index of the Cell.
+     * @return a list of Link objects representing vertical lines that can be created using the specified Cell.
+     */
     public List<Link> canJoinVertically(int line, int column){ // rename to hasScoredVertical
         List<Link> possibleLinks = new ArrayList<>();
         int upPivot = line - 1;
@@ -134,7 +182,14 @@ public class Grid5T extends Grid{
     }
 
 
-
+    /**
+     * Returns a list of Link objects representing lines of five Cell objects that can be created diagonally from top left
+     * to bottom right using the specified Cell.
+     * @param line the row index of the Cell.
+     * @param column the column index of the Cell.
+     * @return a list of Link objects representing diagonal lines from top left to bottom right that can be created using the
+     * specified Cell.
+     */
     public List<Link> canJoinSecondDiagonal(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int downColumnPivot = column + 1;
@@ -198,6 +253,14 @@ public class Grid5T extends Grid{
         return possibleLinks;
     }
 
+    /**
+     * Returns a list of Link objects representing lines of five Cell objects that can be created diagonally from top right
+     * to bottom left using the specified Cell.
+     * @param line the row index of the Cell.
+     * @param column the column index of the Cell.
+     * @return a list of Link objects representing diagonal lines from top right to bottom left that can be created using the
+     * specified Cell.
+     */
     public List<Link> canJoinFirstDiagonal(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int downColumnPivot = column - 1;

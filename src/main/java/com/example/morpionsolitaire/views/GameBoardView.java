@@ -1,3 +1,12 @@
+/**
+ * This class represents the graphical interface for the game board of the Morpion Solitaire game. It
+ * handles drawing the grid, placing cells on the grid, and handling user input.
+ *
+ * @author  Adnan Mathuschan
+ * @version 1.0
+ * @since   2023/01/05
+ */
+
 package com.example.morpionsolitaire.views;
 
 import com.example.morpionsolitaire.models.Grid;
@@ -40,6 +49,9 @@ public class GameBoardView {
     public static int GAME_5T = 1;
 
 
+    /**
+     * Draws the grid on the game board.
+     */
     private void drawGrid(){
         for (int i = 0; i <= BOARD_SIZE; i++){
             for (int j = 0; j <= BOARD_SIZE; j++){
@@ -50,12 +62,19 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Initializes the game board for the Morpion Solitaire game. This includes setting up the game
+     * mode combo box and updating the board.
+     */
     public void initializeCross(){
 
         this.gameComboBox.setItems(FXCollections.observableArrayList("5D Game", "5T Game"));
         this.updateBoard();
     }
 
+    /**
+     * Updates the game board by placing cells on the grid according to the game logic.
+     */
     public void updateBoard(){
         for (int i = 0; i < BOARD_SIZE; i++) {
             for(int j = 0; j < BOARD_SIZE; j++) {
@@ -76,28 +95,52 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Draws a link on the game board.
+     *
+     * @param l the link to draw
+     */
     public void drawLink(Link l){
         LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
         linkWidget.toBack();
         this.group.getChildren().add(linkWidget);
     }
 
+    /**
+     * Updates the score display on the game board.
+     *
+     * @param val the new score value
+     */
     private void updateScore(int val){
         scoreLabel.setText(Integer.toString(scoreValue));
     }
 
+    /**
+     * Initializes the game board by drawing the grid.
+     */
     @FXML
     private void initialize() {
         this.drawGrid();
     }
 
+    /**
+     * Sets the listener for game board events.
+     *
+     * @param gameListener the game board listener
+     */
     public void setGameBoardListener(GameBoardListener gameListener){
         this.gameBoardListener = gameListener;
     }
 
+    /**
+     * Resets the game board to its initial state.
+     */
     public void reset() {
     }
 
+    /**
+     * Undoes the last move made on the game board.
+     */
     public void undo(){
         this.gameBoardListener.undo();
         this.update();

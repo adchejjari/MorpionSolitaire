@@ -1,3 +1,11 @@
+/**
+ * A class representing a 5D Morpion Solitaire game grid.
+ *
+ * @author  Adnan Mathuschan
+ * @version 1.0
+ * @since   2023/01/05
+ */
+
 package com.example.morpionsolitaire.models;
 
 import java.io.IOException;
@@ -10,12 +18,23 @@ import java.util.List;
 public class Grid5D extends Grid {
 
 
-
+    /**
+     * Constructs a new 5D Morpion Solitaire game grid and loads its data from a file.
+     *
+     * @throws IOException if there is an error reading the data file
+     */
     public Grid5D() throws IOException {
         this.load();
     }
 
-
+    /**
+     * Determines all the possible horizontal lines of 5 consecutive cells that can be formed
+     * in the game grid, including the cell at the given line and column index.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     * @return a list of Link objects representing all the possible horizontal lines
+     */
     public List<Link> horizontalJoin(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int leftPivot = column - 1;
@@ -60,7 +79,14 @@ public class Grid5D extends Grid {
         return possibleLinks;
     }
 
-
+    /**
+     * Determines all the possible vertical lines of 5 consecutive cells that can be formed
+     * in the game grid, including the cell at the given line and column index.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     * @return a list of Link objects representing all the possible vertical lines
+     */
     public List<Link> canJoinVertically(int line, int column){ // rename to hasScoredVertical
         List<Link> possibleLinks = new ArrayList<>();
         int upPivot = line - 1;
@@ -106,8 +132,15 @@ public class Grid5D extends Grid {
         return possibleLinks;
     }
 
-
-
+    /**
+     * Determines all the possible diagonal lines of 5 consecutive cells that can be formed
+     * in the game grid, including the cell at the given line and column index, and that have
+     * a slope of -1.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     * @return a list of Link objects representing all the possible diagonal lines
+     */
     public List<Link> canJoinSecondDiagonal(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int downColumnPivot = column + 1;
@@ -169,6 +202,15 @@ public class Grid5D extends Grid {
         return possibleLinks;
     }
 
+    /**
+     * Determines all the possible diagonal lines of 5 consecutive cells that can be formed
+     * in the game grid, including the cell at the given line and column index, and that have
+     * a slope of 1.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     * @return a list of Link objects representing all the possible diagonal lines
+     */
     public List<Link> canJoinFirstDiagonal(int line, int column){
         List<Link> possibleLinks = new ArrayList<>();
         int downColumnPivot = column - 1;
@@ -226,6 +268,15 @@ public class Grid5D extends Grid {
         return possibleLinks;
     }
 
+    /**
+     * Determines if it is possible to form a line of 5 consecutive cells in the game grid,
+     * including the cell at the given line and column index.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     * @return true if a line can be formed, false otherwise
+     */
+
     public List<Link> canLink(int line, int column){
         List<Link> links = new ArrayList<>();
 
@@ -240,7 +291,9 @@ public class Grid5D extends Grid {
         return links;
     }
 
-
+    /**
+     * Prints the current state of the game grid to the console for debugging purposes.
+     */
     public void debug(){
         for(int i = 0; i < HEIGHT; i++){
             for (int j = 0; j<WIDTH;j++){
@@ -250,6 +303,13 @@ public class Grid5D extends Grid {
         }
         System.out.println("------------------------------------------------------------");
     }
+
+    /**
+     * Resets the given cell in the game grid by removing any links and setting its value to 0.
+     *
+     * @param line   the line index of the cell
+     * @param column the column index of the cell
+     */
     public void resetCell(int i, int j){
         LinkType mainType = this.matrix[i][j].getMainLink();
         Cell[] link = this.matrix[i][j].getLinkedNodes().getNodes();
@@ -262,6 +322,11 @@ public class Grid5D extends Grid {
         //debug();
     }
 
+    /**
+     * Plays a move in the game by setting a link in the grid and removing any linked cells.
+     *
+     * @param link the link to set
+     */
     public void playMove(int i, int j) {
         List<Link> possiblities = canLink(i,j);
         if (possiblities.size() == 1 && this.matrix[i][j].getValue()==0){
@@ -308,6 +373,11 @@ public class Grid5D extends Grid {
         }
     }*/
 
+    /**
+     * Sets a single link in the game grid.
+     *
+     * @param link the link to set
+     */
     public void setSingleLink(Link l){
         int i = l.getRoot().getI();
         int j = l.getRoot().getJ();
