@@ -69,6 +69,7 @@ public class GameBoardView {
             for(int j = 0; j < BOARD_SIZE; j++) {
                 int pointValue = this.gameBoardListener.getCell(i,j);
                 Point point = new Point(i,j, pointValue);
+                point.toFront();
                 int finalJ = j;
                 int finalI = i;
                 point.setOnMouseClicked(event -> {
@@ -79,7 +80,7 @@ public class GameBoardView {
                 });
                 group.getChildren().add(point);
                 points[i][j] = point;
-                point.toFront();
+
             }
         }
     }
@@ -154,10 +155,11 @@ public class GameBoardView {
     }
 
     public void startGame() throws IOException, SQLException, InterruptedException {
-        if (Objects.equals(gameComboBox.getValue(), "")){
+        if (Objects.equals(gameComboBox.getValue(),null)){
+            System.out.println("Combobox Free!!");
             return;
-        }
-        if(!startGame && humanMode.isSelected()){
+
+        } if(!startGame && humanMode.isSelected()){
             this.startGame = true;
             int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
             this.gameBoardListener.startGame(game);
@@ -173,12 +175,14 @@ public class GameBoardView {
     }
 
     public void hint() {
-        List<Link> possibleLinks = gameBoardListener.getAllPossibleLinks();
-        if (possibleLinks.size()>0){
-            Random rand = new Random();
-            int int_random = rand.nextInt(possibleLinks.size());
-            Link link = possibleLinks.get(int_random);
-            points[link.getRoot().getI()][link.getRoot().getJ()].setFill(Color.YELLOW);
+        if(humanMode.isSelected()){
+            List<Link> possibleLinks = gameBoardListener.getAllPossibleLinks();
+            if (possibleLinks.size()>0){
+                Random rand = new Random();
+                int int_random = rand.nextInt(possibleLinks.size());
+                Link link = possibleLinks.get(int_random);
+                points[link.getRoot().getI()][link.getRoot().getJ()].setFill(Color.YELLOW);
+            }
         }
     }
 
