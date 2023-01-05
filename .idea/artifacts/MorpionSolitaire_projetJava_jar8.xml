@@ -1,0 +1,46 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MorpionSolitaire-projetJava:jar8">
+    <output-path>$PROJECT_DIR$/out/artifacts/MorpionSolitaire_projetJava_jar8</output-path>
+    <root id="archive" name="MorpionSolitaire-projetJava.jar">
+      <element id="module-output" name="MorpionSolitaire-projetJava" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files/javafx-sdk-19/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/ant-javafx.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/dt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/tools.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/sa-jdi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/jconsole.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/packager.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jdk1.8.0_66/lib/javafx-mx.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.40.0.0/sqlite-jdbc-3.40.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/rt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/jce.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/jfr.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/jsse.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/deploy.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/javaws.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/jfxswt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/plugin.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/charsets.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/resources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../Program Files (x86)/Java/jre1.8.0_66/lib/management-agent.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="lib" />
+      <element id="library" level="project" name="lib1" />
+      <element id="library" level="project" name="lib2" />
+    </root>
+  </artifact>
+</component>

@@ -1,3 +1,12 @@
+/**
+ * Abstract class representing a grid of {@link Cell} objects in a game. Contains a two-dimensional array
+ * of {@link Cell} objects and various methods for manipulating the cells in the grid.
+ *
+ * @author  Adnan Mathuschan
+ * @version 1.0
+ * @since   2023/01/05
+ */
+
 package com.example.morpionsolitaire.models;
 
 import java.io.IOException;
@@ -20,10 +29,23 @@ public abstract class Grid {
 
     protected int scoreValue = 1;
 
+    /**
+     * Returns the {@link Cell} object at the specified position in the grid.
+     *
+     * @param i The row index of the cell.
+     * @param j The column index of the cell.
+     * @return The {@link Cell} object at the specified position in the grid.
+     */
     public static Cell getCell(int i, int j) {
         return matrix[i][j];
     }
 
+
+    /**
+     * Loads the default grid from a file and stores it in the {@code matrix} field.
+     *
+     * @throws IOException If there is an error reading from the file.
+     */
     public static void load() throws IOException {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString() + DEFAULT_GRID;
@@ -36,6 +58,13 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * Sets the value of the {@link Cell} at the specified position in the grid.
+     *
+     * @param line The row index of the cell.
+     * @param column The column index of the cell.
+     * @param value The value to set for the cell.
+     */
     public void setCell(int line, int column, int value) {
         matrix[line][column].setValue(value);
     }
@@ -60,7 +89,13 @@ public abstract class Grid {
         return movesHistory;
     }
 
-
+    /**
+     * Resets the specified {@link Cell} in the grid to its initial state by unlinking it from any other cells and setting
+     * its value to 0.
+     *
+     * @param i The row index of the cell.
+     * @param j The column index of the cell.
+     */
     public void resetCell(int i, int j) {
         LinkType mainType = this.matrix[i][j].getMainLink();
         Cell[] link = this.matrix[i][j].getLinkedNodes().getNodes();
@@ -73,6 +108,15 @@ public abstract class Grid {
         //debug();
     }
 
+    /**
+     * Plays a move in the game by finding the possible {@link Link} objects that can be created from the specified {@link Cell}
+     * and either creating a single link if there is only one possibility or setting the possible links as selectable
+     * if there are multiple possibilities. If a selection process is already in progress, the method will attempt to find
+     * the {@link Link} object corresponding to the selected {@link Cell} and create a single link using it.
+     *
+     * @param i The row index of the cell.
+     * @param j The column index of the cell.
+     */
     public void playMove(int i, int j) {
         List<Link> possiblities = canLink(i, j);
         if (possiblities.size() == 1 && this.matrix[i][j].getValue() == 0) {
@@ -98,6 +142,12 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * Sets the specified {@link Link} as the main link for the {@link Cell} objects it connects and adds it to the
+     * {@code movesHistory} list. Also sets the value of the root cell of the link to the link type.
+     *
+     * @param link The link to set as the main link for the connected cells.
+     */
     public void setSingleLink(Link l) {
         int i = l.getRoot().getI();
         int j = l.getRoot().getJ();
@@ -119,6 +169,10 @@ public abstract class Grid {
 
     }
 
+    /**
+     * Sets the cells involved in the possible moves for the current turn as selectable by setting their
+     * {@code canBeSelected} field to true.
+     */
     public void setSelectionCells() {
         for (Link move : possibleMoves) {
             if (move.getFirstNode() == move.getRoot()) {
@@ -141,6 +195,7 @@ public abstract class Grid {
     public int getScoreValue() {
         return scoreValue - 1;
     }
+
 
     public abstract List<Link> canLink(int line, int column);
 

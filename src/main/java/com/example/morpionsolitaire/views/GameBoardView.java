@@ -1,3 +1,12 @@
+/**
+ * This class represents the graphical interface for the game board of the Morpion Solitaire game. It
+ * handles drawing the grid, placing cells on the grid, and handling user input.
+ *
+ * @author  Adnan Mathuschan
+ * @version 1.0
+ * @since   2023/01/05
+ */
+
 package com.example.morpionsolitaire.views;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +51,9 @@ public class GameBoardView {
     public static int GAME_5D = 0;
     public static int GAME_5T = 1;
 
-
+    /**
+     * Draws the grid on the game board.
+     */
     private void drawGrid(){
         for (int i = 0; i <= BOARD_SIZE; i++){
             for (int j = 0; j <= BOARD_SIZE; j++){
@@ -53,6 +64,10 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Initializes the game board for the Morpion Solitaire game. This includes setting up the game
+     * mode combo box and updating the board.
+     */
     public void initializeCross() throws SQLException {
         this.setHighScore();
         this.humanMode.setToggleGroup(playingMode);
@@ -64,6 +79,9 @@ public class GameBoardView {
 
     }
 
+    /**
+     * Updates the game board by placing cells on the grid according to the game logic.
+     */
     public void updateBoard(){
         for (int i = 0; i < BOARD_SIZE; i++) {
             for(int j = 0; j < BOARD_SIZE; j++) {
@@ -85,6 +103,11 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Draws a link on the game board.
+     *
+     * @param l the link to draw
+     */
     public void drawLink(Link l){
         LinkWidget linkWidget = new LinkWidget(l.getFirstNode(), l.getLastNode());
         linkWidget.toBack();
@@ -113,6 +136,11 @@ public class GameBoardView {
         this.drawGrid();
     }
 
+    /**
+     * Sets the listener for game board events.
+     *
+     * @param gameListener the game board listener
+     */
     public void setGameBoardListener(GameBoardListener gameListener){
         this.gameBoardListener = gameListener;
     }
@@ -134,6 +162,9 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Updates the game board by redrawing it and applying the latest game state.
+     */
     public void update(){
         group.getChildren().removeAll(group.getChildren());
         drawGrid();
@@ -156,6 +187,11 @@ public class GameBoardView {
         }
     }
 
+    /**
+     * Starts the game.
+     *
+     * @throws IOException if there is an error reading from the input stream
+     */
     public void startGame() throws IOException, SQLException, InterruptedException {
         if (Objects.equals(gameComboBox.getValue(),null)){
             System.out.println("Combobox Free!!");
@@ -221,6 +257,10 @@ public class GameBoardView {
 
     }
 
+    /**
+     * This interface represents a listener for game board events in the Morpion Solitaire game. It
+     * provides methods for starting and resetting the game, playing a move, and undoing the last move.
+     */
     public interface GameBoardListener{
         void setCell(int i, int j, int val);
         int getCell(int i, int j);
