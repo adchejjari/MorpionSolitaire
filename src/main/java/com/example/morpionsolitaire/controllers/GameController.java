@@ -15,6 +15,8 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     private GameBoardView viewController;
     private Grid grid;
+
+    private int gameMode;
     private Score score = new Score();
 
     public GameController(GameBoardView _viewController) throws IOException, SQLException {
@@ -41,6 +43,7 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public void startGame(int gameType) throws IOException {
+        this.gameMode = gameType;
         if (gameType == GameBoardView.GAME_5D){
             grid = new Grid5D();
         }else{
@@ -100,6 +103,16 @@ public class GameController implements GameBoardView.GameBoardListener{
     @Override
     public List<Link> getRandomSenario() {
         return grid.getRandomSenario();
+    }
+
+    @Override
+    public void resetGrid() throws IOException {
+        if (this.gameMode == GameBoardView.GAME_5D){
+            grid = new Grid5D();
+        }else{
+            grid = new Grid5T();
+        }
+
     }
 
     @Override

@@ -116,11 +116,18 @@ public class GameBoardView {
         this.gameBoardListener = gameListener;
     }
 
-    public void reset() {
+    public void reset() throws IOException {
+        this.startGame = false;
+        playButton.setText("Start");
+        this.gameBoardListener.resetGrid();
+        this.scoreValue = 0;
+        this.scoreLabel.setText(String.valueOf(scoreValue));
+        this.update();
     }
 
     public void undo(){
         this.gameBoardListener.undo();
+        scoreValue--;
         this.update();
     }
 
@@ -147,22 +154,21 @@ public class GameBoardView {
     }
 
     public void startGame() throws IOException, SQLException, InterruptedException {
+        if (Objects.equals(gameComboBox.getValue(), "")){
+            return;
+        }
         if(!startGame && humanMode.isSelected()){
-            if (!Objects.equals(gameComboBox.getValue(), "")){
-                this.startGame = true;
-                int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
-                this.gameBoardListener.startGame(game);
-                playButton.setText("Start");
-            }
+            this.startGame = true;
+            int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
+            this.gameBoardListener.startGame(game);
+            playButton.setText("Restart");
         } else if (!startGame && randomMode.isSelected()) {
             this.startGame = true;
             int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
             this.gameBoardListener.startGame(game);
             this.randomScenario();
         } else {
-            this.startGame = false;
-            playButton.setText("Restart");
-
+            this.reset();
         }
     }
 
@@ -176,15 +182,14 @@ public class GameBoardView {
         }
     }
 
-    public void checkGameOver() throws SQLException {
+    public void checkGameOver() throws SQLException, IOException {
         ScoreDialogBox dialog = new ScoreDialogBox(this.scoreValue);
         dialog.showAndWait();
         this.gameBoardListener.insertScore(new Score(dialog.getPlayerName(),this.scoreValue));
-
+        this.reset();
     }
 
-    public void randomScenario() throws InterruptedException {
-
+    public void randomScenario() throws InterruptedException, SQLException, IOException {
         if (randomMode.isSelected() && startGame) {
             List<Link> moves = gameBoardListener.getAllPossibleLinks();
             int i = 0;
@@ -194,18 +199,16 @@ public class GameBoardView {
 
                 Link move = moves.get(int_random);
                 gameBoardListener.playRandom(move.getRoot().getI(), move.getRoot().getJ());
+                this.scoreValue = gameBoardListener.getScoreValue();
                 this.update();
 
                 i++;
-                //if (i==35){
-                 //   break;
-                //}
                 moves = gameBoardListener.getAllPossibleLinks();
-
-                System.out.println(int_random);
             }
+            this.checkGameOver();
         }
     }
+
 
     private void delay(){
 
@@ -227,7 +230,8 @@ public class GameBoardView {
         List<Link> getAllPossibleLinks();
 
         List<Link> getRandomSenario();
-        void insertScore(Score s) throws SQLException;
 
+        void resetGrid() throws IOException;
+        void insertScore(Score s) throws SQLException;
     }
 }

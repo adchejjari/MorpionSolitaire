@@ -377,6 +377,7 @@ public class Grid5T extends Grid{
             this.matrix[rootCell.getI()][rootCell.getJ()].setValue(0);
             rootCell.setLink(null);
             movesHistory.remove(index);
+            scoreValue--;
         }
     }
 
