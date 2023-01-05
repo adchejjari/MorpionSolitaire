@@ -209,11 +209,8 @@ public class GameBoardView {
                 this.update();
                 System.out.println(move.getRoot().getI() + "     /////    " + move.getRoot().getJ());
                 i++;
-                if(i==50){
-                    break;
-                }
+
                 moves = gameBoardListener.getRandomSenario();
-                System.out.println("i : " + i + " size : " + moves.size());
             }
             this.checkGameOver();
         }
