@@ -8,6 +8,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleButton?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.morpionsolitaire.views.GameBoardView"
@@ -20,31 +22,35 @@
 
     <VBox  styleClass="setting-container">
         <HBox spacing="50" alignment="CENTER">
-            <VBox spacing="50">
-                <HBox spacing="50">
+            <VBox spacing="20">
+                <HBox spacing="20" alignment="CENTER">
                     <VBox styleClass="score-box">
                         <Label styleClass="label">YOUR SCORE</Label>
                         <Label styleClass="score-label" fx:id="scoreLabel">0</Label>
                     </VBox>
                     <HBox  styleClass="score-box">
                         <ImageView image="$goldMedal"/>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="TOP_LEFT">
                             <Label styleClass="label">HIGH SCORE</Label>
                             <Label styleClass="score-label" fx:id="highScoreLabel">200</Label>
                         </VBox>
                     </HBox>
                 </HBox>
-                <HBox spacing="50">
+                <HBox spacing="10" alignment="CENTER">
+                    <ToggleButton fx:id="humanMode">Try it your self</ToggleButton>
+                    <ToggleButton fx:id="randomMode">Random moves</ToggleButton>
+                    <ToggleButton fx:id="nmcsMode">NMCS Algorithm</ToggleButton>
+
+                </HBox>
+                <HBox spacing="20">
                     <ComboBox fx:id="gameComboBox"/>
                     <Button fx:id="playButton" onAction="#startGame">Start</Button>
+                    <HBox spacing="20" alignment="CENTER">
+                        <Button onAction="#hint">Hint</Button>
+                        <Button onAction="#undo">Undo</Button>
+                    </HBox>
                 </HBox>
             </VBox>
-
-            <VBox spacing="20" alignment="CENTER">
-                <Button onAction="#hint">Hint</Button>
-                <Button onAction="#undo">Undo</Button>
-            </VBox>
-
         </HBox>
 
     </VBox>

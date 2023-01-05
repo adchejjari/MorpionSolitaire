@@ -1,4 +1,7 @@
 package com.example.morpionsolitaire.views;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.Date;
 
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Link;
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Handler;
 
 public class GameBoardView {
     final static int BOARD_SIZE = 16;
@@ -23,18 +27,18 @@ public class GameBoardView {
     public ComboBox<String> gameComboBox;
     public Label highScoreLabel;
     public Button playButton;
+    public ToggleButton humanMode;
+    public ToggleButton randomMode;
+    public ToggleButton nmcsMode;
     private GameBoardListener gameBoardListener;
     private Point[][] points = new Point[BOARD_SIZE][BOARD_SIZE];
     private int scoreValue = 0;
     @FXML
     public TilePane grid;
+    private ToggleGroup playingMode = new ToggleGroup();
     @FXML
     public Group group;
-
-    int score = 0;
-
     private boolean startGame = false;
-
     public static int GAME_5D = 0;
     public static int GAME_5T = 1;
 
@@ -51,6 +55,10 @@ public class GameBoardView {
 
     public void initializeCross() throws SQLException {
         this.setHighScore();
+        this.humanMode.setToggleGroup(playingMode);
+        this.randomMode.setToggleGroup(playingMode);
+        this.nmcsMode.setToggleGroup(playingMode);
+        humanMode.setSelected(true);
         this.gameComboBox.setItems(FXCollections.observableArrayList("5D Game", "5T Game"));
         this.updateBoard();
 
@@ -138,26 +146,32 @@ public class GameBoardView {
         }
     }
 
-    public void startGame() throws IOException, SQLException {
-        if(!startGame){
+    public void startGame() throws IOException, SQLException, InterruptedException {
+        if(!startGame && humanMode.isSelected()){
             if (!Objects.equals(gameComboBox.getValue(), "")){
                 this.startGame = true;
                 int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
                 this.gameBoardListener.startGame(game);
                 playButton.setText("Start");
             }
-        //checkGameOver();
-        }
-        else {
+        } else if (!startGame && randomMode.isSelected()) {
+            this.startGame = true;
+            int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
+            this.gameBoardListener.startGame(game);
+            this.randomScenario();
+        } else {
             this.startGame = false;
             playButton.setText("Restart");
+
         }
     }
 
     public void hint() {
         List<Link> possibleLinks = gameBoardListener.getAllPossibleLinks();
         if (possibleLinks.size()>0){
-            Link link = possibleLinks.get(0);
+            Random rand = new Random();
+            int int_random = rand.nextInt(possibleLinks.size());
+            Link link = possibleLinks.get(int_random);
             points[link.getRoot().getI()][link.getRoot().getJ()].setFill(Color.YELLOW);
         }
     }
@@ -169,6 +183,34 @@ public class GameBoardView {
 
     }
 
+    public void randomScenario() throws InterruptedException {
+
+        if (randomMode.isSelected() && startGame) {
+            List<Link> moves = gameBoardListener.getAllPossibleLinks();
+            int i = 0;
+            while (moves.size() > 0){
+                Random rand = new Random();
+                int int_random = rand.nextInt(moves.size());
+
+                Link move = moves.get(int_random);
+                gameBoardListener.playRandom(move.getRoot().getI(), move.getRoot().getJ());
+                this.update();
+
+                i++;
+                //if (i==35){
+                 //   break;
+                //}
+                moves = gameBoardListener.getAllPossibleLinks();
+
+                System.out.println(int_random);
+            }
+        }
+    }
+
+    private void delay(){
+
+    }
+
     public interface GameBoardListener{
         void setCell(int i, int j, int val);
         int getCell(int i, int j);
@@ -176,12 +218,15 @@ public class GameBoardView {
         List<Link> canLink(int i, int j);
         void resetCell(int i, int j);
         void playMove(int i, int j);
+        void playRandom(int i, int j);
         void undo();
         List<Link> getHistory();
         void startGame(int gameType) throws IOException;
         int getScoreValue();
         int getHighScore() throws SQLException;
         List<Link> getAllPossibleLinks();
+
+        List<Link> getRandomSenario();
         void insertScore(Score s) throws SQLException;
 
     }

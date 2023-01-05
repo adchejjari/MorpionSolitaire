@@ -20,29 +20,29 @@ public abstract class Grid {
 
     protected int scoreValue = 1;
 
-    public static Cell getCell(int i, int j){
+    public static Cell getCell(int i, int j) {
         return matrix[i][j];
     }
 
     public static void load() throws IOException {
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString() + DEFAULT_GRID;
-        for (int i = 0 ; i< HEIGHT; i++) {
+        for (int i = 0; i < HEIGHT; i++) {
             String read = Files.readAllLines(Paths.get(s)).get(i);
             String[] line = read.split("");
-            for (int j = 0; j < WIDTH; j++){
+            for (int j = 0; j < WIDTH; j++) {
                 matrix[i][j] = new Cell(i, j, Integer.parseInt(line[j]));
             }
         }
     }
 
-    public void setCell(int line, int column, int value){
+    public void setCell(int line, int column, int value) {
         matrix[line][column].setValue(value);
     }
 
-    public void undoLastMove(){
+    public void undoLastMove() {
         int index = this.movesHistory.size() - 1;
-        if (index>= 0) {
+        if (index >= 0) {
             Link linkToRemove = this.movesHistory.get(index);
             for (Cell c : linkToRemove.getNodes()) {
                 c.unlink(linkToRemove.getLinkType());
@@ -55,16 +55,15 @@ public abstract class Grid {
         }
     }
 
-    public List<Link> getMovesHistory(){
+    public List<Link> getMovesHistory() {
         return movesHistory;
     }
 
 
-
-    public void resetCell(int i, int j){
+    public void resetCell(int i, int j) {
         LinkType mainType = this.matrix[i][j].getMainLink();
         Cell[] link = this.matrix[i][j].getLinkedNodes().getNodes();
-        for(Cell c : link){
+        for (Cell c : link) {
             this.matrix[c.getI()][c.getJ()].unlink(mainType);
         }
         this.matrix[i][j].setMainLink(LinkType.NONE);
@@ -74,12 +73,11 @@ public abstract class Grid {
     }
 
     public void playMove(int i, int j) {
-        List<Link> possiblities = canLink(i,j);
-        if (possiblities.size() == 1 && this.matrix[i][j].getValue()==0){
+        List<Link> possiblities = canLink(i, j);
+        if (possiblities.size() == 1 && this.matrix[i][j].getValue() == 0) {
             Link possibleLink = possiblities.get(0);
             setSingleLink(possibleLink);
-        }
-        else if(possiblities.size()>1){
+        } else if (possiblities.size() > 1) {
             this.possibleMoves = possiblities;
             setSelectionCells();
         }
@@ -91,28 +89,28 @@ public abstract class Grid {
         }
     }
 
-    public void removeSelection(){
-        for(int i = 0; i < HEIGHT; i++){
-            for (int j = 0; j<WIDTH;j++){
+    public void removeSelection() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 this.matrix[i][j].setCanBeSelected(false);
             }
         }
     }
 
-    public void setSingleLink(Link l){
+    public void setSingleLink(Link l) {
         int i = l.getRoot().getI();
         int j = l.getRoot().getJ();
-        for (Cell c: l.getNodes()){
+        for (Cell c : l.getNodes()) {
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
-        this.matrix[i][j].setValue(++scoreValue  + 1);
+        this.matrix[i][j].setValue(++scoreValue + 1);
         this.movesHistory.add(l);
     }
 
-    public Link getLinkFromSelectedcell(Cell c){
-        for(Link link: this.possibleMoves){
-            if (c==link.getFirstNode() || c==link.getLastNode()){
+    public Link getLinkFromSelectedcell(Cell c) {
+        for (Link link : this.possibleMoves) {
+            if (c == link.getFirstNode() || c == link.getLastNode()) {
                 return link;
             }
         }
@@ -120,26 +118,42 @@ public abstract class Grid {
 
     }
 
-    public void setSelectionCells(){
-        for(Link move: possibleMoves){
-            if(move.getFirstNode() == move.getRoot()){
+    public void setSelectionCells() {
+        for (Link move : possibleMoves) {
+            if (move.getFirstNode() == move.getRoot()) {
                 move.getLastNode().setCanBeSelected(true);
-            }else{
+            } else {
                 move.getFirstNode().setCanBeSelected(true);
             }
         }
     }
 
-    public int getScoreValue(){
+    public void playRandom(int i, int j) {
+        List<Link> possiblities = canLink(i, j);
+        if (possiblities.size() >= 1 && this.matrix[i][j].getValue() == 0) {
+            Link possibleLink = possiblities.get(0);
+            setSingleLink(possibleLink);
+        }
+    }
+
+
+    public int getScoreValue() {
         return scoreValue - 1;
     }
 
     public abstract List<Link> canLink(int line, int column);
 
+    abstract public List<Link> getRandomSenario();
+
     protected abstract List<Link> horizontalJoin(int line, int column);
+
     protected abstract List<Link> canJoinVertically(int line, int column);
+
     protected abstract List<Link> canJoinSecondDiagonal(int line, int column);
+
     protected abstract List<Link> canJoinFirstDiagonal(int line, int column);
 
     public abstract List<Link> getAllPossibleMoves();
+
+
 }

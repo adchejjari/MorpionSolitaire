@@ -280,6 +280,14 @@ public class Grid5D extends Grid {
         }
     }
 
+    public void playRandom(int i, int j){
+        List<Link> possiblities = canLink(i,j);
+        if (possiblities.size() >= 1 && this.matrix[i][j].getValue()==0){
+            Link possibleLink = possiblities.get(0);
+            setSingleLink(possibleLink);
+        }
+    }
+
     /*public void removeSelection(){
         for(int i = 0; i < HEIGHT; i++){
             for (int j = 0; j<WIDTH;j++){
@@ -312,7 +320,6 @@ public class Grid5D extends Grid {
         int i = l.getRoot().getI();
         int j = l.getRoot().getJ();
         for (Cell c: l.getNodes()){
-            System.out.println(c);
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
@@ -331,6 +338,31 @@ public class Grid5D extends Grid {
         return possibleMoves;
     }
 
+    public List<Link> getRandomSenario(){
+
+        List<Link> link = new ArrayList<>();
+        for(int i = 0; i<HEIGHT; i++){
+            for (int j = 0; j<WIDTH; j++){
+                List<Link> diagonal2 = this.canJoinSecondDiagonal(i,j);
+                if (diagonal2.size()>0){
+                    link.add(diagonal2.get(0));
+                }
+                List<Link> diagonal1 = this.canJoinFirstDiagonal(i,j);
+                if (diagonal1.size()>0){
+                    link.add(diagonal1.get(0));
+                }
+                List<Link> vertical = this.canJoinVertically(i,j);
+                if (vertical.size()>0){
+                    link.add(vertical.get(0));
+                }
+                List<Link> horizontal = this.horizontalJoin(i,j);
+                if (horizontal.size()>0){
+                    link.add(horizontal.get(0));
+                }
+            }
+        }
+        return link;
+    }
 }
 
 

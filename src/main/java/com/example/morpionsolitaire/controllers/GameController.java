@@ -68,6 +68,10 @@ public class GameController implements GameBoardView.GameBoardListener{
         this.grid.playMove(i,j);
 
     }
+    @Override
+    public void playRandom(int i, int j){
+        this.grid.playRandom(i,j);
+    }
 
     @Override
     public void setCell(int i, int j, int val) {
@@ -94,9 +98,22 @@ public class GameController implements GameBoardView.GameBoardListener{
     }
 
     @Override
+    public List<Link> getRandomSenario() {
+        return grid.getRandomSenario();
+    }
+
+    @Override
     public void insertScore(Score s) throws SQLException {
         ScoreDataAccessObject dao = new ScoreDataAccessObject();
         dao.insert(s);
+    }
+
+    public void NmcsAlgorithm(Grid state, int level){
+
+        if (level==0){
+            return;
+        }
+
     }
 
 }

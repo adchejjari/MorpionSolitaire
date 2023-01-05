@@ -273,6 +273,11 @@ public class Grid5T extends Grid{
         return links;
     }
 
+    @Override
+    public List<Link> getRandomSenario() {
+        return null;
+    }
+
 
     public void debug(){
         for(int i = 0; i < HEIGHT; i++){
@@ -383,6 +388,14 @@ public class Grid5T extends Grid{
             }
         }
         return possibleMoves;
+    }
+
+    public void playRandom(int i, int j){
+        List<Link> possiblities = canLink(i,j);
+        if (possiblities.size() >= 1 && this.matrix[i][j].getValue()==0){
+            Link possibleLink = possiblities.get(0);
+            setSingleLink(possibleLink);
+        }
     }
 
     /*public List<Link> getMovesHistory(){
