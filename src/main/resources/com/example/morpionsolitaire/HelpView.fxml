@@ -19,7 +19,7 @@
         <Image fx:id="tuto4" url="@img/tuto4.png"/>
     </fx:define>
 
-    <VBox styleClass="main">
+    <VBox styleClass="main" alignment="CENTER">
 
         <Text styleClass="help-title">Tutorial : </Text>
 

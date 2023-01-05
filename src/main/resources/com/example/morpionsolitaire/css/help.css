@@ -7,10 +7,8 @@
     -fx-max-height: 795;
     -fx-pref-width: 595;
     -fx-pref-height: 795;
-    -fx-alignment: center;
-    -fx-hgap: 20;
-    -fx-spacing : 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+    -fx-spacing : 10;
 }
 
 
