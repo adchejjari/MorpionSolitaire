@@ -205,7 +205,7 @@ public class Grid5D extends Grid {
         if (upCounter==0 && downCounter==4 || downCounter==0 && upCounter==4){
             Cell[] items = new Cell[5];
             int j = upColumnPivot;
-            for(int i = upLinePivot; i <= upLinePivot - 4; i++){
+            for(int i = upLinePivot; i <= upLinePivot + 4; i++){
                 items[i-upLinePivot] = this.matrix[i][j];
                 j--;
             }
@@ -276,7 +276,7 @@ public class Grid5D extends Grid {
             Link moveToPlay = getLinkFromSelectedcell(this.matrix[i][j]);
             removeSelection();
             setSingleLink(moveToPlay);
-            this.possibleMoves = null;
+            this.possibleMoves.clear();
         }
     }
 
@@ -312,12 +312,23 @@ public class Grid5D extends Grid {
         int i = l.getRoot().getI();
         int j = l.getRoot().getJ();
         for (Cell c: l.getNodes()){
+            System.out.println(c);
             c.link(l.getLinkType());
         }
         this.matrix[i][j].setLink(l);
         this.matrix[i][j].setValue(++scoreValue + 1);
         this.movesHistory.add(l);
 
+    }
+
+    public List<Link> getAllPossibleMoves(){
+        List<Link> possibleMoves = new ArrayList<>();
+        for (int i = 0; i < WIDTH; i++){
+            for (int j = 0; j < HEIGHT; j++){
+                possibleMoves.addAll(canLink(i,j));
+            }
+        }
+        return possibleMoves;
     }
 
 }

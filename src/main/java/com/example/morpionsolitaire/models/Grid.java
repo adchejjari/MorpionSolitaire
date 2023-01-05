@@ -140,4 +140,6 @@ public abstract class Grid {
     protected abstract List<Link> canJoinVertically(int line, int column);
     protected abstract List<Link> canJoinSecondDiagonal(int line, int column);
     protected abstract List<Link> canJoinFirstDiagonal(int line, int column);
+
+    public abstract List<Link> getAllPossibleMoves();
 }

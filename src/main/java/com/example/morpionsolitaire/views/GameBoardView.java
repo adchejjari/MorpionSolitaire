@@ -2,10 +2,14 @@ package com.example.morpionsolitaire.views;
 
 import com.example.morpionsolitaire.models.Grid;
 import com.example.morpionsolitaire.models.Link;
+import com.example.morpionsolitaire.models.Score;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.TilePane;
@@ -142,6 +146,22 @@ public class GameBoardView {
             int game = Objects.equals(gameComboBox.getValue(), "5D Game") ? GAME_5D : GAME_5T;
             this.gameBoardListener.startGame(game);
         }
+        checkGameOver();
+    }
+
+    public void hint() {
+        List<Link> possibleLinks = gameBoardListener.getAllPossibleLinks();
+        if (possibleLinks.size()>0){
+            Link link = possibleLinks.get(0);
+            points[link.getRoot().getI()][link.getRoot().getJ()].setFill(Color.YELLOW);
+        }
+    }
+
+    public void checkGameOver(){
+        ScoreDialogBox dialog = new ScoreDialogBox(1);
+        dialog.showAndWait();
+        this.gameBoardListener.
+
     }
 
     public interface GameBoardListener{
@@ -150,17 +170,15 @@ public class GameBoardView {
         Grid getUpdatedGrid();
         List<Link> canLink(int i, int j);
         void resetCell(int i, int j);
-
         void playMove(int i, int j);
-
         void undo();
         List<Link> getHistory();
-
         void startGame(int gameType) throws IOException;
-
         int getScoreValue();
-
         int getHighScore() throws SQLException;
+        List<Link> getAllPossibleLinks();
+
+        void insertScore(Score s) throws SQLException;
 
     }
 }

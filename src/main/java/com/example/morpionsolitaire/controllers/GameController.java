@@ -76,13 +76,23 @@ public class GameController implements GameBoardView.GameBoardListener{
 
     @Override
     public int getCell(int i, int j) {
-        System.out.println("score is : " + Grid.getCell(i,j).getValue());
         return Grid.getCell(i,j).getValue();
     }
     @Override
     public int getHighScore() throws SQLException {
         ScoreDataAccessObject dao = new ScoreDataAccessObject();
         return dao.getHighScore().getValue();
+    }
+
+    @Override
+    public List<Link> getAllPossibleLinks(){
+        return this.grid.getAllPossibleMoves();
+    }
+
+    @Override
+    public void insertScore(Score s) throws SQLException {
+        ScoreDataAccessObject dao = new ScoreDataAccessObject();
+        dao.insert(s);
     }
 
 }

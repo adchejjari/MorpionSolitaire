@@ -49,7 +49,7 @@ public class Grid5T extends Grid{
             if (this.matrix[line][leftPivot].getValue()>0 &&
                     !this.matrix[line][leftPivot].isLinked(LinkType.HORIZONTAL) ||
                     this.matrix[line][leftPivot].isExtremity()){
-                System.out.println(this.matrix[line][leftPivot].isExtremity());
+                //System.out.println(this.matrix[line][leftPivot].isExtremity());
                 leftCounter++;
                 leftPivot--;
             }else{
@@ -238,6 +238,7 @@ public class Grid5T extends Grid{
             int j = upColumnPivot;
             for(int i = upLinePivot; i <= upLinePivot - 4; i++){
                 items[i-upLinePivot] = this.matrix[i][j];
+                System.out.println(this.matrix[i][j].getValue());
                 j--;
             }
             possibleLinks.add(new Link(this.matrix[line][column], items, LinkType.FIRST_DIAGONAL));
@@ -256,6 +257,7 @@ public class Grid5T extends Grid{
         }
         return possibleLinks;
     }
+
 
     public List<Link> canLink(int line, int column){
         List<Link> links = new ArrayList<>();
@@ -373,6 +375,15 @@ public class Grid5T extends Grid{
         }
     }
 
+    public List<Link> getAllPossibleMoves(){
+        List<Link> possibleMoves = new ArrayList<>();
+        for (int i = 0; i < WIDTH; i++){
+            for (int j = 0; j < HEIGHT; j++){
+                possibleMoves.addAll(canLink(i,j));
+            }
+        }
+        return possibleMoves;
+    }
 
     /*public List<Link> getMovesHistory(){
         return movesHistory;
